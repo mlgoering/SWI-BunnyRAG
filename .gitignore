@@ -1,2 +1,9 @@
 Graph Algorithm/Rule based Casual Graph Generator.ipynb
 Graph Algorithm/Rule based Casual Graph Generator.ipynb
+# Python virtual environments / secrets / caches / notebook checkpoints
+.venv/
+venv/
+.env
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
