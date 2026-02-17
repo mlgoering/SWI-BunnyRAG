@@ -1,0 +1,37 @@
+MMR-related bugfix notes
+Date: 2026-02-17
+
+1) Seed/source selection bug fix
+- File: Bunny Rags/bunny_retriever.py
+- Function: retrieve_nodes(...)
+- Changed sort order from ascending cosine to descending cosine.
+- Before: reverse=False (picked least similar nodes)
+- After: reverse=True (picks most similar nodes)
+
+2) Utility-framework update for the MMR-like retrieval stage
+- File: Bunny Rags/bunny_retriever.py
+- Function: retrieve_nodes_part2(...)
+
+Implemented behavior
+- Sources S are the closest query nodes (from retrieve_nodes).
+- Source nodes are excluded from candidate scoring.
+- For each candidate v and source s, compute effective conductance:
+  C(v,s) = 1 / R(v,s)
+- If R(v,s) is infinite/non-finite: no reward (C=0).
+- If R(v,s) <= 1e-12: raise an error.
+
+Normalization
+- All raw conductances across candidate-source pairs are min-max normalized to [0,1].
+
+Scoring
+- For each candidate v:
+  avg_conductance(v) = (1/|S|) * sum_s C_norm(v,s)
+  avg_similarity(v) = (1/|S|) * sum_s clamp(cos(e_v, e_s), 0, 1)
+  score(v) = avg_conductance(v) - labda * avg_similarity(v)
+
+Selection
+- Candidates are sorted by highest score first and top_k returned.
+
+Rationale
+- Rewards graph-connected nodes (many/short effective paths via higher conductance).
+- Penalizes semantic redundancy with source nodes by up to labda.

@@ -1,0 +1,27 @@
+BunnyRAG Lambda Sweep Report
+Query: What happens when the circumcenter is on the side of the triangle?
+Lambdas: [-0.2, -0.1, 0.0, 0.1, 0.2]
+Top-k selected per lambda: 5
+
+Summary checks:
+- Selections differ across lambdas: True
+- Avg query similarity is non-increasing as lambda increases: True
+
+Average query similarity by lambda:
+- lambda=-0.2: 0.060871
+- lambda=-0.1: 0.060871
+- lambda=+0.0: 0.007562
+- lambda=+0.1: 0.007562
+- lambda=+0.2: 0.007562
+
+Pairwise Jaccard overlap of selected node sets:
+- (-0.2, -0.1) -> 1.0000
+- (-0.2, +0.0) -> 0.6667
+- (-0.2, +0.1) -> 0.6667
+- (-0.2, +0.2) -> 0.6667
+- (-0.1, +0.0) -> 0.6667
+- (-0.1, +0.1) -> 0.6667
+- (-0.1, +0.2) -> 0.6667
+- (+0.0, +0.1) -> 1.0000
+- (+0.0, +0.2) -> 1.0000
+- (+0.1, +0.2) -> 1.0000
