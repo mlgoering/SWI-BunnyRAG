@@ -1,0 +1,187 @@
+{
+  "-0.200": [
+    {
+      "rank": 1,
+      "node_id": "squared integer",
+      "node_text": "squared integer",
+      "utility_score": 0.9717409045189077,
+      "query_similarity": 0.1123461052775383
+    },
+    {
+      "rank": 2,
+      "node_id": "minor-closed property",
+      "node_text": "minor-closed property",
+      "utility_score": 0.9443638385027106,
+      "query_similarity": 0.019683808088302612
+    },
+    {
+      "rank": 3,
+      "node_id": "Marangoni forces",
+      "node_text": "Marangoni forces",
+      "utility_score": 0.6239287064633577,
+      "query_similarity": 0.17484325170516968
+    },
+    {
+      "rank": 4,
+      "node_id": "atoms and molecules exist",
+      "node_text": "atoms and molecules exist",
+      "utility_score": 0.6000851416251868,
+      "query_similarity": -0.0060490150935947895
+    },
+    {
+      "rank": 5,
+      "node_id": "inhomogeneous surface concentrations",
+      "node_text": "inhomogeneous surface concentrations",
+      "utility_score": 0.5869468675217837,
+      "query_similarity": 0.0035312434192746878
+    }
+  ],
+  "-0.100": [
+    {
+      "rank": 1,
+      "node_id": "squared integer",
+      "node_text": "squared integer",
+      "utility_score": 0.9556866221814806,
+      "query_similarity": 0.1123461052775383
+    },
+    {
+      "rank": 2,
+      "node_id": "minor-closed property",
+      "node_text": "minor-closed property",
+      "utility_score": 0.941998089173382,
+      "query_similarity": 0.019683808088302612
+    },
+    {
+      "rank": 3,
+      "node_id": "Marangoni forces",
+      "node_text": "Marangoni forces",
+      "utility_score": 0.603494700159809,
+      "query_similarity": 0.17484325170516968
+    },
+    {
+      "rank": 4,
+      "node_id": "atoms and molecules exist",
+      "node_text": "atoms and molecules exist",
+      "utility_score": 0.5915729177407234,
+      "query_similarity": -0.0060490150935947895
+    },
+    {
+      "rank": 5,
+      "node_id": "inhomogeneous surface concentrations",
+      "node_text": "inhomogeneous surface concentrations",
+      "utility_score": 0.5850037806890219,
+      "query_similarity": 0.0035312434192746878
+    }
+  ],
+  "0.000": [
+    {
+      "rank": 1,
+      "node_id": "squared integer",
+      "node_text": "squared integer",
+      "utility_score": 0.9396323398440535,
+      "query_similarity": 0.1123461052775383
+    },
+    {
+      "rank": 2,
+      "node_id": "minor-closed property",
+      "node_text": "minor-closed property",
+      "utility_score": 0.9396323398440535,
+      "query_similarity": 0.019683808088302612
+    },
+    {
+      "rank": 3,
+      "node_id": "convincing evidence of Brownian motion",
+      "node_text": "convincing evidence of Brownian motion",
+      "utility_score": 0.5830606938562604,
+      "query_similarity": -0.09170276671648026
+    },
+    {
+      "rank": 4,
+      "node_id": "atoms and molecules exist",
+      "node_text": "atoms and molecules exist",
+      "utility_score": 0.5830606938562601,
+      "query_similarity": -0.0060490150935947895
+    },
+    {
+      "rank": 5,
+      "node_id": "inhomogeneous surface concentrations",
+      "node_text": "inhomogeneous surface concentrations",
+      "utility_score": 0.5830606938562601,
+      "query_similarity": 0.0035312434192746878
+    }
+  ],
+  "0.100": [
+    {
+      "rank": 1,
+      "node_id": "minor-closed property",
+      "node_text": "minor-closed property",
+      "utility_score": 0.9372665905147249,
+      "query_similarity": 0.019683808088302612
+    },
+    {
+      "rank": 2,
+      "node_id": "squared integer",
+      "node_text": "squared integer",
+      "utility_score": 0.9235780575066264,
+      "query_similarity": 0.1123461052775383
+    },
+    {
+      "rank": 3,
+      "node_id": "convincing evidence of Brownian motion",
+      "node_text": "convincing evidence of Brownian motion",
+      "utility_score": 0.5828062150617378,
+      "query_similarity": -0.09170276671648026
+    },
+    {
+      "rank": 4,
+      "node_id": "inhomogeneous surface concentrations",
+      "node_text": "inhomogeneous surface concentrations",
+      "utility_score": 0.5811176070234984,
+      "query_similarity": 0.0035312434192746878
+    },
+    {
+      "rank": 5,
+      "node_id": "atoms and molecules exist",
+      "node_text": "atoms and molecules exist",
+      "utility_score": 0.5745484699717969,
+      "query_similarity": -0.0060490150935947895
+    }
+  ],
+  "0.200": [
+    {
+      "rank": 1,
+      "node_id": "minor-closed property",
+      "node_text": "minor-closed property",
+      "utility_score": 0.9349008411853964,
+      "query_similarity": 0.019683808088302612
+    },
+    {
+      "rank": 2,
+      "node_id": "squared integer",
+      "node_text": "squared integer",
+      "utility_score": 0.9075237751691992,
+      "query_similarity": 0.1123461052775383
+    },
+    {
+      "rank": 3,
+      "node_id": "convincing evidence of Brownian motion",
+      "node_text": "convincing evidence of Brownian motion",
+      "utility_score": 0.5825517362672152,
+      "query_similarity": -0.09170276671648026
+    },
+    {
+      "rank": 4,
+      "node_id": "inhomogeneous surface concentrations",
+      "node_text": "inhomogeneous surface concentrations",
+      "utility_score": 0.5791745201907366,
+      "query_similarity": 0.0035312434192746878
+    },
+    {
+      "rank": 5,
+      "node_id": "atoms and molecules exist",
+      "node_text": "atoms and molecules exist",
+      "utility_score": 0.5660362460873335,
+      "query_similarity": -0.0060490150935947895
+    }
+  ]
+}

@@ -49,8 +49,8 @@ class BunnyPathRetriever:
                 except Exception as e:
                     logger.error(f"Error calculating similarity for node {node_id}: {e}")
             
-            # Sort by similarity score
-            return sorted(scores.items(), key=lambda x: x[1], reverse=False)[:top_k]
+            # Sort by similarity score (highest cosine similarity first)
+            return sorted(scores.items(), key=lambda x: x[1], reverse=True)[:top_k]
             
         except Exception as e:
             logger.error(f"Error retrieving nodes: {e}")
@@ -159,37 +159,86 @@ class BunnyPathRetriever:
         """Advanced retrieval using Effective Resistance and Semantic Similarity"""
         if not self.encoder or not self.node_embeddings:
             return []
-            
-        try:
-            label_to_id, R = self.build_effective_resistance(json_path)
-            seed_list = self.retrieve_nodes(query)
-            
-            scores = {}
-            for node_id, emb in self.node_embeddings.items():
-                if node_id not in label_to_id: continue
-                
-                try:
-                    i = label_to_id[node_id]
-                    score_i = 0.0
-                    for node_sp, _ in seed_list:
-                        if node_sp in label_to_id:
-                            j = label_to_id[node_sp]
-                            # Resistance distance
-                            score_i += R[i, j]
-                            # Semantic penalty/bonus
-                            sp_emb = self.node_embeddings[node_sp]
-                            sim = util.pytorch_cos_sim(sp_emb, emb).item()
-                            score_i -= labda * sim
-                    
-                    scores[node_id] = score_i
-                except Exception as e:
-                    logger.error(f"Error in distance calc for {node_id}: {e}")
-            
-            return sorted(scores.items(), key=lambda x: x[1])[:top_k]
-            
-        except Exception as e:
-            logger.error(f"Error in retrieve_nodes_part2: {e}")
+
+        label_to_id, R = self.build_effective_resistance(json_path)
+        seed_list = self.retrieve_nodes(query)
+        seed_ids = [
+            node_sp for node_sp, _ in seed_list
+            if node_sp in label_to_id and node_sp in self.node_embeddings
+        ]
+
+        if not seed_ids:
             return []
+
+        seed_set = set(seed_ids)
+        candidate_pair_data = {}
+        all_raw_conductances = []
+        resistance_zero_eps = 1e-12
+
+        # First pass: compute pairwise raw conductance C(v,s)=1/R(v,s) and semantic similarity.
+        for node_id, emb in self.node_embeddings.items():
+            if node_id not in label_to_id or node_id in seed_set:
+                # Do not score selected source nodes themselves.
+                continue
+
+            i = label_to_id[node_id]
+            pair_data = []
+
+            for node_sp in seed_ids:
+                j = label_to_id[node_sp]
+                resistance = float(R[i, j])
+
+                # Infinity resistance => no reward.
+                if not np.isfinite(resistance):
+                    raw_conductance = 0.0
+                elif resistance <= resistance_zero_eps:
+                    raise ValueError(
+                        f"Zero effective resistance encountered between candidate '{node_id}' "
+                        f"and source '{node_sp}'."
+                    )
+                else:
+                    raw_conductance = 1.0 / resistance
+                    all_raw_conductances.append(raw_conductance)
+
+                sim = util.pytorch_cos_sim(self.node_embeddings[node_sp], emb).item()
+                # Keep semantic penalty bounded in [0, lambda].
+                sim = max(0.0, min(1.0, sim))
+                pair_data.append((raw_conductance, sim))
+
+            candidate_pair_data[node_id] = pair_data
+
+        if not candidate_pair_data:
+            return []
+
+        min_c = min(all_raw_conductances) if all_raw_conductances else 0.0
+        max_c = max(all_raw_conductances) if all_raw_conductances else 0.0
+        denom = max_c - min_c
+
+        scores = {}
+        for node_id, pair_data in candidate_pair_data.items():
+            normalized_conductances = []
+            similarities = []
+
+            for raw_conductance, sim in pair_data:
+                if denom > 0.0:
+                    c_norm = (raw_conductance - min_c) / denom
+                elif max_c > 0.0:
+                    c_norm = 1.0
+                else:
+                    c_norm = 0.0
+
+                normalized_conductances.append(c_norm)
+                similarities.append(sim)
+
+            avg_conductance = float(np.mean(normalized_conductances))
+            avg_similarity = float(np.mean(similarities))
+
+            # Utility score: maximize normalized conductance reward, penalize semantic similarity.
+            score_i = avg_conductance - labda * avg_similarity
+            scores[node_id] = score_i
+
+        # Higher score is better in the utility framework.
+        return sorted(scores.items(), key=lambda x: x[1], reverse=True)[:top_k]
 
     # def retrieve_paths(self, 
     #                   query: str, 
