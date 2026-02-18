@@ -1,27 +1,38 @@
 BunnyRAG Lambda Sweep Report
-Query: What happens when the circumcenter is on the side of the triangle?
-Lambdas: [-0.2, -0.1, 0.0, 0.1, 0.2]
+Query: What causes addiction?
+Graph path: C:\Users\mlgoe\SWI-BunnyRAG\Bunny Rags\causenet_sample_bunny_graph.json
+Knowledge-base path (reference): C:\Users\mlgoe\SWI-BunnyRAG\Data generation\wiki_math_knowledge_base_api.json
+Lambdas: [-0.2, -0.1, 0.0, 0.1, 0.2, 0.3]
 Top-k selected per lambda: 5
+Causal baseline top-k: 5
+Causal baseline threshold: 0.5
 
 Summary checks:
 - Selections differ across lambdas: True
 - Avg query similarity is non-increasing as lambda increases: True
 
-Average query similarity by lambda:
-- lambda=-0.2: 0.060871
-- lambda=-0.1: 0.060871
-- lambda=+0.0: 0.007562
-- lambda=+0.1: 0.007562
-- lambda=+0.2: 0.007562
+CausalRAG baseline selected nodes:
+- rank=1: addiction (id=addiction, sim=0.827722)
 
-Pairwise Jaccard overlap of selected node sets:
+Bunny-vs-Causal top-k overlap by lambda:
+- lambda=-0.2: overlap_count=0, jaccard=0.0000
+- lambda=-0.1: overlap_count=0, jaccard=0.0000
+- lambda=+0.0: overlap_count=0, jaccard=0.0000
+- lambda=+0.1: overlap_count=0, jaccard=0.0000
+- lambda=+0.2: overlap_count=0, jaccard=0.0000
+- lambda=+0.3: overlap_count=0, jaccard=0.0000
+
+Average query similarity by lambda:
+- lambda=-0.2: 0.212949
+- lambda=-0.1: 0.212949
+- lambda=+0.0: 0.189847
+- lambda=+0.1: 0.117373
+- lambda=+0.2: 0.117373
+- lambda=+0.3: 0.117373
+
+Consecutive-lambda Jaccard overlap of selected node sets:
 - (-0.2, -0.1) -> 1.0000
-- (-0.2, +0.0) -> 0.6667
-- (-0.2, +0.1) -> 0.6667
-- (-0.2, +0.2) -> 0.6667
 - (-0.1, +0.0) -> 0.6667
-- (-0.1, +0.1) -> 0.6667
-- (-0.1, +0.2) -> 0.6667
-- (+0.0, +0.1) -> 1.0000
-- (+0.0, +0.2) -> 1.0000
+- (+0.0, +0.1) -> 0.6667
 - (+0.1, +0.2) -> 1.0000
+- (+0.2, +0.3) -> 1.0000

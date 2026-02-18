@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import csv
 import json
 import math
@@ -20,21 +21,110 @@ def jaccard(a: set[str], b: set[str]) -> float:
     return len(a & b) / len(a | b)
 
 
+def parse_lambdas(raw: str) -> List[float]:
+    values = [part.strip() for part in raw.split(",")]
+    parsed: List[float] = []
+    for value in values:
+        if not value:
+            continue
+        parsed.append(float(value))
+    if not parsed:
+        raise ValueError("No lambda values were provided.")
+    return parsed
+
+
+def resolve_path(repo_root: Path, raw_path: str) -> Path:
+    path = Path(raw_path)
+    if path.is_absolute():
+        return path
+    return repo_root / path
+
+
+def causalrag_top_k_nodes(
+    builder: "CausalGraphBuilder",
+    query: str,
+    top_k: int,
+    threshold: float,
+) -> List[Tuple[str, float]]:
+    q_emb = builder.encoder.encode(query, convert_to_tensor=True)
+    scores: List[Tuple[str, float]] = []
+    for node_id, emb in builder.node_embeddings.items():
+        sim = float(util.pytorch_cos_sim(q_emb, emb).item())
+        if sim >= threshold:
+            scores.append((node_id, sim))
+    scores.sort(key=lambda x: x[1], reverse=True)
+    return scores[:top_k]
+
+
 def main() -> int:
     repo_root = Path(__file__).resolve().parents[1]
     bunny_dir = repo_root / "Bunny Rags"
-    output_dir = repo_root / "tests" / "output"
+    default_graph = "Bunny Rags/causal_math_graph_llm.json"
+    default_kb = "Data generation/wiki_math_knowledge_base_api.json"
+    default_output = "tests/output"
+
+    parser = argparse.ArgumentParser(
+        description="Run BunnyRAG lambda sweep for a configurable graph and query."
+    )
+    parser.add_argument(
+        "--graph-path",
+        default=default_graph,
+        help="Path to Bunny-compatible graph JSON (absolute or repo-relative).",
+    )
+    parser.add_argument(
+        "--knowledge-base-path",
+        default=default_kb,
+        help="Path to chunked text JSON (kept for dataset parity with v2 chains).",
+    )
+    parser.add_argument(
+        "--query",
+        default="What happens when the circumcenter is on the side of the triangle?",
+        help="Query used for retrieval scoring.",
+    )
+    parser.add_argument(
+        "--lambdas",
+        default="-0.2,-0.1,0.0,0.1,0.2",
+        help="Comma-separated list of lambda values, e.g. '-0.2,-0.1,0.0,0.1,0.2'.",
+    )
+    parser.add_argument("--top-k", type=int, default=5, help="Top-k nodes per lambda.")
+    parser.add_argument(
+        "--top-k-components",
+        type=int,
+        default=10,
+        help="Top-k nodes used for component-term output per lambda.",
+    )
+    parser.add_argument(
+        "--output-dir",
+        default=default_output,
+        help="Directory for output files (absolute or repo-relative).",
+    )
+    parser.add_argument(
+        "--causal-top-k",
+        type=int,
+        default=5,
+        help="Top-k semantic nodes to retrieve with CausalRAG-style baseline.",
+    )
+    parser.add_argument(
+        "--causal-threshold",
+        type=float,
+        default=0.5,
+        help="Minimum cosine threshold for CausalRAG-style baseline retrieval.",
+    )
+    args = parser.parse_args()
+
+    graph_path = resolve_path(repo_root, args.graph_path)
+    knowledge_base_path = resolve_path(repo_root, args.knowledge_base_path)
+    output_dir = resolve_path(repo_root, args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
     sys.path.insert(0, str(bunny_dir))
     from builder import CausalGraphBuilder  # noqa: E402
     from bunny_retriever import BunnyPathRetriever  # noqa: E402
 
-    query = "What happens when the circumcenter is on the side of the triangle?"
-    lambdas = [-0.2, -0.1, 0.0, 0.1, 0.2]
-    top_k = 5
-    top_k_components = 10
-    graph_path = bunny_dir / "causal_math_graph_llm.json"
+    query = args.query
+    lambdas = parse_lambdas(args.lambdas)
+    top_k = args.top_k
+    top_k_components = args.top_k_components
 
     builder = CausalGraphBuilder()
     loaded = builder.load(str(graph_path))
@@ -50,6 +140,16 @@ def main() -> int:
     selected_nodes_by_lambda: Dict[str, List[Dict[str, object]]] = {}
     summary_rows: List[Dict[str, object]] = []
     component_rows: List[Dict[str, object]] = []
+    causal_comparison_rows: List[Dict[str, object]] = []
+
+    causal_top_nodes = causalrag_top_k_nodes(
+        builder=builder,
+        query=query,
+        top_k=args.causal_top_k,
+        threshold=args.causal_threshold,
+    )
+    causal_top_node_ids = [node_id for node_id, _ in causal_top_nodes]
+    causal_top_node_set = set(causal_top_node_ids)
 
     # Compute per-node component terms used by the utility score:
     # avg_normalized_conductance(v) and avg_seed_cosine(v).
@@ -172,6 +272,19 @@ def main() -> int:
             }
         )
 
+        selected_set = set(node_ids_in_order)
+        overlap = selected_set & causal_top_node_set
+        causal_comparison_rows.append(
+            {
+                "lambda": lam,
+                "bunny_top_k": top_k,
+                "causal_top_k": args.causal_top_k,
+                "overlap_count": len(overlap),
+                "overlap_jaccard": jaccard(selected_set, causal_top_node_set),
+                "overlap_node_ids": "|".join(sorted(overlap)),
+            }
+        )
+
         for rank, (node_id, utility_score) in enumerate(ranked_nodes_top10, start=1):
             node_text = builder.node_text.get(node_id, node_id)
             components = component_terms_by_node.get(
@@ -189,6 +302,26 @@ def main() -> int:
                     "avg_seed_cosine": float(components["avg_seed_cosine"]),
                 }
             )
+
+    # Add CausalRAG baseline nodes to component-terms output for side-by-side comparison.
+    for rank, (node_id, query_similarity) in enumerate(causal_top_nodes, start=1):
+        node_text = builder.node_text.get(node_id, node_id)
+        components = component_terms_by_node.get(
+            node_id,
+            {"avg_normalized_conductance": float("nan"), "avg_seed_cosine": float("nan")},
+        )
+        component_rows.append(
+            {
+                "lambda": "causalrag",
+                "rank": rank,
+                "node_id": node_id,
+                "node_text": node_text,
+                # For causal baseline rows, store query similarity in utility_score column.
+                "utility_score": float(query_similarity),
+                "avg_normalized_conductance": float(components["avg_normalized_conductance"]),
+                "avg_seed_cosine": float(components["avg_seed_cosine"]),
+            }
+        )
 
     # Global checks requested by the experiment.
     ordered_lambdas = sorted(lambdas)
@@ -218,6 +351,26 @@ def main() -> int:
     selected_nodes_path = output_dir / "bunny_lambda_selected_nodes.json"
     selected_nodes_path.write_text(json.dumps(selected_nodes_by_lambda, indent=2), encoding="utf-8")
 
+    # Save CausalRAG baseline top-k.
+    causal_topk_path = output_dir / "causal_topk_selected_nodes.json"
+    causal_topk_payload = {
+        "query": query,
+        "graph_path": str(graph_path),
+        "knowledge_base_path": str(knowledge_base_path),
+        "causal_top_k": args.causal_top_k,
+        "causal_threshold": args.causal_threshold,
+        "nodes": [
+            {
+                "rank": rank,
+                "node_id": node_id,
+                "node_text": builder.node_text.get(node_id, node_id),
+                "query_similarity": float(score),
+            }
+            for rank, (node_id, score) in enumerate(causal_top_nodes, start=1)
+        ],
+    }
+    causal_topk_path.write_text(json.dumps(causal_topk_payload, indent=2), encoding="utf-8")
+
     # Save summary CSV.
     summary_csv_path = output_dir / "bunny_lambda_sweep_summary.csv"
     with summary_csv_path.open("w", newline="", encoding="utf-8") as f:
@@ -234,31 +387,68 @@ def main() -> int:
         writer.writeheader()
         writer.writerows(summary_rows)
 
+    # Save Bunny-vs-Causal overlap summary.
+    causal_compare_csv_path = output_dir / "bunny_vs_causal_topk_overlap.csv"
+    with causal_compare_csv_path.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(
+            f,
+            fieldnames=[
+                "lambda",
+                "bunny_top_k",
+                "causal_top_k",
+                "overlap_count",
+                "overlap_jaccard",
+                "overlap_node_ids",
+            ],
+        )
+        writer.writeheader()
+        writer.writerows(causal_comparison_rows)
+
     # Save a short plain-English report with pairwise overlap info.
     report_lines = [
         "BunnyRAG Lambda Sweep Report",
-        "Query: What happens when the circumcenter is on the side of the triangle?",
+        f"Query: {query}",
+        f"Graph path: {graph_path}",
+        f"Knowledge-base path (reference): {knowledge_base_path}",
         f"Lambdas: {ordered_lambdas}",
         f"Top-k selected per lambda: {top_k}",
+        f"Causal baseline top-k: {args.causal_top_k}",
+        f"Causal baseline threshold: {args.causal_threshold}",
         "",
         "Summary checks:",
         f"- Selections differ across lambdas: {selections_differ}",
         f"- Avg query similarity is non-increasing as lambda increases: {monotonic_nonincreasing}",
         "",
-        "Average query similarity by lambda:",
+        "CausalRAG baseline selected nodes:",
     ]
+    for rank, (node_id, score) in enumerate(causal_top_nodes, start=1):
+        node_text = builder.node_text.get(node_id, node_id)
+        report_lines.append(f"- rank={rank}: {node_text} (id={node_id}, sim={score:.6f})")
+
+    report_lines.append("")
+    report_lines.append("Bunny-vs-Causal top-k overlap by lambda:")
+    for row in causal_comparison_rows:
+        report_lines.append(
+            f"- lambda={row['lambda']:+.1f}: "
+            f"overlap_count={row['overlap_count']}, "
+            f"jaccard={row['overlap_jaccard']:.4f}"
+        )
+
+    report_lines.append("")
+    report_lines.append("Average query similarity by lambda:")
     for lam in ordered_lambdas:
         report_lines.append(f"- lambda={lam:+.1f}: {avg_sim_by_lambda[lam]:.6f}")
 
     report_lines.append("")
-    report_lines.append("Pairwise Jaccard overlap of selected node sets:")
-    for i, lam_a in enumerate(ordered_lambdas):
-        for lam_b in ordered_lambdas[i + 1 :]:
-            set_a = {item["node_id"] for item in selected_nodes_by_lambda[to_float_key(lam_a)]}
-            set_b = {item["node_id"] for item in selected_nodes_by_lambda[to_float_key(lam_b)]}
-            report_lines.append(
-                f"- ({lam_a:+.1f}, {lam_b:+.1f}) -> {jaccard(set_a, set_b):.4f}"
-            )
+    report_lines.append("Consecutive-lambda Jaccard overlap of selected node sets:")
+    for i in range(len(ordered_lambdas) - 1):
+        lam_a = ordered_lambdas[i]
+        lam_b = ordered_lambdas[i + 1]
+        set_a = {item["node_id"] for item in selected_nodes_by_lambda[to_float_key(lam_a)]}
+        set_b = {item["node_id"] for item in selected_nodes_by_lambda[to_float_key(lam_b)]}
+        report_lines.append(
+            f"- ({lam_a:+.1f}, {lam_b:+.1f}) -> {jaccard(set_a, set_b):.4f}"
+        )
 
     report_path = output_dir / "bunny_lambda_sweep_report.txt"
     report_path.write_text("\n".join(report_lines) + "\n", encoding="utf-8")
@@ -282,7 +472,9 @@ def main() -> int:
         writer.writerows(component_rows)
 
     print(f"Wrote: {selected_nodes_path}")
+    print(f"Wrote: {causal_topk_path}")
     print(f"Wrote: {summary_csv_path}")
+    print(f"Wrote: {causal_compare_csv_path}")
     print(f"Wrote: {report_path}")
     print(f"Wrote: {component_csv_path}")
     return 0

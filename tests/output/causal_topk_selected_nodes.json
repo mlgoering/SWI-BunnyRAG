@@ -1,0 +1,15 @@
+{
+  "query": "What causes addiction?",
+  "graph_path": "C:\\Users\\mlgoe\\SWI-BunnyRAG\\Bunny Rags\\causenet_sample_bunny_graph.json",
+  "knowledge_base_path": "C:\\Users\\mlgoe\\SWI-BunnyRAG\\Data generation\\wiki_math_knowledge_base_api.json",
+  "causal_top_k": 5,
+  "causal_threshold": 0.5,
+  "nodes": [
+    {
+      "rank": 1,
+      "node_id": "addiction",
+      "node_text": "addiction",
+      "query_similarity": 0.8277215361595154
+    }
+  ]
+}

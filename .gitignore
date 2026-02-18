@@ -5,5 +5,7 @@ Graph Algorithm/Rule based Casual Graph Generator.ipynb
 venv/
 .env
 __pycache__/
+**/__pycache__/
+*.pyc
 *.py[cod]
 .ipynb_checkpoints/
