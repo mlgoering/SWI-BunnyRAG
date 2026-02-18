@@ -1,6 +1,7 @@
 lambda,top_k,num_selected,avg_query_similarity,selected_node_ids_in_order
--0.2,5,5,0.060871078679338095,squared integer|minor-closed property|Marangoni forces|atoms and molecules exist|inhomogeneous surface concentrations
--0.1,5,5,0.060871078679338095,squared integer|minor-closed property|Marangoni forces|atoms and molecules exist|inhomogeneous surface concentrations
-0.0,5,5,0.007561874995008111,squared integer|minor-closed property|convincing evidence of Brownian motion|atoms and molecules exist|inhomogeneous surface concentrations
-0.1,5,5,0.007561874995008111,minor-closed property|squared integer|convincing evidence of Brownian motion|inhomogeneous surface concentrations|atoms and molecules exist
-0.2,5,5,0.007561874995008111,minor-closed property|squared integer|convincing evidence of Brownian motion|inhomogeneous surface concentrations|atoms and molecules exist
+-0.2,5,5,0.21294867396354675,events|increase|error|changes|drug
+-0.1,5,5,0.21294867396354675,events|increase|error|changes|drug
+0.0,5,5,0.18984723687171937,changes|increase|events|error|disease
+0.1,5,5,0.11737284418195486,changes|error|increase|events|human_papillomavirus
+0.2,5,5,0.11737284418195486,changes|error|increase|events|human_papillomavirus
+0.3,5,5,0.11737284418195486,changes|error|increase|events|human_papillomavirus

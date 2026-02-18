@@ -139,15 +139,21 @@ pip install -r requirements-full.txt
 
 ### 8) Tests
 **What it is**
-- A small smoke test.
+- Smoke coverage for baseline graph loading and parameterized v2 chains.
 
 **Files**
 - `tests/test_smoke.py`
+- `tests/test_smoke_v2.py` (Bunny + Causal v2 chain modules)
 - `tests/bunny_lambda_sweep.py` (BunnyRAG lambda sweep experiment)
 
 Run:
 ```
 python -m pytest -q tests/test_smoke.py
+```
+
+Run v2 smoke:
+```
+python -m pytest -q tests/test_smoke_v2.py
 ```
 
 Run lambda sweep experiment:
@@ -157,7 +163,9 @@ python tests/bunny_lambda_sweep.py
 
 Outputs are written to:
 - `tests/output/bunny_lambda_selected_nodes.json`
+- `tests/output/causal_topk_selected_nodes.json`
 - `tests/output/bunny_lambda_sweep_summary.csv`
+- `tests/output/bunny_vs_causal_topk_overlap.csv`
 - `tests/output/bunny_lambda_sweep_report.txt`
 - `tests/output/bunny_lambda_top10_component_terms.csv`
 
@@ -200,3 +208,69 @@ pip install wikipedia-api
 ## Notes
 - The canonical end-to-end notebook for PR1 is `Bunny Rags/bunny rag chain v1.ipynb`.
 - `Graph Algorithm/requirements.txt` is for that submodule only (see `AGENTS.md`).
+- Parameterized notebook variants:
+  - `Bunny Rags/bunny rag chain v2.ipynb` (imports `bunny_chain.py`)
+  - `Graph Algorithm/casual rag chain v2.ipynb` (imports `causal_chain.py`)
+- PR3 technical note (includes methodology limitation and recommended fix path):
+  - `docs/pr3-notes.md`
+
+## CauseNet Sample (Prebuilt Dataset)
+
+Downloaded file:
+- `data/external/causenet/causenet-sample.json`
+
+Converter script:
+- `Data generation/convert_causenet_sample_to_bunny.py`
+
+Generate Bunny-compatible graph JSON:
+```bash
+python "Data generation/convert_causenet_sample_to_bunny.py"
+```
+
+Output:
+- `Bunny Rags/causenet_sample_bunny_graph.json`
+
+## Parameterized Chain Modules
+
+To make dataset swaps easier (for example, testing a different causal graph JSON), use these modules instead of hardcoding notebook paths:
+
+- `Bunny Rags/bunny_chain.py`
+- `Graph Algorithm/causal_chain.py`
+
+Both support variable input paths for:
+- Causal graph JSON (nodes/edges)
+- Text chunk JSON (`raw_text`-style chunk files)
+
+### BunnyRAG example
+```python
+import sys
+sys.path.insert(0, r"Bunny Rags")
+
+from bunny_chain import BunnyRAGChain
+
+chain = BunnyRAGChain(
+    graph_path=r"Bunny Rags/causal_math_graph_llm.json",
+    knowledge_base_path=r"Data generation/wiki_math_knowledge_base_api.json",
+)
+result = chain.explore_and_query(
+    query="What happens when the circumcenter is on the side of the triangle?",
+    top_k=5,
+    labda=0.02,
+)
+print(result["results"][:2])
+```
+
+### Causal/GraphRAG example
+```python
+import sys
+sys.path.insert(0, r"Graph Algorithm")
+
+from causal_chain import CausalRAGChain
+
+chain = CausalRAGChain(
+    graph_state_path=r"Graph Algorithm/causal_math_graph_llm.json",
+    knowledge_base_path=r"Data generation/wiki_math_knowledge_base_api.json",
+)
+result = chain.run("Explain causal links around triangle centers.")
+print(result["paths"][:2])
+```

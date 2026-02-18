@@ -1,0 +1,2379 @@
+{
+  "nodes": {
+    "disease": "disease",
+    "death": "death",
+    "accident": "accident",
+    "injury": "injury",
+    "smoking": "smoking",
+    "lung_cancer": "lung_cancer",
+    "stress": "stress",
+    "illness": "illness",
+    "depression": "depression",
+    "suicide": "suicide",
+    "drought": "drought",
+    "famine": "famine",
+    "diarrhea": "diarrhea",
+    "dehydration": "dehydration",
+    "bacteria": "bacteria",
+    "infection": "infection",
+    "endometriosis": "endometriosis",
+    "infertility": "infertility",
+    "obesity": "obesity",
+    "diabetes": "diabetes",
+    "negligence": "negligence",
+    "injuries": "injuries",
+    "anxiety": "anxiety",
+    "insomnia": "insomnia",
+    "inflammation": "inflammation",
+    "pain": "pain",
+    "accidents": "accidents",
+    "deaths": "deaths",
+    "fire": "fire",
+    "damage": "damage",
+    "global_warming": "global_warming",
+    "climate_change": "climate_change",
+    "heavy_rains": "heavy_rains",
+    "flooding": "flooding",
+    "osteoporosis": "osteoporosis",
+    "fractures": "fractures",
+    "earthquake": "earthquake",
+    "tsunami": "tsunami",
+    "condition": "condition",
+    "symptoms": "symptoms",
+    "vaccines": "vaccines",
+    "autism": "autism",
+    "asbestos": "asbestos",
+    "mesothelioma": "mesothelioma",
+    "poverty": "poverty",
+    "crime": "crime",
+    "hpv": "hpv",
+    "cervical_cancer": "cervical_cancer",
+    "war": "war",
+    "destruction": "destruction",
+    "alcohol": "alcohol",
+    "problems": "problems",
+    "changes": "changes",
+    "surgery": "surgery",
+    "complications": "complications",
+    "glaucoma": "glaucoma",
+    "blindness": "blindness",
+    "blood_clot": "blood_clot",
+    "stroke": "stroke",
+    "natural_selection": "natural_selection",
+    "evolution": "evolution",
+    "chemotherapy": "chemotherapy",
+    "hair_loss": "hair_loss",
+    "radiation": "radiation",
+    "cancer": "cancer",
+    "hiv": "hiv",
+    "aids": "aids",
+    "viruses": "viruses",
+    "diseases": "diseases",
+    "drugs": "drugs",
+    "side_effects": "side_effects",
+    "deforestation": "deforestation",
+    "soil_erosion": "soil_erosion",
+    "hard_work": "hard_work",
+    "success": "success",
+    "rape": "rape",
+    "pregnancy": "pregnancy",
+    "spinal_cord_injury": "spinal_cord_injury",
+    "paralysis": "paralysis",
+    "anemia": "anemia",
+    "fatigue": "fatigue",
+    "iodine_deficiency": "iodine_deficiency",
+    "goiter": "goiter",
+    "sin": "sin",
+    "suffering": "suffering",
+    "coronary_artery_disease": "coronary_artery_disease",
+    "heart_attack": "heart_attack",
+    "anger": "anger",
+    "violence": "violence",
+    "tension": "tension",
+    "headaches": "headaches",
+    "brain_injury": "brain_injury",
+    "cerebral_palsy": "cerebral_palsy",
+    "constipation": "constipation",
+    "hemorrhoids": "hemorrhoids",
+    "diet": "diet",
+    "weight_loss": "weight_loss",
+    "hormonal_changes": "hormonal_changes",
+    "acne": "acne",
+    "vitamin_d_deficiency": "vitamin_d_deficiency",
+    "rickets": "rickets",
+    "influenza": "influenza",
+    "pneumonia": "pneumonia",
+    "allergies": "allergies",
+    "asthma": "asthma",
+    "actions": "actions",
+    "harm": "harm",
+    "blood_clots": "blood_clots",
+    "strokes": "strokes",
+    "alzheimer_'s_disease": "alzheimer_'s_disease",
+    "dementia": "dementia",
+    "heart_disease": "heart_disease",
+    "disability": "disability",
+    "earthquakes": "earthquakes",
+    "tsunamis": "tsunamis",
+    "insulin_resistance": "insulin_resistance",
+    "type_2_diabetes": "type_2_diabetes",
+    "pilot_error": "pilot_error",
+    "crash": "crash",
+    "hypothyroidism": "hypothyroidism",
+    "weight_gain": "weight_gain",
+    "change": "change",
+    "confusion": "confusion",
+    "religion": "religion",
+    "wars": "wars",
+    "aspartame": "aspartame",
+    "seizures": "seizures",
+    "noise": "noise",
+    "hearing_loss": "hearing_loss",
+    "mold": "mold",
+    "health_problems": "health_problems",
+    "sulfur_dioxide": "sulfur_dioxide",
+    "acid_rain": "acid_rain",
+    "stock_market_crash": "stock_market_crash",
+    "great_depression": "great_depression",
+    "drug": "drug",
+    "birth_defects": "birth_defects",
+    "friction": "friction",
+    "blisters": "blisters",
+    "sun_exposure": "sun_exposure",
+    "skin_cancer": "skin_cancer",
+    "virus": "virus",
+    "fever": "fever",
+    "vitamin_a_deficiency": "vitamin_a_deficiency",
+    "night_blindness": "night_blindness",
+    "increase": "increase",
+    "dry_mouth": "dry_mouth",
+    "bad_breath": "bad_breath",
+    "plantar_fasciitis": "plantar_fasciitis",
+    "heel_pain": "heel_pain",
+    "greenhouse_gases": "greenhouse_gases",
+    "warming": "warming",
+    "failure": "failure",
+    "loss": "loss",
+    "free_radicals": "free_radicals",
+    "oxidative_stress": "oxidative_stress",
+    "osteoarthritis": "osteoarthritis",
+    "stiffness": "stiffness",
+    "vioxx": "vioxx",
+    "heart_attacks": "heart_attacks",
+    "events": "events",
+    "gum_disease": "gum_disease",
+    "tooth_loss": "tooth_loss",
+    "high_blood_pressure": "high_blood_pressure",
+    "kidney_failure": "kidney_failure",
+    "cataracts": "cataracts",
+    "vision_loss": "vision_loss",
+    "weather": "weather",
+    "delays": "delays",
+    "financial_crisis": "financial_crisis",
+    "recession": "recession",
+    "cigarette_smoking": "cigarette_smoking",
+    "emphysema": "emphysema",
+    "fall": "fall",
+    "fracture": "fracture",
+    "infidelity": "infidelity",
+    "divorce": "divorce",
+    "poor_posture": "poor_posture",
+    "back_pain": "back_pain",
+    "apoptosis": "apoptosis",
+    "cell_death": "cell_death",
+    "fraud": "fraud",
+    "losses": "losses",
+    "air_pollution": "air_pollution",
+    "premature_deaths": "premature_deaths",
+    "vitamin_c_deficiency": "vitamin_c_deficiency",
+    "scurvy": "scurvy",
+    "competition": "competition",
+    "lower_prices": "lower_prices",
+    "storms": "storms",
+    "floods": "floods",
+    "iron_deficiency": "iron_deficiency",
+    "anaemia": "anaemia",
+    "faith": "faith",
+    "salvation": "salvation",
+    "frustration": "frustration",
+    "aggression": "aggression",
+    "error": "error",
+    "benzene": "benzene",
+    "leukemia": "leukemia",
+    "hurricane_katrina": "hurricane_katrina",
+    "devastation": "devastation",
+    "low_blood_pressure": "low_blood_pressure",
+    "dizziness": "dizziness",
+    "hypertension": "hypertension",
+    "kidney_disease": "kidney_disease",
+    "cardiovascular_disease": "cardiovascular_disease",
+    "mortality": "mortality",
+    "chlamydia": "chlamydia",
+    "pelvic_inflammatory_disease": "pelvic_inflammatory_disease",
+    "diversity": "diversity",
+    "conflict": "conflict",
+    "ventricular_fibrillation": "ventricular_fibrillation",
+    "cardiac_arrest": "cardiac_arrest",
+    "oxygen_deprivation": "oxygen_deprivation",
+    "brain_damage": "brain_damage",
+    "hrt": "hrt",
+    "breast_cancer": "breast_cancer",
+    "medical_malpractice": "medical_malpractice",
+    "wrongful_death": "wrongful_death",
+    "mutations": "mutations",
+    "cancers": "cancers",
+    "masturbation": "masturbation",
+    "insanity": "insanity",
+    "trauma": "trauma",
+    "ptsd": "ptsd",
+    "asbestos_exposure": "asbestos_exposure",
+    "mesothelioma_cancer": "mesothelioma_cancer",
+    "mental_illness": "mental_illness",
+    "homelessness": "homelessness",
+    "corrosion": "corrosion",
+    "leaks": "leaks",
+    "lightning": "lightning",
+    "fires": "fires",
+    "sun_damage": "sun_damage",
+    "wrinkles": "wrinkles",
+    "insulin": "insulin",
+    "hypoglycemia": "hypoglycemia",
+    "angina": "angina",
+    "chest_pain": "chest_pain",
+    "price_controls": "price_controls",
+    "shortages": "shortages",
+    "gas_leak": "gas_leak",
+    "explosion": "explosion",
+    "fibroids": "fibroids",
+    "heavy_bleeding": "heavy_bleeding",
+    "a": "a",
+    "b": "b",
+    "vaginal_dryness": "vaginal_dryness",
+    "painful_intercourse": "painful_intercourse",
+    "delay": "delay",
+    "prejudice": "prejudice",
+    "human_immunodeficiency_virus": "human_immunodeficiency_virus",
+    "acquired_immunodeficiency_syndrome": "acquired_immunodeficiency_syndrome",
+    "atherosclerosis": "atherosclerosis",
+    "coronary_heart_disease": "coronary_heart_disease",
+    "gallstones": "gallstones",
+    "pancreatitis": "pancreatitis",
+    "strabismus": "strabismus",
+    "amblyopia": "amblyopia",
+    "x": "x",
+    "y": "y",
+    "toxins": "toxins",
+    "illnesses": "illnesses",
+    "allergic_reaction": "allergic_reaction",
+    "hives": "hives",
+    "psychological_factors": "psychological_factors",
+    "erectile_dysfunction": "erectile_dysfunction",
+    "exposure_to_asbestos": "exposure_to_asbestos",
+    "asbestosis": "asbestosis",
+    "antibiotics": "antibiotics",
+    "yeast_infection": "yeast_infection",
+    "moisture": "moisture",
+    "mold_growth": "mold_growth",
+    "hsv-2": "hsv-2",
+    "genital_herpes": "genital_herpes",
+    "alcohol_abuse": "alcohol_abuse",
+    "cirrhosis": "cirrhosis",
+    "uncertainty": "uncertainty",
+    "fear": "fear",
+    "acid_reflux": "acid_reflux",
+    "heartburn": "heartburn",
+    "herpes_simplex_virus": "herpes_simplex_virus",
+    "cold_sores": "cold_sores",
+    "arrest": "arrest",
+    "conviction": "conviction",
+    "blood_loss": "blood_loss",
+    "shock": "shock",
+    "fungi": "fungi",
+    "infections": "infections",
+    "dust": "dust",
+    "respiratory_problems": "respiratory_problems",
+    "antihistamines": "antihistamines",
+    "drowsiness": "drowsiness",
+    "menopause": "menopause",
+    "hot_flashes": "hot_flashes",
+    "acetaminophen": "acetaminophen",
+    "liver_failure": "liver_failure",
+    "hepatitis_c": "hepatitis_c",
+    "liver_disease": "liver_disease",
+    "incidents": "incidents",
+    "property_damage": "property_damage",
+    "plaque": "plaque",
+    "gingivitis": "gingivitis",
+    "arthritis": "arthritis",
+    "joint_pain": "joint_pain",
+    "nsaids": "nsaids",
+    "ulcers": "ulcers",
+    "ignorance": "ignorance",
+    "discrimination": "discrimination",
+    "free_radical_damage": "free_radical_damage",
+    "aging": "aging",
+    "cannabis": "cannabis",
+    "schizophrenia": "schizophrenia",
+    "unemployment": "unemployment",
+    "foreclosures": "foreclosures",
+    "nerve_damage": "nerve_damage",
+    "numbness": "numbness",
+    "uric_acid": "uric_acid",
+    "gout": "gout",
+    "storm": "storm",
+    "power_outages": "power_outages",
+    "radon": "radon",
+    "lung_cancer_deaths": "lung_cancer_deaths",
+    "conditions": "conditions",
+    "problem": "problem",
+    "vitamin_b12_deficiency": "vitamin_b12_deficiency",
+    "megaloblastic_anemia": "megaloblastic_anemia",
+    "thoughts": "thoughts",
+    "feelings": "feelings",
+    "action": "action",
+    "reaction": "reaction",
+    "torrential_rains": "torrential_rains",
+    "landslides": "landslides",
+    "habitat_loss": "habitat_loss",
+    "decline": "decline",
+    "increase_in_the_money_supply": "increase_in_the_money_supply",
+    "inflation": "inflation",
+    "hepatitis_b": "hepatitis_b",
+    "liver_cancer": "liver_cancer",
+    "thrombocytopenia": "thrombocytopenia",
+    "bleeding": "bleeding",
+    "stimulus": "stimulus",
+    "response": "response",
+    "lack_of_sleep": "lack_of_sleep",
+    "irritability": "irritability",
+    "niacin_deficiency": "niacin_deficiency",
+    "pellagra": "pellagra",
+    "down_syndrome": "down_syndrome",
+    "mental_retardation": "mental_retardation",
+    "malaria": "malaria",
+    "morbidity": "morbidity",
+    "graves_'_disease": "graves_'_disease",
+    "hyperthyroidism": "hyperthyroidism",
+    "sleep_apnea": "sleep_apnea",
+    "daytime_sleepiness": "daytime_sleepiness",
+    "breach": "breach",
+    "damages": "damages",
+    "helicobacter_pylori": "helicobacter_pylori",
+    "stomach_ulcers": "stomach_ulcers",
+    "population_growth": "population_growth",
+    "environmental_degradation": "environmental_degradation",
+    "cars": "cars",
+    "pollution": "pollution",
+    "heavy_rain": "heavy_rain",
+    "mudslides": "mudslides",
+    "measles": "measles",
+    "encephalitis": "encephalitis",
+    "yeast": "yeast",
+    "fermentation": "fermentation",
+    "human_error": "human_error",
+    "data_loss": "data_loss",
+    "medical_bills": "medical_bills",
+    "bankruptcy": "bankruptcy",
+    "abuse": "abuse",
+    "addiction": "addiction",
+    "human_papillomavirus": "human_papillomavirus",
+    "genital_warts": "genital_warts",
+    "sugar": "sugar",
+    "tooth_decay": "tooth_decay",
+    "dilated_cardiomyopathy": "dilated_cardiomyopathy",
+    "heart_failure": "heart_failure",
+    "human_activities": "human_activities",
+    "global_climate_change": "global_climate_change",
+    "tax_cuts": "tax_cuts",
+    "deficits": "deficits",
+    "wind": "wind",
+    "waves": "waves",
+    "maladministration": "maladministration",
+    "injustice": "injustice",
+    "congestion": "congestion",
+    "packet_loss": "packet_loss",
+    "ect": "ect",
+    "memory_loss": "memory_loss",
+    "habitat_destruction": "habitat_destruction",
+    "extinction": "extinction",
+    "power": "power",
+    "corruption": "corruption",
+    "rain": "rain",
+    "flood": "flood",
+    "pollen": "pollen",
+    "hay_fever": "hay_fever",
+    "differences": "differences",
+    "conflicts": "conflicts",
+    "car_accidents": "car_accidents",
+    "fatalities": "fatalities",
+    "periodontal_disease": "periodontal_disease",
+    "bone_loss": "bone_loss",
+    "inexperience": "inexperience",
+    "mistakes": "mistakes",
+    "herniated_disc": "herniated_disc",
+    "sciatica": "sciatica",
+    "attacks": "attacks",
+    "casualties": "casualties",
+    "car_accident": "car_accident",
+    "serious_injury": "serious_injury",
+    "jealousy": "jealousy",
+    "murder": "murder",
+    "accutane": "accutane",
+    "inflammatory_bowel_disease": "inflammatory_bowel_disease",
+    "false_confessions": "false_confessions",
+    "wrongful_convictions": "wrongful_convictions",
+    "wave_action": "wave_action",
+    "erosion": "erosion",
+    "incident": "incident",
+    "loss_of_life": "loss_of_life",
+    "overuse": "overuse",
+    "tendonitis": "tendonitis",
+    "vomiting": "vomiting",
+    "severe_dehydration": "severe_dehydration",
+    "whiplash": "whiplash",
+    "neck_pain": "neck_pain",
+    "gonorrhea": "gonorrhea",
+    "pid": "pid",
+    "hydraulic_fracturing": "hydraulic_fracturing",
+    "groundwater_contamination": "groundwater_contamination",
+    "relationship": "relationship",
+    "marriage": "marriage",
+    "monetary_inflation": "monetary_inflation",
+    "price_inflation": "price_inflation",
+    "abortion": "abortion",
+    "mental_health_problems": "mental_health_problems",
+    "deregulation": "deregulation",
+    "crisis": "crisis",
+    "rosacea": "rosacea",
+    "redness": "redness",
+    "beliefs": "beliefs",
+    "emotions": "emotions",
+    "expectations": "expectations",
+    "disappointment": "disappointment",
+    "negotiations": "negotiations",
+    "agreement": "agreement",
+    "dryness": "dryness",
+    "irritation": "irritation",
+    "godly_sorrow": "godly_sorrow",
+    "repentance": "repentance",
+    "mutation": "mutation",
+    "resistance": "resistance",
+    "actos": "actos",
+    "bladder_cancer": "bladder_cancer",
+    "evaporation": "evaporation",
+    "water_loss": "water_loss",
+    "uvb_rays": "uvb_rays",
+    "sunburn": "sunburn",
+    "rising_temperatures": "rising_temperatures",
+    "droughts": "droughts",
+    "medications": "medications",
+    "delirium": "delirium",
+    "treatment": "treatment",
+    "improvement": "improvement",
+    "virtue": "virtue",
+    "happiness": "happiness",
+    "rotavirus": "rotavirus",
+    "severe_diarrhea": "severe_diarrhea",
+    "cultural_differences": "cultural_differences",
+    "misunderstandings": "misunderstandings",
+    "oxidation": "oxidation",
+    "rancidity": "rancidity",
+    "boom": "boom",
+    "bust": "bust",
+    "smokeless_tobacco": "smokeless_tobacco",
+    "oral_cancer": "oral_cancer",
+    "justification": "justification",
+    "sanctification": "sanctification",
+    "vaccine": "vaccine",
+    "adverse_events": "adverse_events",
+    "food": "food",
+    "allergy": "allergy",
+    "sleep_deprivation": "sleep_deprivation",
+    "hallucinations": "hallucinations",
+    "data_breaches": "data_breaches",
+    "identity_theft": "identity_theft",
+    "dumped_imports": "dumped_imports",
+    "material_injury": "material_injury",
+    "overgrazing": "overgrazing",
+    "desertification": "desertification",
+    "cell_phone_use": "cell_phone_use",
+    "brain_cancer": "brain_cancer",
+    "god": "god",
+    "evil": "evil",
+    "medical_errors": "medical_errors",
+    "98,000_deaths": "98,000_deaths",
+    "salt": "salt",
+    "water_retention": "water_retention",
+    "dvt": "dvt",
+    "pulmonary_embolism": "pulmonary_embolism",
+    "auto_accidents": "auto_accidents",
+    "serious_injuries": "serious_injuries",
+    "zinc_deficiency": "zinc_deficiency",
+    "growth_retardation": "growth_retardation",
+    "spiritual_death": "spiritual_death",
+    "physical_death": "physical_death",
+    "medical_negligence": "medical_negligence",
+    "birth_injury": "birth_injury",
+    "malnutrition": "malnutrition",
+    "sickness": "sickness",
+    "exposure": "exposure",
+    "effects": "effects",
+    "hyperventilation": "hyperventilation",
+    "respiratory_alkalosis": "respiratory_alkalosis",
+    "chronic_inflammation": "chronic_inflammation",
+    "tissue_damage": "tissue_damage",
+    "chromosomal_abnormalities": "chromosomal_abnormalities",
+    "miscarriage": "miscarriage"
+  },
+  "variants": {},
+  "edges": [
+    [
+      "a",
+      "b",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "abortion",
+      "mental_health_problems",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "abuse",
+      "addiction",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "accident",
+      "injury",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "accidents",
+      "deaths",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "accutane",
+      "inflammatory_bowel_disease",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "acetaminophen",
+      "liver_failure",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "acid_reflux",
+      "heartburn",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "action",
+      "reaction",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "actions",
+      "harm",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "actos",
+      "bladder_cancer",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "air_pollution",
+      "premature_deaths",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "alcohol",
+      "problems",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "alcohol_abuse",
+      "cirrhosis",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "allergic_reaction",
+      "hives",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "allergies",
+      "asthma",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "alzheimer_'s_disease",
+      "dementia",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "anemia",
+      "fatigue",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "anger",
+      "violence",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "angina",
+      "chest_pain",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "antibiotics",
+      "yeast_infection",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "antihistamines",
+      "drowsiness",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "anxiety",
+      "insomnia",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "apoptosis",
+      "cell_death",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "arrest",
+      "conviction",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "arthritis",
+      "joint_pain",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "asbestos",
+      "mesothelioma",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "asbestos_exposure",
+      "mesothelioma_cancer",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "aspartame",
+      "seizures",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "atherosclerosis",
+      "coronary_heart_disease",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "attacks",
+      "casualties",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "auto_accidents",
+      "serious_injuries",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "bacteria",
+      "infection",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "beliefs",
+      "emotions",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "benzene",
+      "leukemia",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "blood_clot",
+      "stroke",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "blood_clots",
+      "strokes",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "blood_loss",
+      "shock",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "boom",
+      "bust",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "brain_injury",
+      "cerebral_palsy",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "breach",
+      "damages",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "cannabis",
+      "schizophrenia",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "car_accident",
+      "serious_injury",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "car_accidents",
+      "fatalities",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "cardiovascular_disease",
+      "mortality",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "cars",
+      "pollution",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "cataracts",
+      "vision_loss",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "cell_phone_use",
+      "brain_cancer",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "change",
+      "confusion",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "changes",
+      "changes",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "chemotherapy",
+      "hair_loss",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "chlamydia",
+      "pelvic_inflammatory_disease",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "chromosomal_abnormalities",
+      "miscarriage",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "chronic_inflammation",
+      "tissue_damage",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "cigarette_smoking",
+      "emphysema",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "competition",
+      "lower_prices",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "condition",
+      "symptoms",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "conditions",
+      "problem",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "congestion",
+      "packet_loss",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "constipation",
+      "hemorrhoids",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "coronary_artery_disease",
+      "heart_attack",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "corrosion",
+      "leaks",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "cultural_differences",
+      "misunderstandings",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "data_breaches",
+      "identity_theft",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "deforestation",
+      "soil_erosion",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "delay",
+      "prejudice",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "depression",
+      "suicide",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "deregulation",
+      "crisis",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "diarrhea",
+      "dehydration",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "diet",
+      "weight_loss",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "differences",
+      "conflicts",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "dilated_cardiomyopathy",
+      "heart_failure",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "disease",
+      "death",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "diversity",
+      "conflict",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "down_syndrome",
+      "mental_retardation",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "drought",
+      "famine",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "drug",
+      "birth_defects",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "drugs",
+      "side_effects",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "dry_mouth",
+      "bad_breath",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "dryness",
+      "irritation",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "dumped_imports",
+      "material_injury",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "dust",
+      "respiratory_problems",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "dvt",
+      "pulmonary_embolism",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "earthquake",
+      "tsunami",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "earthquakes",
+      "tsunamis",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "ect",
+      "memory_loss",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "endometriosis",
+      "infertility",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "error",
+      "error",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "evaporation",
+      "water_loss",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "events",
+      "events",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "expectations",
+      "disappointment",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "exposure",
+      "effects",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "exposure_to_asbestos",
+      "asbestosis",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "failure",
+      "loss",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "faith",
+      "salvation",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "fall",
+      "fracture",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "false_confessions",
+      "wrongful_convictions",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "fibroids",
+      "heavy_bleeding",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "financial_crisis",
+      "recession",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "fire",
+      "damage",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "food",
+      "allergy",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "fraud",
+      "losses",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "free_radical_damage",
+      "aging",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "free_radicals",
+      "oxidative_stress",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "friction",
+      "blisters",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "frustration",
+      "aggression",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "fungi",
+      "infections",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "gallstones",
+      "pancreatitis",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "gas_leak",
+      "explosion",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "glaucoma",
+      "blindness",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "global_warming",
+      "climate_change",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "god",
+      "evil",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "godly_sorrow",
+      "repentance",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "gonorrhea",
+      "pid",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "graves_'_disease",
+      "hyperthyroidism",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "greenhouse_gases",
+      "warming",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "gum_disease",
+      "tooth_loss",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "habitat_destruction",
+      "extinction",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "habitat_loss",
+      "decline",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "hard_work",
+      "success",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "heart_disease",
+      "disability",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "heavy_rain",
+      "mudslides",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "heavy_rains",
+      "flooding",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "helicobacter_pylori",
+      "stomach_ulcers",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "hepatitis_b",
+      "liver_cancer",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "hepatitis_c",
+      "liver_disease",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "herniated_disc",
+      "sciatica",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "herpes_simplex_virus",
+      "cold_sores",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "high_blood_pressure",
+      "kidney_failure",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "hiv",
+      "aids",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "hormonal_changes",
+      "acne",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "hpv",
+      "cervical_cancer",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "hrt",
+      "breast_cancer",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "hsv-2",
+      "genital_herpes",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "human_activities",
+      "global_climate_change",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "human_error",
+      "data_loss",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "human_immunodeficiency_virus",
+      "acquired_immunodeficiency_syndrome",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "human_papillomavirus",
+      "genital_warts",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "hurricane_katrina",
+      "devastation",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "hydraulic_fracturing",
+      "groundwater_contamination",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "hypertension",
+      "kidney_disease",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "hyperventilation",
+      "respiratory_alkalosis",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "hypothyroidism",
+      "weight_gain",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "ignorance",
+      "discrimination",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "incident",
+      "loss_of_life",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "incidents",
+      "property_damage",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "increase",
+      "increase",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "increase_in_the_money_supply",
+      "inflation",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "inexperience",
+      "mistakes",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "infidelity",
+      "divorce",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "inflammation",
+      "pain",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "influenza",
+      "pneumonia",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "insulin",
+      "hypoglycemia",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "insulin_resistance",
+      "type_2_diabetes",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "iodine_deficiency",
+      "goiter",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "iron_deficiency",
+      "anaemia",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "jealousy",
+      "murder",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "justification",
+      "sanctification",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "lack_of_sleep",
+      "irritability",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "lightning",
+      "fires",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "low_blood_pressure",
+      "dizziness",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "maladministration",
+      "injustice",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "malaria",
+      "morbidity",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "malnutrition",
+      "sickness",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "masturbation",
+      "insanity",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "measles",
+      "encephalitis",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "medical_bills",
+      "bankruptcy",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "medical_errors",
+      "98,000_deaths",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "medical_malpractice",
+      "wrongful_death",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "medical_negligence",
+      "birth_injury",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "medications",
+      "delirium",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "menopause",
+      "hot_flashes",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "mental_illness",
+      "homelessness",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "moisture",
+      "mold_growth",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "mold",
+      "health_problems",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "monetary_inflation",
+      "price_inflation",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "mutation",
+      "resistance",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "mutations",
+      "cancers",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "natural_selection",
+      "evolution",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "negligence",
+      "injuries",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "negotiations",
+      "agreement",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "nerve_damage",
+      "numbness",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "niacin_deficiency",
+      "pellagra",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "noise",
+      "hearing_loss",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "nsaids",
+      "ulcers",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "obesity",
+      "diabetes",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "osteoarthritis",
+      "stiffness",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "osteoporosis",
+      "fractures",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "overgrazing",
+      "desertification",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "overuse",
+      "tendonitis",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "oxidation",
+      "rancidity",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "oxygen_deprivation",
+      "brain_damage",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "periodontal_disease",
+      "bone_loss",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "pilot_error",
+      "crash",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "plantar_fasciitis",
+      "heel_pain",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "plaque",
+      "gingivitis",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "pollen",
+      "hay_fever",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "poor_posture",
+      "back_pain",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "population_growth",
+      "environmental_degradation",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "poverty",
+      "crime",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "power",
+      "corruption",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "price_controls",
+      "shortages",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "psychological_factors",
+      "erectile_dysfunction",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "radiation",
+      "cancer",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "radon",
+      "lung_cancer_deaths",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "rain",
+      "flood",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "rape",
+      "pregnancy",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "relationship",
+      "marriage",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "religion",
+      "wars",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "rising_temperatures",
+      "droughts",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "rosacea",
+      "redness",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "rotavirus",
+      "severe_diarrhea",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "salt",
+      "water_retention",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "sin",
+      "suffering",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "sleep_apnea",
+      "daytime_sleepiness",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "sleep_deprivation",
+      "hallucinations",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "smokeless_tobacco",
+      "oral_cancer",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "smoking",
+      "lung_cancer",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "spinal_cord_injury",
+      "paralysis",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "spiritual_death",
+      "physical_death",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "stimulus",
+      "response",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "stock_market_crash",
+      "great_depression",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "storm",
+      "power_outages",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "storms",
+      "floods",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "strabismus",
+      "amblyopia",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "stress",
+      "illness",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "sugar",
+      "tooth_decay",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "sulfur_dioxide",
+      "acid_rain",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "sun_damage",
+      "wrinkles",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "sun_exposure",
+      "skin_cancer",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "surgery",
+      "complications",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "tax_cuts",
+      "deficits",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "tension",
+      "headaches",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "thoughts",
+      "feelings",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "thrombocytopenia",
+      "bleeding",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "torrential_rains",
+      "landslides",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "toxins",
+      "illnesses",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "trauma",
+      "ptsd",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "treatment",
+      "improvement",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "uncertainty",
+      "fear",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "unemployment",
+      "foreclosures",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "uric_acid",
+      "gout",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "uvb_rays",
+      "sunburn",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "vaccine",
+      "adverse_events",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "vaccines",
+      "autism",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "vaginal_dryness",
+      "painful_intercourse",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "ventricular_fibrillation",
+      "cardiac_arrest",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "vioxx",
+      "heart_attacks",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "virtue",
+      "happiness",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "virus",
+      "fever",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "viruses",
+      "diseases",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "vitamin_a_deficiency",
+      "night_blindness",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "vitamin_b12_deficiency",
+      "megaloblastic_anemia",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "vitamin_c_deficiency",
+      "scurvy",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "vitamin_d_deficiency",
+      "rickets",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "vomiting",
+      "severe_dehydration",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "war",
+      "destruction",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "wave_action",
+      "erosion",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "weather",
+      "delays",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "whiplash",
+      "neck_pain",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "wind",
+      "waves",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "x",
+      "y",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "yeast",
+      "fermentation",
+      {
+        "weight": 1.0
+      }
+    ],
+    [
+      "zinc_deficiency",
+      "growth_retardation",
+      {
+        "weight": 1.0
+      }
+    ]
+  ]
+}
