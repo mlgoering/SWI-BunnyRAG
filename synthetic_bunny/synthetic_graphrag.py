@@ -53,7 +53,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--output-path",
-        default="synethetic_bunny/output/synthetic_graphrag_results.json",
+        default="synthetic_bunny/output/synthetic_graphrag_results.json",
         help="Output JSON path.",
     )
     args = parser.parse_args()

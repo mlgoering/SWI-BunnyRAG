@@ -70,7 +70,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--output-dir",
-        default="synethetic_bunny/output/lambda_sweep",
+        default="synthetic_bunny/output/lambda_sweep",
         help="Output directory.",
     )
     args = parser.parse_args()

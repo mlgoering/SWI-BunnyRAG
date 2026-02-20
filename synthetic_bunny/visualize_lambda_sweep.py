@@ -336,7 +336,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--output-html",
-        default="synethetic_bunny/output/lambda_sweep_visualization.html",
+        default="synthetic_bunny/output/lambda_sweep_visualization.html",
         help="Output HTML path.",
     )
     parser.add_argument(

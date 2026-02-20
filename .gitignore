@@ -1,19 +1,23 @@
-Graph Algorithm/Rule based Casual Graph Generator.ipynb
-Graph Algorithm/Rule based Casual Graph Generator.ipynb
-# Python virtual environments / secrets / caches / notebook checkpoints
+# --- Python: venvs, caches, artifacts ---
 .venv/
 venv/
 .env
+
 __pycache__/
-**/__pycache__/
-*.pyc
 *.py[cod]
+
+.pytest_cache/
+
+# --- Jupyter ---
 .ipynb_checkpoints/
 
-# Synthetic experiment outputs
-synethetic_bunny/output/
+# Ignore a specific notebook (remove this if you want it tracked)
+Graph Algorithm/Rule based Casual Graph Generator.ipynb
 
-# Generated synthetic graph artifacts
+# --- Synthetic experiment outputs ---
+synthetic_bunny/output/
+
+# --- Generated synthetic graph artifacts ---
 Bunny Rags/random_spherical_bunny_graph*.json
 Graph Algorithm/random_spherical_vectors*.json
 Graph Algorithm/random_spherical_graph*.png
