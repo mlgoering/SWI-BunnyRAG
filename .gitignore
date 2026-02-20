@@ -9,3 +9,11 @@ __pycache__/
 *.pyc
 *.py[cod]
 .ipynb_checkpoints/
+
+# Synthetic experiment outputs
+synethetic_bunny/output/
+
+# Generated synthetic graph artifacts
+Bunny Rags/random_spherical_bunny_graph*.json
+Graph Algorithm/random_spherical_vectors*.json
+Graph Algorithm/random_spherical_graph*.png
