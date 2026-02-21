@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import argparse
-import csv
 import json
 from pathlib import Path
 from typing import Dict, List, Tuple
@@ -112,8 +111,7 @@ def main() -> int:
     label_to_id, resistance = effective_resistance(node_ids, edges)
 
     selected_nodes_by_lambda: Dict[str, List[Dict[str, object]]] = {}
-    summary_rows: List[Dict[str, object]] = []
-    overlap_rows: List[Dict[str, object]] = []
+    overlap_rows_for_report: List[Tuple[float, int, float]] = []
 
     for lam in lambdas:
         ranked = bunny_rank(
@@ -127,11 +125,9 @@ def main() -> int:
         )
         rows: List[Dict[str, object]] = []
         node_ids_ordered: List[str] = []
-        sims: List[float] = []
 
         for rank, (node_id, utility, avg_cond, avg_seed_cos) in enumerate(ranked, start=1):
             q_sim = cosine(query_vec, embeddings[node_id])
-            sims.append(q_sim)
             node_ids_ordered.append(node_id)
             rows.append(
                 {
@@ -145,28 +141,11 @@ def main() -> int:
             )
 
         selected_nodes_by_lambda[to_float_key(lam)] = rows
-        avg_query_similarity = sum(sims) / len(sims) if sims else float("nan")
-        summary_rows.append(
-            {
-                "lambda": lam,
-                "top_k": args.top_k,
-                "num_selected": len(rows),
-                "avg_query_similarity": float(avg_query_similarity),
-                "selected_node_ids_in_order": "|".join(node_ids_ordered),
-            }
-        )
 
         bunny_set = set(node_ids_ordered)
         overlap = bunny_set & graphrag_set
-        overlap_rows.append(
-            {
-                "lambda": lam,
-                "bunny_top_k": args.top_k,
-                "graphrag_top_k": args.top_k,
-                "overlap_count": len(overlap),
-                "overlap_jaccard": float(jaccard(bunny_set, graphrag_set)),
-                "overlap_node_ids": "|".join(sorted(overlap)),
-            }
+        overlap_rows_for_report.append(
+            (lam, len(overlap), float(jaccard(bunny_set, graphrag_set)))
         )
 
     out_dir = Path(args.output_dir)
@@ -196,37 +175,6 @@ def main() -> int:
     }
     graphrag_path.write_text(json.dumps(graphrag_payload, indent=2), encoding="utf-8")
 
-    summary_path = out_dir / "synthetic_bunny_lambda_sweep_summary.csv"
-    with summary_path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(
-            f,
-            fieldnames=[
-                "lambda",
-                "top_k",
-                "num_selected",
-                "avg_query_similarity",
-                "selected_node_ids_in_order",
-            ],
-        )
-        writer.writeheader()
-        writer.writerows(summary_rows)
-
-    overlap_path = out_dir / "synthetic_bunny_vs_graphrag_overlap.csv"
-    with overlap_path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(
-            f,
-            fieldnames=[
-                "lambda",
-                "bunny_top_k",
-                "graphrag_top_k",
-                "overlap_count",
-                "overlap_jaccard",
-                "overlap_node_ids",
-            ],
-        )
-        writer.writeheader()
-        writer.writerows(overlap_rows)
-
     report_path = out_dir / "synthetic_bunny_lambda_sweep_report.txt"
     lines = [
         "Synthetic BunnyRAG Lambda Sweep Report",
@@ -248,17 +196,15 @@ def main() -> int:
         )
     lines.append("")
     lines.append("Bunny vs GraphRAG overlap by lambda:")
-    for row in overlap_rows:
+    for lam, overlap_count, overlap_jaccard in overlap_rows_for_report:
         lines.append(
-            f"- lambda={row['lambda']:+.3f}: overlap={row['overlap_count']}, "
-            f"jaccard={row['overlap_jaccard']:.4f}"
+            f"- lambda={lam:+.3f}: overlap={overlap_count}, "
+            f"jaccard={overlap_jaccard:.4f}"
         )
     report_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     print(f"Wrote: {selected_path}")
     print(f"Wrote: {graphrag_path}")
-    print(f"Wrote: {summary_path}")
-    print(f"Wrote: {overlap_path}")
     print(f"Wrote: {report_path}")
     return 0
 
