@@ -74,12 +74,21 @@ All synthetic scripts support:
 
 ## Quick start
 
+Generate synthetic graph + vectors:
+
+```powershell
+python synthetic_bunny\generate_synthetic_data.py ^
+  --n 75 --dim 4 --scale-prob 0.1 ^
+  --output-path "synthetic_bunny/output/example_run/random_spherical_bunny_graph.json" ^
+  --vectors-output-path "synthetic_bunny/output/example_run/random_spherical_vectors.json"
+```
+
 Run a lambda sweep:
 
 ```powershell
 python synthetic_bunny\synthetic_lambda_sweep.py ^
-  --graph-path "Bunny Rags/random_spherical_bunny_graph_75.json" ^
-  --vectors-path "Graph Algorithm/random_spherical_vectors_75.json" ^
+  --graph-path "synthetic_bunny/output/example_run/random_spherical_bunny_graph.json" ^
+  --vectors-path "synthetic_bunny/output/example_run/random_spherical_vectors.json" ^
   --query-random-points 1 --query-seed 17 ^
   --seed-k 3 --top-k 10 ^
   --lambdas "0,0.1,0.2,0.3,0.4,0.5" ^
@@ -91,7 +100,7 @@ Generate visualization:
 
 ```powershell
 python synthetic_bunny\visualize_lambda_sweep.py ^
-  --graph-path "Bunny Rags/random_spherical_bunny_graph_75.json" ^
+  --graph-path "synthetic_bunny/output/example_run/random_spherical_bunny_graph.json" ^
   --selected-nodes-path "synthetic_bunny/output/example_run/synthetic_bunny_lambda_selected_nodes.json" ^
   --graphrag-path "synthetic_bunny/output/example_run/synthetic_graphrag_topk_selected_nodes.json" ^
   --output-html "synthetic_bunny/output/example_run/synthetic_lambda_sweep_visualization.html"
@@ -102,8 +111,6 @@ python synthetic_bunny\visualize_lambda_sweep.py ^
 Typical sweep outputs:
 - `synthetic_bunny_lambda_selected_nodes.json`
 - `synthetic_graphrag_topk_selected_nodes.json`
-- `synthetic_bunny_lambda_sweep_summary.csv`
-- `synthetic_bunny_vs_graphrag_overlap.csv`
 - `synthetic_bunny_lambda_sweep_report.txt`
 
 Visualization output:
