@@ -1,0 +1,29 @@
+Synthetic BunnyRAG Lambda Sweep Report
+Graph: synthetic_bunny/output/generated/run_20260221_113451/random_spherical_bunny_graph.json
+Vectors: synthetic_bunny/output/generated/run_20260221_113451/random_spherical_vectors.json
+Query mode: random_sphere_points
+Query vertices: []
+Query random points: 1
+Query seed: 58
+Seed nodes: ['39', '57', '61']
+Lambdas: [0.0, 0.1, 0.2, 0.3, 0.4, 0.5]
+
+GraphRAG baseline top-k:
+- rank=1: node=54, graph_distance=2.104537, query_sim=0.946451
+- rank=2: node=45, graph_distance=2.116635, query_sim=0.779951
+- rank=3: node=43, graph_distance=2.177211, query_sim=0.880067
+- rank=4: node=65, graph_distance=2.725818, query_sim=0.906181
+- rank=5: node=24, graph_distance=2.804068, query_sim=0.701274
+- rank=6: node=63, graph_distance=2.870829, query_sim=0.598375
+- rank=7: node=55, graph_distance=2.958531, query_sim=0.762573
+- rank=8: node=41, graph_distance=3.022343, query_sim=0.476848
+- rank=9: node=67, graph_distance=3.208088, query_sim=0.437893
+- rank=10: node=29, graph_distance=3.245256, query_sim=0.896155
+
+Bunny vs GraphRAG overlap by lambda:
+- lambda=+0.000: overlap=4, jaccard=0.2500
+- lambda=+0.100: overlap=5, jaccard=0.3333
+- lambda=+0.200: overlap=5, jaccard=0.3333
+- lambda=+0.300: overlap=5, jaccard=0.3333
+- lambda=+0.400: overlap=5, jaccard=0.3333
+- lambda=+0.500: overlap=5, jaccard=0.3333

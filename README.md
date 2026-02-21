@@ -5,6 +5,13 @@ This repo is a research prototype that collects Wikipedia math articles, chunks 
 
 Below is a plain-English map of the repo, plus the dependencies each part needs.
 
+## Synthetic Analog
+
+For synthetic-only experiments (no text, no Hugging Face model calls), use:
+- `synthetic_bunny/`
+
+This folder contains a self-contained synthetic analog of BunnyRAG/GraphRAG and lambda-sweep tooling over synthetic vector/graph data.
+
 ## Repo Map
 
 ### 1) Wikipedia article list + scraping
