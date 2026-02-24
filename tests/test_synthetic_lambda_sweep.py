@@ -232,3 +232,107 @@ def test_lambda_sweep_missing_or_malformed_inputs_fail(tmp_path: Path) -> None:
     assert "Vectors JSON must have 'vectors' as a list or dict" in (
         malformed_vectors.stdout + malformed_vectors.stderr
     )
+
+
+def test_lambda_sweep_rejects_non_positive_seedk_topk(tmp_path: Path) -> None:
+    graph_path, vectors_path = _prepare_synthetic_inputs(tmp_path)
+    script = _repo_root() / "synthetic_bunny" / "synthetic_lambda_sweep.py"
+
+    bad_seedk = _run(
+        [
+            sys.executable,
+            str(script),
+            "--graph-path",
+            str(graph_path),
+            "--vectors-path",
+            str(vectors_path),
+            "--query-random-points",
+            "1",
+            "--seed-k",
+            "0",
+            "--output-dir",
+            str(tmp_path / "out_bad_seedk"),
+        ],
+        check=False,
+    )
+    assert bad_seedk.returncode != 0
+    assert "--seed-k must be a positive integer." in (bad_seedk.stdout + bad_seedk.stderr)
+
+    bad_topk = _run(
+        [
+            sys.executable,
+            str(script),
+            "--graph-path",
+            str(graph_path),
+            "--vectors-path",
+            str(vectors_path),
+            "--query-random-points",
+            "1",
+            "--top-k",
+            "-1",
+            "--output-dir",
+            str(tmp_path / "out_bad_topk"),
+        ],
+        check=False,
+    )
+    assert bad_topk.returncode != 0
+    assert "--top-k must be a positive integer." in (bad_topk.stdout + bad_topk.stderr)
+
+
+def test_lambda_sweep_reproducible_for_same_inputs_and_seeds(tmp_path: Path) -> None:
+    graph_path = tmp_path / "graph.json"
+    vectors_path = tmp_path / "vectors.json"
+    generate_script = _repo_root() / "synthetic_bunny" / "generate_synthetic_data.py"
+    sweep_script = _repo_root() / "synthetic_bunny" / "synthetic_lambda_sweep.py"
+
+    _run(
+        [
+            sys.executable,
+            str(generate_script),
+            "--n",
+            "35",
+            "--dim",
+            "4",
+            "--scale-prob",
+            "1.0",
+            "--seed",
+            "42",
+            "--output-path",
+            str(graph_path),
+            "--vectors-output-path",
+            str(vectors_path),
+        ]
+    )
+
+    out_a = tmp_path / "run_a"
+    out_b = tmp_path / "run_b"
+    base_cmd = [
+        sys.executable,
+        str(sweep_script),
+        "--graph-path",
+        str(graph_path),
+        "--vectors-path",
+        str(vectors_path),
+        "--query-random-points",
+        "1",
+        "--query-seed",
+        "17",
+        "--seed-k",
+        "3",
+        "--top-k",
+        "8",
+        "--lambdas",
+        "0,0.1,0.2",
+        "--graphrag-max-distance",
+        "6.0",
+    ]
+    _run([*base_cmd, "--output-dir", str(out_a)])
+    _run([*base_cmd, "--output-dir", str(out_b)])
+
+    selected_a = json.loads((out_a / "synthetic_bunny_lambda_selected_nodes.json").read_text(encoding="utf-8"))
+    selected_b = json.loads((out_b / "synthetic_bunny_lambda_selected_nodes.json").read_text(encoding="utf-8"))
+    graphrag_a = json.loads((out_a / "synthetic_graphrag_topk_selected_nodes.json").read_text(encoding="utf-8"))
+    graphrag_b = json.loads((out_b / "synthetic_graphrag_topk_selected_nodes.json").read_text(encoding="utf-8"))
+
+    assert selected_a == selected_b
+    assert graphrag_a == graphrag_b

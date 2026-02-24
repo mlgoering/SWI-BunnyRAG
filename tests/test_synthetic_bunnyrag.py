@@ -220,3 +220,48 @@ def test_synthetic_bunnyrag_missing_or_malformed_inputs_fail(tmp_path: Path) -> 
     assert "Vectors JSON must have 'vectors' as a list or dict" in (
         malformed_vectors.stdout + malformed_vectors.stderr
     )
+
+
+def test_synthetic_bunnyrag_rejects_non_positive_seedk_topk(tmp_path: Path) -> None:
+    graph_path, vectors_path = _prepare_synthetic_inputs(tmp_path)
+    script = _repo_root() / "synthetic_bunny" / "synthetic_bunnyrag.py"
+
+    bad_seedk = _run(
+        [
+            sys.executable,
+            str(script),
+            "--graph-path",
+            str(graph_path),
+            "--vectors-path",
+            str(vectors_path),
+            "--query-random-points",
+            "1",
+            "--seed-k",
+            "0",
+            "--output-path",
+            str(tmp_path / "out_bad_seedk.json"),
+        ],
+        check=False,
+    )
+    assert bad_seedk.returncode != 0
+    assert "--seed-k must be a positive integer." in (bad_seedk.stdout + bad_seedk.stderr)
+
+    bad_topk = _run(
+        [
+            sys.executable,
+            str(script),
+            "--graph-path",
+            str(graph_path),
+            "--vectors-path",
+            str(vectors_path),
+            "--query-random-points",
+            "1",
+            "--top-k",
+            "-2",
+            "--output-path",
+            str(tmp_path / "out_bad_topk_range.json"),
+        ],
+        check=False,
+    )
+    assert bad_topk.returncode != 0
+    assert "--top-k must be a positive integer." in (bad_topk.stdout + bad_topk.stderr)

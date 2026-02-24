@@ -9,6 +9,7 @@ __pycache__/
 .pytest_cache/
 tests/_tmp_pytest*/
 temp/
+.jupyter_local/
 
 # --- Jupyter ---
 .ipynb_checkpoints/
