@@ -319,7 +319,7 @@ def build_plot(
         visible[3 + i] = True
         distance_suffix = f", avg dist={avg_distance:.4f}" if avg_distance is not None else ""
         similarity_suffix = (
-            f", avg sim={avg_similarity:.4f}" if avg_similarity is not None else ""
+            f", avg sim={avg_similarity:.4f}" if avg_similarity is not None else ", No selection"
         )
         steps.append(
             dict(
@@ -341,7 +341,9 @@ def build_plot(
     first_avg_similarity = modes[0][3] if modes else None
     first_distance_suffix = f", avg dist={first_avg_distance:.4f}" if first_avg_distance is not None else ""
     first_similarity_suffix = (
-        f", avg sim={first_avg_similarity:.4f}" if first_avg_similarity is not None else ""
+        f", avg sim={first_avg_similarity:.4f}"
+        if first_avg_similarity is not None
+        else ", No selection"
     )
     fig.update_layout(
         title=dict(
