@@ -1,0 +1,75 @@
+{
+  "query_mode": "random_sphere_points",
+  "query_vertices": [],
+  "query_random_points": 1,
+  "query_seed": 17,
+  "seed_nodes": [
+    "476",
+    "150",
+    "438"
+  ],
+  "top_k": 10,
+  "max_distance": 6.0,
+  "nodes": [
+    {
+      "rank": 1,
+      "node_id": "273",
+      "graph_distance": 2.9136155816262943,
+      "query_similarity": 0.8266071402698785
+    },
+    {
+      "rank": 2,
+      "node_id": "434",
+      "graph_distance": 3.504099706260412,
+      "query_similarity": 0.782409916513624
+    },
+    {
+      "rank": 3,
+      "node_id": "415",
+      "graph_distance": 3.5080689591359167,
+      "query_similarity": 0.8583248914262018
+    },
+    {
+      "rank": 4,
+      "node_id": "335",
+      "graph_distance": 3.5212659734182252,
+      "query_similarity": 0.7740014277754905
+    },
+    {
+      "rank": 5,
+      "node_id": "163",
+      "graph_distance": 3.521832092878548,
+      "query_similarity": 0.6731696688157045
+    },
+    {
+      "rank": 6,
+      "node_id": "422",
+      "graph_distance": 3.5307757912596807,
+      "query_similarity": 0.8308083153734692
+    },
+    {
+      "rank": 7,
+      "node_id": "206",
+      "graph_distance": 3.5549076759863802,
+      "query_similarity": 0.6513688737402143
+    },
+    {
+      "rank": 8,
+      "node_id": "486",
+      "graph_distance": 3.611629801359385,
+      "query_similarity": 0.9190275763231064
+    },
+    {
+      "rank": 9,
+      "node_id": "215",
+      "graph_distance": 3.623834312137186,
+      "query_similarity": 0.7598954012721404
+    },
+    {
+      "rank": 10,
+      "node_id": "147",
+      "graph_distance": 3.627047553747246,
+      "query_similarity": 0.6363237335138349
+    }
+  ]
+}
