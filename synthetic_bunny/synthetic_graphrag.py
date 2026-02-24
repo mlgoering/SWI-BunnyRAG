@@ -58,6 +58,11 @@ def main() -> int:
     )
     args = parser.parse_args()
 
+    if args.seed_k <= 0:
+        raise ValueError("--seed-k must be a positive integer.")
+    if args.top_k <= 0:
+        raise ValueError("--top-k must be a positive integer.")
+
     node_ids, edges, _ = load_graph_payload(args.graph_path)
     embeddings = load_node_embeddings(args.vectors_path, node_ids)
 

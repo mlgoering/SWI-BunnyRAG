@@ -113,13 +113,18 @@ def rank_nodes_by_query_similarity(
 def build_undirected_graph(node_ids: Sequence[str], edges: Sequence[Tuple[str, str, float]]) -> nx.Graph:
     g = nx.Graph()
     g.add_nodes_from(node_ids)
+
+    # Match Bunny's symmetrization behavior: collapse directed/duplicate edges
+    # into one undirected edge by summing total conductance weight.
+    pair_weights: Dict[Tuple[str, str], float] = {}
     for src, dst, w in edges:
         if src == dst:
             continue
-        if g.has_edge(src, dst):
-            g[src][dst]["weight"] = max(float(g[src][dst]["weight"]), float(w))
-        else:
-            g.add_edge(src, dst, weight=float(w))
+        a, b = (src, dst) if src < dst else (dst, src)
+        pair_weights[(a, b)] = pair_weights.get((a, b), 0.0) + float(w)
+
+    for (src, dst), weight in pair_weights.items():
+        g.add_edge(src, dst, weight=float(weight))
     return g
 
 
