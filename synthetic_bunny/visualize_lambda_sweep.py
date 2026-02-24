@@ -42,18 +42,36 @@ def load_graph(graph_path: str) -> nx.Graph:
 def load_selection_modes(
     selected_nodes_path: str,
     graphrag_path: str,
-) -> Tuple[List[Tuple[str, List[str]]], List[str]]:
+) -> Tuple[List[Tuple[str, List[str], float | None, float | None]], List[str]]:
     selected_payload = json.loads(Path(selected_nodes_path).read_text(encoding="utf-8"))
     graphrag_payload = json.loads(Path(graphrag_path).read_text(encoding="utf-8"))
 
-    modes: List[Tuple[str, List[str]]] = []
+    modes: List[Tuple[str, List[str], float | None, float | None]] = []
     seed_nodes = [str(x) for x in graphrag_payload.get("seed_nodes", [])]
-    graphrag_nodes = [
-        str(item.get("node_id"))
-        for item in graphrag_payload.get("nodes", [])
-        if isinstance(item, dict) and item.get("node_id") is not None
-    ]
-    modes.append(("GraphRAG", graphrag_nodes))
+    graphrag_nodes: List[str] = []
+    graphrag_distances: List[float] = []
+    graphrag_sims: List[float] = []
+    for item in graphrag_payload.get("nodes", []):
+        if not isinstance(item, dict):
+            continue
+        if item.get("node_id") is None:
+            continue
+        graphrag_nodes.append(str(item.get("node_id")))
+        if item.get("query_similarity") is not None:
+            sim = float(item["query_similarity"])
+            graphrag_sims.append(sim)
+            graphrag_distances.append(1.0 - sim)
+    graphrag_avg_distance = (
+        float(sum(graphrag_distances) / len(graphrag_distances))
+        if graphrag_distances
+        else None
+    )
+    graphrag_avg_similarity = (
+        float(sum(graphrag_sims) / len(graphrag_sims))
+        if graphrag_sims
+        else None
+    )
+    modes.append(("GraphRAG", graphrag_nodes, graphrag_avg_distance, graphrag_avg_similarity))
 
     lambda_keys = list(selected_payload.keys())
     try:
@@ -64,12 +82,20 @@ def load_selection_modes(
     for key in lambda_keys:
         rows = selected_payload.get(key, [])
         node_ids = []
+        distances: List[float] = []
+        sims: List[float] = []
         if isinstance(rows, list):
             for row in rows:
                 if isinstance(row, dict) and row.get("node_id") is not None:
                     node_ids.append(str(row["node_id"]))
+                    if row.get("query_similarity") is not None:
+                        sim = float(row["query_similarity"])
+                        sims.append(sim)
+                        distances.append(1.0 - sim)
         label = f"\u03bb = {float(key):+.3f}" if _is_floatish(key) else f"\u03bb = {key}"
-        modes.append((label, node_ids))
+        avg_distance = float(sum(distances) / len(distances)) if distances else None
+        avg_similarity = float(sum(sims) / len(sims)) if sims else None
+        modes.append((label, node_ids, avg_distance, avg_similarity))
     return modes, seed_nodes
 
 
@@ -134,7 +160,7 @@ def build_plot(
     g: nx.Graph,
     pos: Dict[str, Tuple[float, float]],
     node_to_comm: Dict[str, int],
-    modes: Sequence[Tuple[str, List[str]]],
+    modes: Sequence[Tuple[str, List[str], float | None, float | None]],
     seed_nodes: Sequence[str],
     title: str,
 ):
@@ -246,7 +272,7 @@ def build_plot(
 
     seed_set = set(seed_nodes)
     mode_trace_indices: List[int] = []
-    for mode_label, selected in modes:
+    for mode_label, selected, avg_distance, avg_similarity in modes:
         xs: List[float] = []
         ys: List[float] = []
         texts: List[str] = []
@@ -258,6 +284,10 @@ def build_plot(
             xs.append(x)
             ys.append(y)
             texts.append(f"{mode_label}<br>node={node_id}")
+            if avg_distance is not None:
+                texts[-1] += f"<br>avg query distance={avg_distance:.4f}"
+            if avg_similarity is not None:
+                texts[-1] += f"<br>avg query similarity={avg_similarity:.4f}"
         fig.add_trace(
             go.Scatter(
                 x=xs,
@@ -284,22 +314,42 @@ def build_plot(
         fig.data[mode_trace_indices[0]].visible = True
 
     steps = []
-    for i, (mode_label, _) in enumerate(modes):
+    for i, (mode_label, _, avg_distance, avg_similarity) in enumerate(modes):
         visible = [True, True, True] + [False] * len(mode_trace_indices)
         visible[3 + i] = True
+        distance_suffix = f", avg dist={avg_distance:.4f}" if avg_distance is not None else ""
+        similarity_suffix = (
+            f", avg sim={avg_similarity:.4f}" if avg_similarity is not None else ""
+        )
         steps.append(
             dict(
                 method="update",
-                label=mode_label,
+                label=f"{mode_label}{similarity_suffix}",
                 args=[
                     {"visible": visible},
-                    {"title": f"{title}<br><sup>Mode: {mode_label}</sup>"},
+                    {
+                        "title.text": (
+                            f"{title}<br><sup>Mode: {mode_label}"
+                            f"{distance_suffix}{similarity_suffix}</sup>"
+                        )
+                    },
                 ],
             )
         )
 
+    first_avg_distance = modes[0][2] if modes else None
+    first_avg_similarity = modes[0][3] if modes else None
+    first_distance_suffix = f", avg dist={first_avg_distance:.4f}" if first_avg_distance is not None else ""
+    first_similarity_suffix = (
+        f", avg sim={first_avg_similarity:.4f}" if first_avg_similarity is not None else ""
+    )
     fig.update_layout(
-        title=f"{title}<br><sup>Mode: {modes[0][0] if modes else 'N/A'}</sup>",
+        title=dict(
+            text=(
+                f"{title}<br><sup>Mode: {modes[0][0] if modes else 'N/A'}"
+                f"{first_distance_suffix}{first_similarity_suffix}</sup>"
+            )
+        ),
         sliders=[
             dict(
                 active=0,
