@@ -7,6 +7,8 @@ Prefer minimal diffs and small, reviewable changes.
 ## Setup (source of truth)
 - Prefer Python 3.12. If installation fails due to dependency wheels, use Python 3.11.
 - Avoid Python 3.14+ unless all dependencies install cleanly.
+- Use the project virtual environment (`.venv`) for installs and test runs.
+- Prefer `.venv` created with Python 3.12 for this repo.
 
 ## Install
 - Primary (main-path minimal): `pip install -r requirements.txt`
@@ -42,9 +44,11 @@ If working on dev/full tooling only:
 
 ### V3 — Run tests (must pass)
 - Primary:
-  - `python -m pytest -q`
+  - `.venv\Scripts\python -m pytest -q`
 - If the repo only has a smoke test:
-  - `python -m pytest -q tests/test_smoke.py`
+  - `.venv\Scripts\python -m pytest -q tests/test_smoke.py`
+- For synthetic-only test suite:
+  - `powershell -ExecutionPolicy Bypass -File scripts/run_synth_tests.ps1`
 
 ### V4 — Run the canonical main path 
 - Not yet defined.
