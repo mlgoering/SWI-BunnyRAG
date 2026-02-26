@@ -71,9 +71,12 @@ def _community_lookup(g: nx.Graph) -> Tuple[Dict[str, int], Dict[int, int]]:
     return node_to_comm, comm_sizes
 
 
-def _random_query_vector(dim: int, seed: int) -> np.ndarray:
+def _random_query_vector(dim: int, seed: int, *, vector_space: str) -> np.ndarray:
     rng = np.random.default_rng(seed)
-    vec = rng.random(size=dim)
+    if vector_space == "sphere":
+        vec = rng.normal(loc=0.0, scale=1.0, size=dim)
+    else:
+        vec = rng.random(size=dim)
     norm = float(np.linalg.norm(vec))
     if norm <= 0.0:
         raise ValueError("Random query vector norm is zero.")
@@ -199,6 +202,15 @@ def main() -> int:
     parser.add_argument("--dim", type=int, default=6, help="Vector dimension.")
     parser.add_argument("--scale-prob", type=float, default=0.025, help="Graph scale probability.")
     parser.add_argument(
+        "--vector-space",
+        choices=("orthant", "sphere"),
+        default="orthant",
+        help=(
+            "Vector sampling mode for synthetic graph generation: "
+            "'orthant' uses non-negative vectors; 'sphere' samples full-sphere vectors."
+        ),
+    )
+    parser.add_argument(
         "--dataset-seed-start", type=int, default=42, help="Base seed used for dataset generation."
     )
     parser.add_argument(
@@ -248,16 +260,26 @@ def main() -> int:
         help="Max seed retries per dataset to get a connected graph.",
     )
     parser.add_argument(
+        "--sim-delta-min-vs-graphrag",
         "--sim-retention-min-vs-graphrag",
+        dest="sim_delta_min_vs_graphrag",
         type=float,
-        default=0.95,
-        help="Pass threshold for similarity retention vs GraphRAG.",
+        default=0.0,
+        help=(
+            "Pass threshold for query-similarity delta vs GraphRAG "
+            "(bunny_avg_query_similarity - graphrag_avg_query_similarity)."
+        ),
     )
     parser.add_argument(
+        "--sim-delta-min-vs-random",
         "--sim-retention-min-vs-random",
+        dest="sim_delta_min_vs_random",
         type=float,
-        default=0.95,
-        help="Pass threshold for similarity retention vs Random.",
+        default=0.0,
+        help=(
+            "Pass threshold for query-similarity delta vs Random "
+            "(bunny_avg_query_similarity - random_avg_query_similarity)."
+        ),
     )
     parser.add_argument(
         "--output-dir",
@@ -301,6 +323,7 @@ def main() -> int:
                 scale_prob=args.scale_prob,
                 seed=candidate_seed,
                 bidirectional=True,
+                non_negative_orthant=(args.vector_space == "orthant"),
             )
             sizes = generator.component_sizes(args.n, cand_edges)
             if len(sizes) == 1:
@@ -350,7 +373,11 @@ def main() -> int:
             attempted_queries += 1
             query_seed = args.query_seed_start + query_counter
             query_counter += 1
-            query_vec = _random_query_vector(args.dim, query_seed)
+            query_vec = _random_query_vector(
+                args.dim,
+                query_seed,
+                vector_space=args.vector_space,
+            )
 
             ranked = rank_nodes_by_query_similarity(embeddings, query_vec)
             seed_nodes = [node for node, _ in ranked[: args.seed_k]]
@@ -435,13 +462,13 @@ def main() -> int:
                         "delta_entropy_vs_graphrag": "N/A",
                         "improve_max_share_vs_graphrag": "N/A",
                         "improve_kl_vs_graphrag": "N/A",
-                        "sim_retention_vs_graphrag": "N/A",
+                        "delta_query_similarity_vs_graphrag": "N/A",
                         "lift_coverage_vs_random": "N/A",
                         "lift_entropy_vs_random": "N/A",
                         "delta_entropy_vs_random": "N/A",
                         "improve_max_share_vs_random": "N/A",
                         "improve_kl_vs_random": "N/A",
-                        "sim_retention_vs_random": "N/A",
+                        "delta_query_similarity_vs_random": "N/A",
                         "pass_diversity_vs_graphrag": "N/A",
                         "pass_relevance_vs_graphrag": "N/A",
                         "pass_overall_vs_graphrag": "N/A",
@@ -485,9 +512,8 @@ def main() -> int:
                 imp_kl_gr = _safe_improvement_lower_better(
                     b_metrics["kl_selected_vs_graph"], gr_metrics["kl_selected_vs_graph"]
                 )
-                sim_ret_gr = float(
-                    b_metrics["avg_query_similarity"]
-                    / max(gr_metrics["avg_query_similarity"], EPS)
+                sim_delta_gr = float(
+                    b_metrics["avg_query_similarity"] - gr_metrics["avg_query_similarity"]
                 )
 
                 lift_cov_rd = _safe_lift(b_metrics["coverage"], rand_metrics["coverage"])
@@ -504,9 +530,8 @@ def main() -> int:
                 imp_kl_rd = _safe_improvement_lower_better(
                     b_metrics["kl_selected_vs_graph"], rand_metrics["kl_selected_vs_graph"]
                 )
-                sim_ret_rd = float(
-                    b_metrics["avg_query_similarity"]
-                    / max(rand_metrics["avg_query_similarity"], EPS)
+                sim_delta_rd = float(
+                    b_metrics["avg_query_similarity"] - rand_metrics["avg_query_similarity"]
                 )
 
                 pass_div_gr = (
@@ -515,14 +540,14 @@ def main() -> int:
                     and imp_share_gr >= 0.0
                     and imp_kl_gr >= 0.0
                 )
-                pass_rel_gr = sim_ret_gr >= args.sim_retention_min_vs_graphrag
+                pass_rel_gr = sim_delta_gr >= args.sim_delta_min_vs_graphrag
                 pass_div_rd = (
                     lift_cov_rd >= 0.0
                     and delta_ent_rd >= 0.0
                     and imp_share_rd >= 0.0
                     and imp_kl_rd >= 0.0
                 )
-                pass_rel_rd = sim_ret_rd >= args.sim_retention_min_vs_random
+                pass_rel_rd = sim_delta_rd >= args.sim_delta_min_vs_random
 
                 row = dict(common_row)
                 row.update(
@@ -542,13 +567,13 @@ def main() -> int:
                         "delta_entropy_vs_graphrag": delta_ent_gr,
                         "improve_max_share_vs_graphrag": imp_share_gr,
                         "improve_kl_vs_graphrag": imp_kl_gr,
-                        "sim_retention_vs_graphrag": sim_ret_gr,
+                        "delta_query_similarity_vs_graphrag": sim_delta_gr,
                         "lift_coverage_vs_random": lift_cov_rd,
                         "lift_entropy_vs_random": lift_ent_rd,
                         "delta_entropy_vs_random": delta_ent_rd,
                         "improve_max_share_vs_random": imp_share_rd,
                         "improve_kl_vs_random": imp_kl_rd,
-                        "sim_retention_vs_random": sim_ret_rd,
+                        "delta_query_similarity_vs_random": sim_delta_rd,
                         "pass_diversity_vs_graphrag": pass_div_gr,
                         "pass_relevance_vs_graphrag": pass_rel_gr,
                         "pass_overall_vs_graphrag": bool(pass_div_gr and pass_rel_gr),
@@ -570,12 +595,12 @@ def main() -> int:
             "min_lift_entropy_vs_graphrag": 0.0,
             "min_improve_max_share_vs_graphrag": 0.0,
             "min_improve_kl_vs_graphrag": 0.0,
-            "min_sim_retention_vs_graphrag": args.sim_retention_min_vs_graphrag,
+            "min_delta_query_similarity_vs_graphrag": args.sim_delta_min_vs_graphrag,
             "min_lift_coverage_vs_random": 0.0,
             "min_lift_entropy_vs_random": 0.0,
             "min_improve_max_share_vs_random": 0.0,
             "min_improve_kl_vs_random": 0.0,
-            "min_sim_retention_vs_random": args.sim_retention_min_vs_random,
+            "min_delta_query_similarity_vs_random": args.sim_delta_min_vs_random,
         },
         "dataset_meta": dataset_meta,
     }
