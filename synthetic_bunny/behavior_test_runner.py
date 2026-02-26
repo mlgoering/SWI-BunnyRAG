@@ -24,6 +24,7 @@ from synthetic_bunnyrag import bunny_rank
 
 
 EPS = 1e-12
+MIN_BASELINE_FOR_ENTROPY_LIFT = 0.05
 
 
 def _load_generator_module():
@@ -173,6 +174,12 @@ def _safe_lift(value: float, base: float) -> float:
     return float((value - base) / max(abs(base), EPS))
 
 
+def _safe_lift_with_floor(value: float, base: float, floor: float) -> float | str:
+    if abs(base) < floor:
+        return "N/A"
+    return float((value - base) / max(abs(base), EPS))
+
+
 def _safe_improvement_lower_better(value: float, base: float) -> float:
     return float((base - value) / max(abs(base), EPS))
 
@@ -196,6 +203,15 @@ def main() -> int:
     )
     parser.add_argument(
         "--query-seed-start", type=int, default=17, help="Base seed used for random queries."
+    )
+    parser.add_argument(
+        "--max-query-attempts-per-dataset",
+        type=int,
+        default=5000,
+        help=(
+            "Maximum query seeds sampled per dataset to find accepted queries. "
+            "A query is accepted only when all seed_k seed nodes are in one community."
+        ),
     )
     parser.add_argument("--seed-k", type=int, default=3, help="Number of seed nodes.")
     parser.add_argument("--top-k", type=int, default=10, help="Top-k selections.")
@@ -313,14 +329,29 @@ def main() -> int:
             }
         )
 
-        for query_idx in range(args.queries_per_dataset):
+        accepted_queries = 0
+        attempted_queries = 0
+        while accepted_queries < args.queries_per_dataset:
+            if attempted_queries >= args.max_query_attempts_per_dataset:
+                raise RuntimeError(
+                    f"Failed to collect {args.queries_per_dataset} accepted queries for "
+                    f"{dataset_id} within {args.max_query_attempts_per_dataset} attempts."
+                )
+            attempted_queries += 1
             query_seed = args.query_seed_start + query_counter
             query_counter += 1
-            query_id = f"q{query_idx + 1:03d}"
             query_vec = _random_query_vector(args.dim, query_seed)
 
             ranked = rank_nodes_by_query_similarity(embeddings, query_vec)
             seed_nodes = [node for node, _ in ranked[: args.seed_k]]
+            seed_communities = {
+                node_to_comm[node] for node in seed_nodes if node in node_to_comm
+            }
+            if len(seed_nodes) != args.seed_k or len(seed_communities) != 1:
+                continue
+
+            accepted_queries += 1
+            query_id = f"q{accepted_queries:03d}"
             seed_set = set(seed_nodes)
 
             graphrag_ranked = weighted_graph_distance_rank(
@@ -389,11 +420,13 @@ def main() -> int:
                         "avg_query_similarity": metric_obj["avg_query_similarity"],
                         "lift_coverage_vs_graphrag": "N/A",
                         "lift_entropy_vs_graphrag": "N/A",
+                        "delta_entropy_vs_graphrag": "N/A",
                         "improve_max_share_vs_graphrag": "N/A",
                         "improve_kl_vs_graphrag": "N/A",
                         "sim_retention_vs_graphrag": "N/A",
                         "lift_coverage_vs_random": "N/A",
                         "lift_entropy_vs_random": "N/A",
+                        "delta_entropy_vs_random": "N/A",
                         "improve_max_share_vs_random": "N/A",
                         "improve_kl_vs_random": "N/A",
                         "sim_retention_vs_random": "N/A",
@@ -427,8 +460,12 @@ def main() -> int:
                 )
 
                 lift_cov_gr = _safe_lift(b_metrics["coverage"], gr_metrics["coverage"])
-                lift_ent_gr = _safe_lift(
+                delta_ent_gr = float(
+                    b_metrics["entropy_normalized"] - gr_metrics["entropy_normalized"]
+                )
+                lift_ent_gr = _safe_lift_with_floor(
                     b_metrics["entropy_normalized"], gr_metrics["entropy_normalized"]
+                    , MIN_BASELINE_FOR_ENTROPY_LIFT
                 )
                 imp_share_gr = _safe_improvement_lower_better(
                     b_metrics["max_share"], gr_metrics["max_share"]
@@ -442,8 +479,12 @@ def main() -> int:
                 )
 
                 lift_cov_rd = _safe_lift(b_metrics["coverage"], rand_metrics["coverage"])
-                lift_ent_rd = _safe_lift(
+                delta_ent_rd = float(
+                    b_metrics["entropy_normalized"] - rand_metrics["entropy_normalized"]
+                )
+                lift_ent_rd = _safe_lift_with_floor(
                     b_metrics["entropy_normalized"], rand_metrics["entropy_normalized"]
+                    , MIN_BASELINE_FOR_ENTROPY_LIFT
                 )
                 imp_share_rd = _safe_improvement_lower_better(
                     b_metrics["max_share"], rand_metrics["max_share"]
@@ -458,14 +499,14 @@ def main() -> int:
 
                 pass_div_gr = (
                     lift_cov_gr >= 0.0
-                    and lift_ent_gr >= 0.0
+                    and delta_ent_gr >= 0.0
                     and imp_share_gr >= 0.0
                     and imp_kl_gr >= 0.0
                 )
                 pass_rel_gr = sim_ret_gr >= args.sim_retention_min_vs_graphrag
                 pass_div_rd = (
                     lift_cov_rd >= 0.0
-                    and lift_ent_rd >= 0.0
+                    and delta_ent_rd >= 0.0
                     and imp_share_rd >= 0.0
                     and imp_kl_rd >= 0.0
                 )
@@ -486,11 +527,13 @@ def main() -> int:
                         "avg_query_similarity": b_metrics["avg_query_similarity"],
                         "lift_coverage_vs_graphrag": lift_cov_gr,
                         "lift_entropy_vs_graphrag": lift_ent_gr,
+                        "delta_entropy_vs_graphrag": delta_ent_gr,
                         "improve_max_share_vs_graphrag": imp_share_gr,
                         "improve_kl_vs_graphrag": imp_kl_gr,
                         "sim_retention_vs_graphrag": sim_ret_gr,
                         "lift_coverage_vs_random": lift_cov_rd,
                         "lift_entropy_vs_random": lift_ent_rd,
+                        "delta_entropy_vs_random": delta_ent_rd,
                         "improve_max_share_vs_random": imp_share_rd,
                         "improve_kl_vs_random": imp_kl_rd,
                         "sim_retention_vs_random": sim_ret_rd,
@@ -503,6 +546,9 @@ def main() -> int:
                     }
                 )
                 rows.append(row)
+
+        dataset_meta[-1]["query_attempts"] = attempted_queries
+        dataset_meta[-1]["accepted_queries"] = accepted_queries
 
     metadata = {
         "params": vars(args),
