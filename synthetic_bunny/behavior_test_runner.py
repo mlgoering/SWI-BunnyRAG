@@ -209,8 +209,17 @@ def main() -> int:
         type=int,
         default=5000,
         help=(
-            "Maximum query seeds sampled per dataset to find accepted queries. "
-            "A query is accepted only when all seed_k seed nodes are in one community."
+            "Maximum query seeds sampled per dataset to find accepted queries."
+        ),
+    )
+    parser.add_argument(
+        "--seed-community-policy",
+        choices=("same", "mixed"),
+        default="same",
+        help=(
+            "Query acceptance policy for seed-node communities. "
+            "'same' keeps only queries whose top seed_k nodes are all in one community; "
+            "'mixed' allows cross-community seed sets."
         ),
     )
     parser.add_argument("--seed-k", type=int, default=3, help="Number of seed nodes.")
@@ -277,6 +286,7 @@ def main() -> int:
     dataset_meta: List[Dict[str, object]] = []
 
     query_counter = 0
+    require_same_seed_community = args.seed_community_policy == "same"
     for dataset_idx in range(args.num_datasets):
         dataset_id = f"dataset_{dataset_idx + 1:03d}"
         found = False
@@ -347,7 +357,9 @@ def main() -> int:
             seed_communities = {
                 node_to_comm[node] for node in seed_nodes if node in node_to_comm
             }
-            if len(seed_nodes) != args.seed_k or len(seed_communities) != 1:
+            if len(seed_nodes) != args.seed_k:
+                continue
+            if require_same_seed_community and len(seed_communities) != 1:
                 continue
 
             accepted_queries += 1
