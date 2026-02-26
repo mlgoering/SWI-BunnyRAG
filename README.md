@@ -12,6 +12,14 @@ For synthetic-only experiments (no text, no Hugging Face model calls), use:
 
 This folder contains a self-contained synthetic analog of BunnyRAG/GraphRAG and lambda-sweep tooling over synthetic vector/graph data.
 
+Key synthetic additions on this branch:
+- Data/query vector-space controls:
+  - `generate_synthetic_data.py --vector-space {orthant,sphere}`
+  - `synthetic_*rag.py` and `synthetic_lambda_sweep.py --query-vector-space {orthant,sphere}`
+- Behavior benchmarking:
+  - `synthetic_bunny/behavior_test_runner.py --seed-community-policy {same,mixed}`
+  - Similarity comparison is tracked as **delta query similarity** (`bunny - baseline`) in behavior outputs/reports.
+
 ## Repo Map
 
 ### 1) Wikipedia article list + scraping
