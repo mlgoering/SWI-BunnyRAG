@@ -113,6 +113,15 @@ def main() -> int:
         default=123,
         help="Random seed used when --query-random-points is set.",
     )
+    parser.add_argument(
+        "--query-vector-space",
+        choices=("orthant", "sphere"),
+        default="orthant",
+        help=(
+            "Random query-vector sampling mode when --query-random-points is used. "
+            "'orthant' samples non-negative coordinates; 'sphere' samples full-sphere vectors."
+        ),
+    )
     parser.add_argument("--seed-k", type=int, default=5, help="Number of starting seed nodes.")
     parser.add_argument("--top-k", type=int, default=10, help="Number of ranked Bunny nodes.")
     parser.add_argument("--labda", type=float, default=0.02, help="Penalty coefficient.")
@@ -142,8 +151,14 @@ def main() -> int:
         first_key = next(iter(embeddings))
         dim = int(embeddings[first_key].shape[0])
         rng = np.random.default_rng(args.query_seed)
-        query_vec = rng.random(size=dim)
-        query_vec /= np.linalg.norm(query_vec)
+        if args.query_vector_space == "sphere":
+            query_vec = rng.normal(loc=0.0, scale=1.0, size=dim)
+        else:
+            query_vec = rng.random(size=dim)
+        norm = np.linalg.norm(query_vec)
+        if norm <= 0.0:
+            raise ValueError("Random query vector norm is zero.")
+        query_vec /= norm
         query_mode = "random_sphere_points"
 
     all_ranked = rank_nodes_by_query_similarity(embeddings, query_vec)
@@ -167,6 +182,9 @@ def main() -> int:
         "query_vertices": query_vertices,
         "query_random_points": args.query_random_points,
         "query_seed": args.query_seed if args.query_random_points else None,
+        "query_vector_space": (
+            args.query_vector_space if args.query_random_points else None
+        ),
         "seed_k": args.seed_k,
         "top_k": args.top_k,
         "labda": args.labda,

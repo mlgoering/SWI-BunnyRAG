@@ -60,6 +60,8 @@ def test_synthetic_graphrag_outputs_and_schema(tmp_path: Path) -> None:
             str(vectors_path),
             "--query-random-points",
             "1",
+            "--query-vector-space",
+            "sphere",
             "--query-seed",
             "17",
             "--seed-k",
@@ -77,6 +79,7 @@ def test_synthetic_graphrag_outputs_and_schema(tmp_path: Path) -> None:
 
     payload = json.loads(out_path.read_text(encoding="utf-8"))
     assert payload["query_mode"] == "random_sphere_points"
+    assert payload["query_vector_space"] == "sphere"
     assert payload["seed_k"] == 3
     assert payload["top_k"] == 8
     assert payload["max_distance"] == 6.0

@@ -60,6 +60,8 @@ def test_lambda_sweep_outputs_and_schema(tmp_path: Path) -> None:
             str(vectors_path),
             "--query-random-points",
             "1",
+            "--query-vector-space",
+            "sphere",
             "--query-seed",
             "17",
             "--seed-k",
@@ -96,6 +98,7 @@ def test_lambda_sweep_outputs_and_schema(tmp_path: Path) -> None:
             } <= set(row.keys())
 
     graphrag = json.loads(graphrag_path.read_text(encoding="utf-8"))
+    assert graphrag["query_vector_space"] == "sphere"
     assert graphrag["top_k"] == 7
     assert graphrag["max_distance"] == 6.0
     assert isinstance(graphrag.get("seed_nodes"), list)
