@@ -72,6 +72,15 @@ def main() -> int:
         default=0.2,
         help="Inter-community edge pull scale for visualization only.",
     )
+    parser.add_argument(
+        "--vector-space",
+        choices=("orthant", "sphere"),
+        default="orthant",
+        help=(
+            "Vector sampling mode: 'orthant' samples in the non-negative orthant, "
+            "'sphere' samples over the full unit sphere."
+        ),
+    )
     args = parser.parse_args()
 
     mod = _load_generator_module()
@@ -81,6 +90,7 @@ def main() -> int:
         scale_prob=args.scale_prob,
         seed=args.seed,
         bidirectional=args.bidirectional,
+        non_negative_orthant=(args.vector_space == "orthant"),
     )
 
     sizes = mod.component_sizes(args.n, edges)
@@ -102,6 +112,7 @@ def main() -> int:
         "dim": args.dim,
         "scale_prob": args.scale_prob,
         "seed": args.seed,
+        "vector_space": args.vector_space,
         "vectors": vectors,
     }
     vectors_path = Path(args.vectors_output_path)
