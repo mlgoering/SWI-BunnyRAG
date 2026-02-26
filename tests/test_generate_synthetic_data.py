@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 import os
 import subprocess
 import sys
@@ -19,6 +20,7 @@ def _run_generate(
     dim: int = 4,
     scale_prob: float = 1.0,
     seed: int = 42,
+    vector_space: str = "orthant",
     plot_path: Path | None = None,
     check: bool = True,
 ) -> subprocess.CompletedProcess[str]:
@@ -34,6 +36,8 @@ def _run_generate(
         str(scale_prob),
         "--seed",
         str(seed),
+        "--vector-space",
+        str(vector_space),
         "--output-path",
         str(output_graph),
         "--vectors-output-path",
@@ -179,3 +183,34 @@ def test_generate_plot_path_writes_png(tmp_path: Path) -> None:
 
     assert plot_path.exists()
     assert plot_path.stat().st_size > 0
+
+
+def test_generate_sphere_mode_pipeline(tmp_path: Path) -> None:
+    graph_path = tmp_path / "graph_sphere.json"
+    vectors_path = tmp_path / "vectors_sphere.json"
+
+    _run_generate(
+        graph_path,
+        vectors_path,
+        n=40,
+        dim=6,
+        scale_prob=0.7,
+        seed=11,
+        vector_space="sphere",
+    )
+
+    graph = json.loads(graph_path.read_text(encoding="utf-8"))
+    vectors = json.loads(vectors_path.read_text(encoding="utf-8"))
+
+    assert len(graph["nodes"]) == 40
+    assert len(graph["edges"]) > 0
+    assert vectors["vector_space"] == "sphere"
+    assert len(vectors["vectors"]) == 40
+    assert len(vectors["vectors"][0]) == 6
+
+    for vec in vectors["vectors"]:
+        norm = math.sqrt(sum(v * v for v in vec))
+        assert abs(norm - 1.0) < 1e-9
+
+    # Full-sphere sampling should include at least one negative coordinate.
+    assert any(value < 0.0 for vec in vectors["vectors"] for value in vec)
