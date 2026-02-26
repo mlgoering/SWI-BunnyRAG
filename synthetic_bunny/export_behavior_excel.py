@@ -40,6 +40,20 @@ def _load_rows(path: Path) -> List[Dict[str, object]]:
                     parsed[k] = v if v == "NA" else float(v)
                     continue
                 parsed[k] = float(v)
+            if (
+                "delta_query_similarity_vs_graphrag" not in parsed
+                and "sim_retention_vs_graphrag" in parsed
+            ):
+                parsed["delta_query_similarity_vs_graphrag"] = parsed[
+                    "sim_retention_vs_graphrag"
+                ]
+            if (
+                "delta_query_similarity_vs_random" not in parsed
+                and "sim_retention_vs_random" in parsed
+            ):
+                parsed["delta_query_similarity_vs_random"] = parsed[
+                    "sim_retention_vs_random"
+                ]
             rows.append(parsed)
     return rows
 
@@ -75,6 +89,14 @@ def _bool_status(value: object):
 
 
 def _metric_pass_statuses(row: Dict[str, object], thresholds: Dict[str, float]) -> Dict[str, bool | None]:
+    min_sim_delta_gr = thresholds.get(
+        "min_delta_query_similarity_vs_graphrag",
+        thresholds.get("min_sim_retention_vs_graphrag", 0.0),
+    )
+    min_sim_delta_rd = thresholds.get(
+        "min_delta_query_similarity_vs_random",
+        thresholds.get("min_sim_retention_vs_random", 0.0),
+    )
     if not _is_bunny(row):
         return {
             "lift_coverage_vs_graphrag": None,
@@ -82,13 +104,13 @@ def _metric_pass_statuses(row: Dict[str, object], thresholds: Dict[str, float]) 
             "delta_entropy_vs_graphrag": None,
             "improve_max_share_vs_graphrag": None,
             "improve_kl_vs_graphrag": None,
-            "sim_retention_vs_graphrag": None,
+            "delta_query_similarity_vs_graphrag": None,
             "lift_coverage_vs_random": None,
             "lift_entropy_vs_random": None,
             "delta_entropy_vs_random": None,
             "improve_max_share_vs_random": None,
             "improve_kl_vs_random": None,
-            "sim_retention_vs_random": None,
+            "delta_query_similarity_vs_random": None,
         }
     lift_entropy_gr = _to_float_or_none(row["lift_entropy_vs_graphrag"])
     lift_entropy_rd = _to_float_or_none(row["lift_entropy_vs_random"])
@@ -105,8 +127,10 @@ def _metric_pass_statuses(row: Dict[str, object], thresholds: Dict[str, float]) 
         >= thresholds["min_improve_max_share_vs_graphrag"],
         "improve_kl_vs_graphrag": float(row["improve_kl_vs_graphrag"])
         >= thresholds["min_improve_kl_vs_graphrag"],
-        "sim_retention_vs_graphrag": float(row["sim_retention_vs_graphrag"])
-        >= thresholds["min_sim_retention_vs_graphrag"],
+        "delta_query_similarity_vs_graphrag": float(
+            row["delta_query_similarity_vs_graphrag"]
+        )
+        >= min_sim_delta_gr,
         "lift_coverage_vs_random": float(row["lift_coverage_vs_random"])
         >= thresholds["min_lift_coverage_vs_random"],
         "lift_entropy_vs_random": (
@@ -119,8 +143,10 @@ def _metric_pass_statuses(row: Dict[str, object], thresholds: Dict[str, float]) 
         >= thresholds["min_improve_max_share_vs_random"],
         "improve_kl_vs_random": float(row["improve_kl_vs_random"])
         >= thresholds["min_improve_kl_vs_random"],
-        "sim_retention_vs_random": float(row["sim_retention_vs_random"])
-        >= thresholds["min_sim_retention_vs_random"],
+        "delta_query_similarity_vs_random": float(
+            row["delta_query_similarity_vs_random"]
+        )
+        >= min_sim_delta_rd,
     }
 
 
@@ -169,6 +195,14 @@ def main() -> int:
     rows = _load_rows(rows_path)
     meta = json.loads(metadata_path.read_text(encoding="utf-8"))
     thresholds: Dict[str, float] = meta.get("thresholds", {})
+    min_sim_delta_gr = thresholds.get(
+        "min_delta_query_similarity_vs_graphrag",
+        thresholds.get("min_sim_retention_vs_graphrag", 0.0),
+    )
+    min_sim_delta_rd = thresholds.get(
+        "min_delta_query_similarity_vs_random",
+        thresholds.get("min_sim_retention_vs_random", 0.0),
+    )
     lambdas = [float(x) for x in meta.get("lambdas", [])]
 
     wb = Workbook()
@@ -226,8 +260,8 @@ def main() -> int:
         "mean_improve_kl_vs_random",
         "mean_improve_max_share_vs_graphrag",
         "mean_improve_max_share_vs_random",
-        "mean_sim_retention_vs_graphrag",
-        "mean_sim_retention_vs_random",
+        "mean_delta_query_similarity_vs_graphrag",
+        "mean_delta_query_similarity_vs_random",
         "pass_mean_diversity_vs_graphrag",
         "pass_mean_diversity_vs_random",
         "pass_mean_relevance_vs_graphrag",
@@ -288,22 +322,26 @@ def main() -> int:
         mean_imp_share_rd = mean(
             float(r["improve_max_share_vs_random"]) for r in lam_rows
         )
-        mean_sim_ret = mean(float(r["sim_retention_vs_graphrag"]) for r in lam_rows)
-        mean_sim_ret_rd = mean(float(r["sim_retention_vs_random"]) for r in lam_rows)
+        mean_sim_delta = mean(
+            float(r["delta_query_similarity_vs_graphrag"]) for r in lam_rows
+        )
+        mean_sim_delta_rd = mean(
+            float(r["delta_query_similarity_vs_random"]) for r in lam_rows
+        )
         pass_div = (
             mean_lift_cov >= thresholds["min_lift_coverage_vs_graphrag"]
             and mean_delta_ent >= 0.0
             and mean_imp_kl >= thresholds["min_improve_kl_vs_graphrag"]
             and mean_imp_share >= thresholds["min_improve_max_share_vs_graphrag"]
         )
-        pass_rel = mean_sim_ret >= thresholds["min_sim_retention_vs_graphrag"]
+        pass_rel = mean_sim_delta >= min_sim_delta_gr
         pass_div_rd = (
             mean_lift_cov_rd >= thresholds["min_lift_coverage_vs_random"]
             and mean_delta_ent_rd >= 0.0
             and mean_imp_kl_rd >= thresholds["min_improve_kl_vs_random"]
             and mean_imp_share_rd >= thresholds["min_improve_max_share_vs_random"]
         )
-        pass_rel_rd = mean_sim_ret_rd >= thresholds["min_sim_retention_vs_random"]
+        pass_rel_rd = mean_sim_delta_rd >= min_sim_delta_rd
         summary_rows.append(
             {
                 "lambda": lam,
@@ -322,8 +360,8 @@ def main() -> int:
                 "mean_improve_kl_vs_random": mean_imp_kl_rd,
                 "mean_improve_max_share_vs_graphrag": mean_imp_share,
                 "mean_improve_max_share_vs_random": mean_imp_share_rd,
-                "mean_sim_retention_vs_graphrag": mean_sim_ret,
-                "mean_sim_retention_vs_random": mean_sim_ret_rd,
+                "mean_delta_query_similarity_vs_graphrag": mean_sim_delta,
+                "mean_delta_query_similarity_vs_random": mean_sim_delta_rd,
                 "pass_mean_diversity_vs_graphrag": pass_div,
                 "pass_mean_diversity_vs_random": pass_div_rd,
                 "pass_mean_relevance_vs_graphrag": pass_rel,
@@ -371,10 +409,14 @@ def main() -> int:
                 "mean_improve_max_share_vs_random"
             ]
             >= thresholds["min_improve_max_share_vs_random"],
-            "mean_sim_retention_vs_graphrag": row["mean_sim_retention_vs_graphrag"]
-            >= thresholds["min_sim_retention_vs_graphrag"],
-            "mean_sim_retention_vs_random": row["mean_sim_retention_vs_random"]
-            >= thresholds["min_sim_retention_vs_random"],
+            "mean_delta_query_similarity_vs_graphrag": row[
+                "mean_delta_query_similarity_vs_graphrag"
+            ]
+            >= min_sim_delta_gr,
+            "mean_delta_query_similarity_vs_random": row[
+                "mean_delta_query_similarity_vs_random"
+            ]
+            >= min_sim_delta_rd,
             "pass_mean_diversity_vs_graphrag": bool(
                 row["pass_mean_diversity_vs_graphrag"]
             ),
@@ -463,8 +505,8 @@ def main() -> int:
         "improve_max_share_vs_random",
         "improve_kl_vs_graphrag",
         "improve_kl_vs_random",
-        "sim_retention_vs_graphrag",
-        "sim_retention_vs_random",
+        "delta_query_similarity_vs_graphrag",
+        "delta_query_similarity_vs_random",
         "pass_diversity_vs_graphrag",
         "pass_diversity_vs_random",
         "pass_relevance_vs_graphrag",
@@ -484,8 +526,8 @@ def main() -> int:
         "improve_max_share_vs_random",
         "improve_kl_vs_graphrag",
         "improve_kl_vs_random",
-        "sim_retention_vs_graphrag",
-        "sim_retention_vs_random",
+        "delta_query_similarity_vs_graphrag",
+        "delta_query_similarity_vs_random",
     ]
     bool_cols = [h for h in all_headers if h.startswith("pass_")]
 

@@ -40,6 +40,20 @@ def _load_rows(path: Path) -> List[Dict[str, object]]:
                     parsed[k] = v if v == "NA" else float(v)
                     continue
                 parsed[k] = float(v)
+            if (
+                "delta_query_similarity_vs_graphrag" not in parsed
+                and "sim_retention_vs_graphrag" in parsed
+            ):
+                parsed["delta_query_similarity_vs_graphrag"] = parsed[
+                    "sim_retention_vs_graphrag"
+                ]
+            if (
+                "delta_query_similarity_vs_random" not in parsed
+                and "sim_retention_vs_random" in parsed
+            ):
+                parsed["delta_query_similarity_vs_random"] = parsed[
+                    "sim_retention_vs_random"
+                ]
             rows.append(parsed)
     return rows
 
@@ -100,10 +114,17 @@ def main() -> int:
     rows = _load_rows(Path(args.rows_csv))
     meta = json.loads(Path(args.metadata_json).read_text(encoding="utf-8"))
     thresholds: Dict[str, float] = meta.get("thresholds", {})
+    min_sim_delta_gr = thresholds.get(
+        "min_delta_query_similarity_vs_graphrag",
+        thresholds.get("min_sim_retention_vs_graphrag", 0.0),
+    )
+    min_sim_delta_rd = thresholds.get(
+        "min_delta_query_similarity_vs_random",
+        thresholds.get("min_sim_retention_vs_random", 0.0),
+    )
     lambdas = [float(x) for x in meta.get("lambdas", [])]
     params = meta.get("params", {})
 
-    # Colorblind-friendly fills: blue (pass), orange (fail).
     pass_fill = PatternFill(fill_type="solid", fgColor="FFBDD7EE")
     fail_fill = PatternFill(fill_type="solid", fgColor="FFFCE4D6")
     gray = PatternFill(fill_type="solid", fgColor="FFEFEFEF")
@@ -132,8 +153,8 @@ def main() -> int:
         "mean_delta_coverage_vs_random",
         "mean_improve_kl_vs_graphrag",
         "mean_improve_kl_vs_random",
-        "mean_sim_retention_vs_graphrag",
-        "mean_sim_retention_vs_random",
+        "mean_delta_query_similarity_vs_graphrag",
+        "mean_delta_query_similarity_vs_random",
     ]
 
     summary_rows: List[Dict[str, object]] = []
@@ -178,11 +199,11 @@ def main() -> int:
                 "mean_improve_kl_vs_random": mean(
                     float(r["improve_kl_vs_random"]) for r in lam_rows
                 ),
-                "mean_sim_retention_vs_graphrag": mean(
-                    float(r["sim_retention_vs_graphrag"]) for r in lam_rows
+                "mean_delta_query_similarity_vs_graphrag": mean(
+                    float(r["delta_query_similarity_vs_graphrag"]) for r in lam_rows
                 ),
-                "mean_sim_retention_vs_random": mean(
-                    float(r["sim_retention_vs_random"]) for r in lam_rows
+                "mean_delta_query_similarity_vs_random": mean(
+                    float(r["delta_query_similarity_vs_random"]) for r in lam_rows
                 ),
             }
         )
@@ -200,9 +221,9 @@ def main() -> int:
     ws["B4"] = params.get("scale_prob")
 
     ws["D1"] = "Legend"
-    ws["D2"] = "Pass (colorblind-safe)"
+    ws["D2"] = "Pass"
     ws["E2"] = "Blue"
-    ws["D3"] = "Fail (colorblind-safe)"
+    ws["D3"] = "Fail"
     ws["E3"] = "Orange"
     ws["E2"].fill = pass_fill
     ws["E3"].fill = fail_fill
@@ -213,8 +234,8 @@ def main() -> int:
         ("min_lift_entropy_vs_random", thresholds.get("min_lift_entropy_vs_random")),
         ("min_improve_kl_vs_graphrag", thresholds.get("min_improve_kl_vs_graphrag")),
         ("min_improve_kl_vs_random", thresholds.get("min_improve_kl_vs_random")),
-        ("min_sim_retention_vs_graphrag", thresholds.get("min_sim_retention_vs_graphrag")),
-        ("min_sim_retention_vs_random", thresholds.get("min_sim_retention_vs_random")),
+        ("min_delta_query_similarity_vs_graphrag", min_sim_delta_gr),
+        ("min_delta_query_similarity_vs_random", min_sim_delta_rd),
         ("min_delta_coverage_vs_graphrag", 0.0),
         ("min_delta_coverage_vs_random", 0.0),
     ]
@@ -295,14 +316,14 @@ def main() -> int:
             >= thresholds["min_improve_kl_vs_graphrag"],
             "mean_improve_kl_vs_random": float(row["mean_improve_kl_vs_random"])
             >= thresholds["min_improve_kl_vs_random"],
-            "mean_sim_retention_vs_graphrag": float(
-                row["mean_sim_retention_vs_graphrag"]
+            "mean_delta_query_similarity_vs_graphrag": float(
+                row["mean_delta_query_similarity_vs_graphrag"]
             )
-            >= thresholds["min_sim_retention_vs_graphrag"],
-            "mean_sim_retention_vs_random": float(
-                row["mean_sim_retention_vs_random"]
+            >= min_sim_delta_gr,
+            "mean_delta_query_similarity_vs_random": float(
+                row["mean_delta_query_similarity_vs_random"]
             )
-            >= thresholds["min_sim_retention_vs_random"],
+            >= min_sim_delta_rd,
         }
         header_idx = {h: i + 1 for i, h in enumerate(summary_headers)}
         for metric, status in checks.items():
