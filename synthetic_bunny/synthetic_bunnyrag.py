@@ -53,7 +53,7 @@ def bunny_rank(
                 all_raw_conductances.append(raw_conductance)
 
             sim = cosine(embeddings[node_id], embeddings[seed])
-            sim = max(0.0, min(1.0, float(sim)))
+            sim = float(sim)
             pair_data.append((raw_conductance, sim))
         candidate_pair_data[node_id] = pair_data
 
