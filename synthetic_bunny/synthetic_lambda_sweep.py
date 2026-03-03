@@ -58,6 +58,15 @@ def main() -> int:
         default=123,
         help="Random seed used when --query-random-points is set.",
     )
+    parser.add_argument(
+        "--query-vector-space",
+        choices=("orthant", "sphere"),
+        default="orthant",
+        help=(
+            "Random query-vector sampling mode when --query-random-points is used. "
+            "'orthant' samples non-negative coordinates; 'sphere' samples full-sphere vectors."
+        ),
+    )
     parser.add_argument("--seed-k", type=int, default=5, help="Number of seed nodes.")
     parser.add_argument("--top-k", type=int, default=5, help="Top-k nodes per lambda.")
     parser.add_argument("--lambdas", default="-0.2,-0.1,0.0,0.1,0.2", help="CSV lambda values.")
@@ -95,8 +104,14 @@ def main() -> int:
         first_key = next(iter(embeddings))
         dim = int(embeddings[first_key].shape[0])
         rng = np.random.default_rng(args.query_seed)
-        query_vec = rng.random(size=dim)
-        query_vec /= np.linalg.norm(query_vec)
+        if args.query_vector_space == "sphere":
+            query_vec = rng.normal(loc=0.0, scale=1.0, size=dim)
+        else:
+            query_vec = rng.random(size=dim)
+        norm = np.linalg.norm(query_vec)
+        if norm <= 0.0:
+            raise ValueError("Random query vector norm is zero.")
+        query_vec /= norm
         query_mode = "random_sphere_points"
     ranked_by_query = rank_nodes_by_query_similarity(embeddings, query_vec)
     seed_nodes = [node for node, _ in ranked_by_query[: args.seed_k]]
@@ -165,6 +180,9 @@ def main() -> int:
         "query_vertices": query_vertices,
         "query_random_points": args.query_random_points,
         "query_seed": args.query_seed if args.query_random_points else None,
+        "query_vector_space": (
+            args.query_vector_space if args.query_random_points else None
+        ),
         "seed_nodes": seed_nodes,
         "top_k": args.top_k,
         "max_distance": args.graphrag_max_distance,
@@ -189,6 +207,7 @@ def main() -> int:
         f"Query vertices: {query_vertices}",
         f"Query random points: {args.query_random_points}",
         f"Query seed: {args.query_seed if args.query_random_points else 'n/a'}",
+        f"Query vector space: {args.query_vector_space if args.query_random_points else 'n/a'}",
         f"Seed nodes: {seed_nodes}",
         f"Lambdas: {sorted(lambdas)}",
         "",

@@ -4,7 +4,7 @@
 - GraphRAG
 - BunnyRAG
 
-It is designed for experiments where graph nodes are represented by numeric vectors (not text).  
+It is designed for experiments where graph nodes are represented by numeric vectors (not text).
 Because there is no text embedding step, this folder does **not** call Hugging Face or `SentenceTransformer`, so runs are faster and cleaner for synthetic experiments.
 
 ## What "self-contained" means
@@ -36,11 +36,16 @@ It still needs two input files (usually generated elsewhere in this repo):
 - `common.py`
   - Shared loading, similarity, weighted-distance, and effective-resistance utilities.
 
+- `generate_synthetic_data.py`
+  - Generates synthetic graph + vectors payloads.
+  - Supports `--vector-space {orthant,sphere}`.
+
 - `synthetic_graphrag.py`
   - Synthetic GraphRAG selection.
   - Seed nodes are chosen by query-vector cosine similarity.
-  - Expansion ranking uses **average weighted shortest-path distance** to seed nodes.
+  - Expansion ranking uses average weighted shortest-path distance to seed nodes.
   - Edge cost is `1 / weight` (higher weight = closer).
+  - Supports `--query-vector-space {orthant,sphere}` in random-query mode.
 
 - `synthetic_bunnyrag.py`
   - Synthetic BunnyRAG selection.
@@ -48,16 +53,26 @@ It still needs two input files (usually generated elsewhere in this repo):
   - Utility:
     - reward = average normalized conductance over seeds
     - penalty = `lambda * average seed cosine`
+  - Supports `--query-vector-space {orthant,sphere}` in random-query mode.
 
 - `synthetic_lambda_sweep.py`
   - Runs BunnyRAG across multiple lambda values.
   - Also computes a GraphRAG baseline and overlap reports.
+  - Supports `--query-vector-space {orthant,sphere}` in random-query mode.
 
 - `visualize_lambda_sweep.py`
   - Interactive HTML visualization with slider:
     - `GraphRAG`
-    - `λ = ...` for each lambda from sweep output
+    - `lambda = ...` for each lambda from sweep output
   - Uses a community-aware layout for clearer cluster structure.
+
+- `behavior_test_runner.py`
+  - Runs multi-dataset, multi-query behavior experiments.
+  - Supports orthant/sphere graph generation and same/mixed seed-community policy.
+  - Uses similarity deltas (`bunny - baseline`) for relevance metrics.
+
+- `export_behavior_excel.py` / `export_behavior_excel_condensed.py`
+  - Convert behavior runner CSV + metadata outputs into Excel reports.
 
 ## Query modes
 
@@ -69,8 +84,11 @@ All synthetic scripts support:
 
 2. Random-query mode:
 - `--query-random-points 1 --query-seed 17`
-- Current behavior uses one random unit vector in the same dimension as node vectors
+- One random unit vector is used in the same dimension as node vectors
 - `--query-seed` controls reproducibility
+- `--query-vector-space {orthant,sphere}` controls random-query sampling:
+  - `orthant`: non-negative coordinates
+  - `sphere`: full-sphere Gaussian sampling, then normalization
 
 ## Quick start
 
@@ -79,9 +97,12 @@ Generate synthetic graph + vectors:
 ```powershell
 python synthetic_bunny\generate_synthetic_data.py ^
   --n 75 --dim 4 --scale-prob 0.1 ^
+  --vector-space orthant ^
   --output-path "synthetic_bunny/output/example_run/random_spherical_bunny_graph.json" ^
   --vectors-output-path "synthetic_bunny/output/example_run/random_spherical_vectors.json"
 ```
+
+Use `--vector-space sphere` to sample node vectors over the full unit sphere.
 
 Run a lambda sweep:
 
@@ -89,7 +110,7 @@ Run a lambda sweep:
 python synthetic_bunny\synthetic_lambda_sweep.py ^
   --graph-path "synthetic_bunny/output/example_run/random_spherical_bunny_graph.json" ^
   --vectors-path "synthetic_bunny/output/example_run/random_spherical_vectors.json" ^
-  --query-random-points 1 --query-seed 17 ^
+  --query-random-points 1 --query-seed 17 --query-vector-space sphere ^
   --seed-k 3 --top-k 10 ^
   --lambdas "0,0.1,0.2,0.3,0.4,0.5" ^
   --graphrag-max-distance 6.0 ^
@@ -106,6 +127,27 @@ python synthetic_bunny\visualize_lambda_sweep.py ^
   --output-html "synthetic_bunny/output/example_run/synthetic_lambda_sweep_visualization.html"
 ```
 
+## Behavior runner quick start
+
+Run a behavior sweep:
+
+```powershell
+python synthetic_bunny\behavior_test_runner.py ^
+  --num-datasets 5 --queries-per-dataset 10 ^
+  --vector-space sphere ^
+  --seed-community-policy same ^
+  --output-dir "synthetic_bunny/output/behavior_runner/sphere_same"
+```
+
+Export condensed Excel report:
+
+```powershell
+python synthetic_bunny\export_behavior_excel_condensed.py ^
+  --rows-csv "synthetic_bunny/output/behavior_runner/sphere_same/behavior_results_rows.csv" ^
+  --metadata-json "synthetic_bunny/output/behavior_runner/sphere_same/behavior_metadata.json" ^
+  --output-xlsx "presentation/testing/behavior_report_condensed_sphere_same.xlsx"
+```
+
 ## Outputs
 
 Typical sweep outputs:
@@ -115,6 +157,11 @@ Typical sweep outputs:
 
 Visualization output:
 - `synthetic_lambda_sweep_visualization.html`
+
+Behavior runner outputs:
+- `behavior_results_rows.json`
+- `behavior_results_rows.csv`
+- `behavior_metadata.json`
 
 ## Limitations
 
@@ -127,4 +174,3 @@ Visualization output:
 - Fix all seeds (`graph` generation seed and `query-seed`) for stable comparisons.
 - Keep graph and vector files paired from the same generation run.
 - Record `seed_k`, `top_k`, lambda list, and max-distance settings with outputs.
-

@@ -7,12 +7,18 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 
-def random_unit_vector(dim: int, rng: random.Random) -> List[float]:
-    # Sample in the non-negative orthant, then normalize to the unit sphere.
-    values = [rng.random() for _ in range(dim)]
+def random_unit_vector(dim: int, rng: random.Random, non_negative_orthant: bool = True) -> List[float]:
+    # Sample then normalize to the unit sphere surface.
+    # - non_negative_orthant=True: sample only in the non-negative orthant
+    # - non_negative_orthant=False: sample across the full sphere
+    if non_negative_orthant:
+        values = [rng.random() for _ in range(dim)]
+    else:
+        # Normalized Gaussian samples are uniformly distributed on the sphere.
+        values = [rng.gauss(0.0, 1.0) for _ in range(dim)]
     norm = math.sqrt(sum(v * v for v in values))
     if norm == 0.0:
-        return random_unit_vector(dim, rng)
+        return random_unit_vector(dim, rng, non_negative_orthant=non_negative_orthant)
     return [v / norm for v in values]
 
 
@@ -22,6 +28,7 @@ def random_spherical_graph(
     scale_prob: float = 0.2,
     seed: Optional[int] = None,
     bidirectional: bool = True,
+    non_negative_orthant: bool = True,
 ) -> Tuple[List[List[float]], List[Tuple[str, str, float]]]:
     """
     Generate a random spherical graph.
@@ -42,7 +49,10 @@ def random_spherical_graph(
         raise ValueError("scale_prob must be non-negative.")
 
     rng = random.Random(seed)
-    vectors = [random_unit_vector(dim, rng) for _ in range(n)]
+    vectors = [
+        random_unit_vector(dim, rng, non_negative_orthant=non_negative_orthant)
+        for _ in range(n)
+    ]
 
     edges: List[Tuple[str, str, float]] = []
     for i in range(n):
@@ -234,6 +244,15 @@ def main() -> int:
             "Smaller values separate clusters more strongly."
         ),
     )
+    parser.add_argument(
+        "--vector-space",
+        choices=("orthant", "sphere"),
+        default="orthant",
+        help=(
+            "Vector sampling mode: 'orthant' samples in the non-negative orthant "
+            "(existing behavior), 'sphere' samples over the full unit sphere."
+        ),
+    )
     args = parser.parse_args()
 
     vectors, edges = random_spherical_graph(
@@ -242,6 +261,7 @@ def main() -> int:
         scale_prob=args.scale_prob,
         seed=args.seed,
         bidirectional=args.bidirectional,
+        non_negative_orthant=(args.vector_space == "orthant"),
     )
 
     sizes = component_sizes(args.n, edges)
@@ -263,6 +283,7 @@ def main() -> int:
         "dim": args.dim,
         "scale_prob": args.scale_prob,
         "seed": args.seed,
+        "vector_space": args.vector_space,
         "vectors": vectors,
     }
     vectors_path = Path(args.vectors_output_path)
