@@ -9,6 +9,7 @@ __pycache__/
 .pytest_cache/
 tests/_tmp_pytest*/
 temp/
+pytest_temp_ps/
 .jupyter_local/
 
 # --- Jupyter ---
@@ -19,6 +20,10 @@ Graph Algorithm/Rule based Casual Graph Generator.ipynb
 
 # --- Synthetic experiment outputs ---
 synthetic_bunny/output/
+
+# --- Generated presentation artifacts ---
+presentation/interactive_projection.html
+presentation/testing/*.xlsx
 
 # --- Generated synthetic graph artifacts ---
 Bunny Rags/random_spherical_bunny_graph*.json
