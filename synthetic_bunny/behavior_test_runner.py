@@ -13,11 +13,25 @@ import networkx as nx
 import numpy as np
 
 from common import (
+    DEFAULT_COSINE_BETA_ALPHA,
+    DEFAULT_COSINE_BETA_CLIP_MAX,
+    DEFAULT_COSINE_BETA_CLIP_MIN,
+    DEFAULT_COSINE_BETA_KAPPA,
+    DEFAULT_COSINE_BETA_OFFSET,
+    DEFAULT_COSINE_BETA_SCALE,
+    DEFAULT_MAX_WEIGHT,
+    DEFAULT_MIN_WEIGHT,
+    DEFAULT_QUERY_THETA0,
+    DEFAULT_QUERY_THETA1,
+    DEFAULT_QUERY_THETA2,
+    DEFAULT_QUERY_THETA3,
+    DEFAULT_TARGET_MEAN_WEIGHT,
     build_undirected_graph,
     cosine,
     effective_resistance,
     parse_csv_floats,
     rank_nodes_by_query_similarity,
+    reweight_edges_by_mode,
     weighted_graph_distance_rank,
 )
 from synthetic_bunnyrag import bunny_rank
@@ -61,7 +75,7 @@ def _build_comm_graph_from_edges(
 
 
 def _community_lookup(g: nx.Graph) -> Tuple[Dict[str, int], Dict[int, int]]:
-    communities = list(nx.community.greedy_modularity_communities(g))
+    communities = list(nx.community.greedy_modularity_communities(g, weight="weight"))
     node_to_comm: Dict[str, int] = {}
     comm_sizes: Dict[int, int] = {}
     for idx, comm in enumerate(communities):
@@ -204,7 +218,7 @@ def main() -> int:
     parser.add_argument(
         "--vector-space",
         choices=("orthant", "sphere"),
-        default="orthant",
+        default="sphere",
         help=(
             "Vector sampling mode for synthetic graph generation: "
             "'orthant' uses non-negative vectors; 'sphere' samples full-sphere vectors."
@@ -260,6 +274,14 @@ def main() -> int:
         help="Max seed retries per dataset to get a connected graph.",
     )
     parser.add_argument(
+        "--require-graphrag-selection",
+        action="store_true",
+        help=(
+            "If set, queries where GraphRAG selects zero nodes are retried and not "
+            "counted toward accepted query totals."
+        ),
+    )
+    parser.add_argument(
         "--sim-delta-min-vs-graphrag",
         "--sim-retention-min-vs-graphrag",
         dest="sim_delta_min_vs_graphrag",
@@ -280,6 +302,99 @@ def main() -> int:
             "Pass threshold for query-similarity delta vs Random "
             "(bunny_avg_query_similarity - random_avg_query_similarity)."
         ),
+    )
+    parser.add_argument(
+        "--edge-weight-mode",
+        choices=("unit", "random", "cosine_beta", "query_aware"),
+        default="random",
+        help=(
+            "Edge conductance mode used during selection. "
+            "'query_aware' reweights per query; other modes are reweighted once per dataset."
+        ),
+    )
+    parser.add_argument(
+        "--edge-weight-seed",
+        type=int,
+        default=None,
+        help="Base RNG seed for stochastic edge reweighting modes.",
+    )
+    parser.add_argument(
+        "--cosine-beta-alpha",
+        type=float,
+        default=DEFAULT_COSINE_BETA_ALPHA,
+        help="Exponent on cosine affinity for cosine_beta weighting.",
+    )
+    parser.add_argument(
+        "--cosine-beta-kappa",
+        type=float,
+        default=DEFAULT_COSINE_BETA_KAPPA,
+        help="Concentration parameter for cosine_beta Beta sampling.",
+    )
+    parser.add_argument(
+        "--cosine-beta-offset",
+        type=float,
+        default=DEFAULT_COSINE_BETA_OFFSET,
+        help="Additive floor for cosine_beta mean conductance.",
+    )
+    parser.add_argument(
+        "--cosine-beta-scale",
+        type=float,
+        default=DEFAULT_COSINE_BETA_SCALE,
+        help="Multiplicative scale for cosine_beta mean conductance.",
+    )
+    parser.add_argument(
+        "--cosine-beta-clip-min",
+        type=float,
+        default=DEFAULT_COSINE_BETA_CLIP_MIN,
+        help="Lower clip for cosine_beta mean before Beta sampling.",
+    )
+    parser.add_argument(
+        "--cosine-beta-clip-max",
+        type=float,
+        default=DEFAULT_COSINE_BETA_CLIP_MAX,
+        help="Upper clip for cosine_beta mean before Beta sampling.",
+    )
+    parser.add_argument(
+        "--query-theta0",
+        type=float,
+        default=DEFAULT_QUERY_THETA0,
+        help="Bias term for query-aware edge reweighting.",
+    )
+    parser.add_argument(
+        "--query-theta1",
+        type=float,
+        default=DEFAULT_QUERY_THETA1,
+        help="cos(x_i,x_j) coefficient for query-aware edge reweighting.",
+    )
+    parser.add_argument(
+        "--query-theta2",
+        type=float,
+        default=DEFAULT_QUERY_THETA2,
+        help="query endpoint relevance coefficient for query-aware edge reweighting.",
+    )
+    parser.add_argument(
+        "--query-theta3",
+        type=float,
+        default=DEFAULT_QUERY_THETA3,
+        help="interaction coefficient for query-aware edge reweighting.",
+    )
+    parser.add_argument(
+        "--target-mean-weight",
+        type=float,
+        default=DEFAULT_TARGET_MEAN_WEIGHT,
+        help="Target mean conductance used for mode normalization.",
+    )
+    parser.add_argument(
+        "--min-weight",
+        type=float,
+        default=DEFAULT_MIN_WEIGHT,
+        help="Minimum clipped conductance for generated weighted modes.",
+    )
+    parser.add_argument(
+        "--max-weight",
+        type=float,
+        default=DEFAULT_MAX_WEIGHT,
+        help="Maximum clipped conductance for generated weighted modes.",
     )
     parser.add_argument(
         "--output-dir",
@@ -308,6 +423,7 @@ def main() -> int:
     dataset_meta: List[Dict[str, object]] = []
 
     query_counter = 0
+    graphrag_empty_retries_total = 0
     require_same_seed_community = args.seed_community_policy == "same"
     for dataset_idx in range(args.num_datasets):
         dataset_id = f"dataset_{dataset_idx + 1:03d}"
@@ -324,6 +440,7 @@ def main() -> int:
                 seed=candidate_seed,
                 bidirectional=True,
                 non_negative_orthant=(args.vector_space == "orthant"),
+                edge_weight_mode="unit",
             )
             sizes = generator.component_sizes(args.n, cand_edges)
             if len(sizes) == 1:
@@ -343,10 +460,42 @@ def main() -> int:
             str(i): np.asarray(vectors[i], dtype=float)
             for i in range(len(vectors))
         }
-        dist_graph = build_undirected_graph(node_ids, edges)
-        comm_graph = _build_comm_graph_from_edges(node_ids, edges)
-        node_to_comm, comm_sizes = _community_lookup(comm_graph)
-        label_to_id, resistance = effective_resistance(node_ids, edges)
+        topology_comm_graph = _build_comm_graph_from_edges(node_ids, edges)
+
+        reweight_seed_base = (
+            args.edge_weight_seed if args.edge_weight_seed is not None else chosen_seed
+        ) + dataset_idx * 1_009
+
+        static_dist_graph = None
+        static_comm_graph = None
+        static_node_to_comm = None
+        static_comm_sizes = None
+        static_label_to_id = None
+        static_resistance = None
+        if args.edge_weight_mode != "query_aware":
+            static_edges = reweight_edges_by_mode(
+                edges,
+                embeddings,
+                mode=args.edge_weight_mode,
+                random_seed=reweight_seed_base,
+                cosine_beta_alpha=args.cosine_beta_alpha,
+                cosine_beta_kappa=args.cosine_beta_kappa,
+                cosine_beta_offset=args.cosine_beta_offset,
+                cosine_beta_scale=args.cosine_beta_scale,
+                cosine_beta_clip_min=args.cosine_beta_clip_min,
+                cosine_beta_clip_max=args.cosine_beta_clip_max,
+                query_theta0=args.query_theta0,
+                query_theta1=args.query_theta1,
+                query_theta2=args.query_theta2,
+                query_theta3=args.query_theta3,
+                target_mean_weight=args.target_mean_weight,
+                min_weight=args.min_weight,
+                max_weight=args.max_weight,
+            )
+            static_dist_graph = build_undirected_graph(node_ids, static_edges)
+            static_comm_graph = _build_comm_graph_from_edges(node_ids, static_edges)
+            static_node_to_comm, static_comm_sizes = _community_lookup(static_comm_graph)
+            static_label_to_id, static_resistance = effective_resistance(node_ids, static_edges)
 
         dataset_meta.append(
             {
@@ -355,15 +504,25 @@ def main() -> int:
                 "n": args.n,
                 "dim": args.dim,
                 "scale_prob": args.scale_prob,
-                "communities_total": len(comm_sizes),
-                "community_sizes_sorted": sorted(comm_sizes.values()),
+                "edge_weight_mode": args.edge_weight_mode,
+                "communities_total": (
+                    len(static_comm_sizes) if static_comm_sizes is not None else "varies_by_query"
+                ),
+                "community_sizes_sorted": (
+                    sorted(static_comm_sizes.values()) if static_comm_sizes is not None else "varies_by_query"
+                ),
                 "edges_stored": len(edges),
-                "edges_undirected": int(comm_graph.number_of_edges()),
+                "edges_undirected": int(
+                    static_comm_graph.number_of_edges()
+                    if static_comm_graph is not None
+                    else topology_comm_graph.number_of_edges()
+                ),
             }
         )
 
         accepted_queries = 0
         attempted_queries = 0
+        graphrag_empty_retries = 0
         while accepted_queries < args.queries_per_dataset:
             if attempted_queries >= args.max_query_attempts_per_dataset:
                 raise RuntimeError(
@@ -381,16 +540,54 @@ def main() -> int:
 
             ranked = rank_nodes_by_query_similarity(embeddings, query_vec)
             seed_nodes = [node for node, _ in ranked[: args.seed_k]]
-            seed_communities = {
-                node_to_comm[node] for node in seed_nodes if node in node_to_comm
-            }
             if len(seed_nodes) != args.seed_k:
                 continue
+
+            if args.edge_weight_mode == "query_aware":
+                query_edges = reweight_edges_by_mode(
+                    edges,
+                    embeddings,
+                    mode="query_aware",
+                    random_seed=reweight_seed_base + query_seed,
+                    query_vector=query_vec,
+                    cosine_beta_alpha=args.cosine_beta_alpha,
+                    cosine_beta_kappa=args.cosine_beta_kappa,
+                    cosine_beta_offset=args.cosine_beta_offset,
+                    cosine_beta_scale=args.cosine_beta_scale,
+                    cosine_beta_clip_min=args.cosine_beta_clip_min,
+                    cosine_beta_clip_max=args.cosine_beta_clip_max,
+                    query_theta0=args.query_theta0,
+                    query_theta1=args.query_theta1,
+                    query_theta2=args.query_theta2,
+                    query_theta3=args.query_theta3,
+                    target_mean_weight=args.target_mean_weight,
+                    min_weight=args.min_weight,
+                    max_weight=args.max_weight,
+                )
+                dist_graph = build_undirected_graph(node_ids, query_edges)
+                comm_graph = _build_comm_graph_from_edges(node_ids, query_edges)
+                node_to_comm, comm_sizes = _community_lookup(comm_graph)
+                label_to_id, resistance = effective_resistance(node_ids, query_edges)
+            else:
+                assert static_dist_graph is not None
+                assert static_node_to_comm is not None
+                assert static_comm_sizes is not None
+                assert static_label_to_id is not None
+                assert static_resistance is not None
+                dist_graph = static_dist_graph
+                node_to_comm = static_node_to_comm
+                comm_sizes = static_comm_sizes
+                label_to_id = static_label_to_id
+                resistance = static_resistance
+
+            seed_communities = {
+                node_to_comm[node]
+                for node in seed_nodes
+                if node in node_to_comm
+            }
             if require_same_seed_community and len(seed_communities) != 1:
                 continue
 
-            accepted_queries += 1
-            query_id = f"q{accepted_queries:03d}"
             seed_set = set(seed_nodes)
 
             graphrag_ranked = weighted_graph_distance_rank(
@@ -401,6 +598,13 @@ def main() -> int:
                 max_distance=args.graphrag_max_distance,
             )[: args.top_k]
             graphrag_nodes = [node for node, _, _ in graphrag_ranked]
+            if args.require_graphrag_selection and not graphrag_nodes:
+                graphrag_empty_retries += 1
+                graphrag_empty_retries_total += 1
+                continue
+
+            accepted_queries += 1
+            query_id = f"q{accepted_queries:03d}"
             gr_metrics = _selection_metrics(
                 selected_nodes=graphrag_nodes,
                 query_vec=query_vec,
@@ -586,10 +790,12 @@ def main() -> int:
 
         dataset_meta[-1]["query_attempts"] = attempted_queries
         dataset_meta[-1]["accepted_queries"] = accepted_queries
+        dataset_meta[-1]["graphrag_empty_retries"] = graphrag_empty_retries
 
     metadata = {
         "params": vars(args),
         "lambdas": [float(x) for x in lambdas],
+        "graphrag_empty_retries_total": graphrag_empty_retries_total,
         "thresholds": {
             "min_lift_coverage_vs_graphrag": 0.0,
             "min_lift_entropy_vs_graphrag": 0.0,

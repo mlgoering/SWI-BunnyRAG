@@ -5,6 +5,21 @@ import importlib.util
 import json
 from pathlib import Path
 
+import numpy as np
+
+from common import (
+    DEFAULT_COSINE_BETA_ALPHA,
+    DEFAULT_COSINE_BETA_CLIP_MAX,
+    DEFAULT_COSINE_BETA_CLIP_MIN,
+    DEFAULT_COSINE_BETA_KAPPA,
+    DEFAULT_COSINE_BETA_OFFSET,
+    DEFAULT_COSINE_BETA_SCALE,
+    DEFAULT_MAX_WEIGHT,
+    DEFAULT_MIN_WEIGHT,
+    DEFAULT_TARGET_MEAN_WEIGHT,
+    reweight_edges_by_mode,
+)
+
 
 def _load_generator_module():
     repo_root = Path(__file__).resolve().parent.parent
@@ -81,6 +96,80 @@ def main() -> int:
             "'sphere' samples over the full unit sphere."
         ),
     )
+    parser.add_argument(
+        "--edge-weight-mode",
+        choices=("unit", "random", "cosine_beta"),
+        default="unit",
+        help=(
+            "Conductance assignment after topology generation. "
+            "'unit' keeps topology-only output, "
+            "'random' assigns uniform random conductances, "
+            "'cosine_beta' assigns cosine-correlated stochastic conductances."
+        ),
+    )
+    parser.add_argument(
+        "--edge-weight-seed",
+        type=int,
+        default=None,
+        help=(
+            "RNG seed for post-topology edge reweighting. "
+            "Defaults to --seed when omitted."
+        ),
+    )
+    parser.add_argument(
+        "--cosine-beta-alpha",
+        type=float,
+        default=DEFAULT_COSINE_BETA_ALPHA,
+        help="Exponent on cosine affinity for cosine_beta weighting.",
+    )
+    parser.add_argument(
+        "--cosine-beta-kappa",
+        type=float,
+        default=DEFAULT_COSINE_BETA_KAPPA,
+        help="Concentration parameter for cosine_beta Beta sampling.",
+    )
+    parser.add_argument(
+        "--cosine-beta-offset",
+        type=float,
+        default=DEFAULT_COSINE_BETA_OFFSET,
+        help="Additive floor for cosine_beta mean conductance.",
+    )
+    parser.add_argument(
+        "--cosine-beta-scale",
+        type=float,
+        default=DEFAULT_COSINE_BETA_SCALE,
+        help="Multiplicative scale for cosine_beta mean conductance.",
+    )
+    parser.add_argument(
+        "--cosine-beta-clip-min",
+        type=float,
+        default=DEFAULT_COSINE_BETA_CLIP_MIN,
+        help="Lower clip for cosine_beta mean before Beta sampling.",
+    )
+    parser.add_argument(
+        "--cosine-beta-clip-max",
+        type=float,
+        default=DEFAULT_COSINE_BETA_CLIP_MAX,
+        help="Upper clip for cosine_beta mean before Beta sampling.",
+    )
+    parser.add_argument(
+        "--target-mean-weight",
+        type=float,
+        default=DEFAULT_TARGET_MEAN_WEIGHT,
+        help="Target mean conductance used for mode normalization.",
+    )
+    parser.add_argument(
+        "--min-weight",
+        type=float,
+        default=DEFAULT_MIN_WEIGHT,
+        help="Minimum clipped conductance for generated weighted modes.",
+    )
+    parser.add_argument(
+        "--max-weight",
+        type=float,
+        default=DEFAULT_MAX_WEIGHT,
+        help="Maximum clipped conductance for generated weighted modes.",
+    )
     args = parser.parse_args()
 
     mod = _load_generator_module()
@@ -91,7 +180,26 @@ def main() -> int:
         seed=args.seed,
         bidirectional=args.bidirectional,
         non_negative_orthant=(args.vector_space == "orthant"),
+        edge_weight_mode="unit",
     )
+
+    if args.edge_weight_mode != "unit":
+        embeddings = {str(i): np.asarray(vectors[i], dtype=float) for i in range(len(vectors))}
+        edges = reweight_edges_by_mode(
+            edges,
+            embeddings,
+            mode=args.edge_weight_mode,
+            random_seed=(args.edge_weight_seed if args.edge_weight_seed is not None else args.seed),
+            cosine_beta_alpha=args.cosine_beta_alpha,
+            cosine_beta_kappa=args.cosine_beta_kappa,
+            cosine_beta_offset=args.cosine_beta_offset,
+            cosine_beta_scale=args.cosine_beta_scale,
+            cosine_beta_clip_min=args.cosine_beta_clip_min,
+            cosine_beta_clip_max=args.cosine_beta_clip_max,
+            target_mean_weight=args.target_mean_weight,
+            min_weight=args.min_weight,
+            max_weight=args.max_weight,
+        )
 
     sizes = mod.component_sizes(args.n, edges)
     if len(sizes) != 1:
@@ -113,6 +221,17 @@ def main() -> int:
         "scale_prob": args.scale_prob,
         "seed": args.seed,
         "vector_space": args.vector_space,
+        "edge_weight_mode": args.edge_weight_mode,
+        "edge_weight_seed": args.edge_weight_seed if args.edge_weight_seed is not None else args.seed,
+        "cosine_beta_alpha": args.cosine_beta_alpha,
+        "cosine_beta_kappa": args.cosine_beta_kappa,
+        "cosine_beta_offset": args.cosine_beta_offset,
+        "cosine_beta_scale": args.cosine_beta_scale,
+        "cosine_beta_clip_min": args.cosine_beta_clip_min,
+        "cosine_beta_clip_max": args.cosine_beta_clip_max,
+        "target_mean_weight": args.target_mean_weight,
+        "min_weight": args.min_weight,
+        "max_weight": args.max_weight,
         "vectors": vectors,
     }
     vectors_path = Path(args.vectors_output_path)
@@ -124,6 +243,7 @@ def main() -> int:
     print(f"Wrote vectors: {vectors_path}")
     print(f"Nodes: {args.n}")
     print(f"Edges stored: {len(edges)} (sampled pairs: {edge_pairs})")
+    print(f"Edge weighting mode: {args.edge_weight_mode}")
     print(f"Weak components: {len(sizes)}")
     print(f"Largest component size: {sizes[0] if sizes else 0}")
 

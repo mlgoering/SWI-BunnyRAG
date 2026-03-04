@@ -29,6 +29,7 @@ def random_spherical_graph(
     seed: Optional[int] = None,
     bidirectional: bool = True,
     non_negative_orthant: bool = True,
+    edge_weight_mode: str = "unit",
 ) -> Tuple[List[List[float]], List[Tuple[str, str, float]]]:
     """
     Generate a random spherical graph.
@@ -36,6 +37,10 @@ def random_spherical_graph(
     Each node gets a random unit vector in R^dim.
     For each i<j, add an edge with probability:
       p = scale_prob * (1 + cos_theta) * 0.5
+
+    Conductance weight assignment:
+      - edge_weight_mode='unit': all sampled edges get conductance 1.0 (topology-first mode)
+      - edge_weight_mode='random': each sampled edge gets Uniform(0,1) conductance
 
     Returns:
       vectors: node embedding vectors
@@ -47,6 +52,8 @@ def random_spherical_graph(
         raise ValueError("dim must be at least 2.")
     if scale_prob < 0.0:
         raise ValueError("scale_prob must be non-negative.")
+    if edge_weight_mode not in {"unit", "random"}:
+        raise ValueError("edge_weight_mode must be 'unit' or 'random'.")
 
     rng = random.Random(seed)
     vectors = [
@@ -62,7 +69,10 @@ def random_spherical_graph(
             p = scale_prob * (1.0 + cos_theta) * 0.5
             p = max(0.0, min(1.0, p))
             if rng.random() < p:
-                weight = rng.random()
+                if edge_weight_mode == "random":
+                    weight = rng.random()
+                else:
+                    weight = 1.0
                 src = str(i)
                 dst = str(j)
                 edges.append((src, dst, weight))
@@ -253,6 +263,15 @@ def main() -> int:
             "(existing behavior), 'sphere' samples over the full unit sphere."
         ),
     )
+    parser.add_argument(
+        "--edge-weight-mode",
+        choices=("unit", "random"),
+        default="unit",
+        help=(
+            "Edge conductance assignment for sampled topology: "
+            "'unit' keeps topology-only graphs, 'random' restores legacy random conductances."
+        ),
+    )
     args = parser.parse_args()
 
     vectors, edges = random_spherical_graph(
@@ -262,6 +281,7 @@ def main() -> int:
         seed=args.seed,
         bidirectional=args.bidirectional,
         non_negative_orthant=(args.vector_space == "orthant"),
+        edge_weight_mode=args.edge_weight_mode,
     )
 
     sizes = component_sizes(args.n, edges)
@@ -284,6 +304,7 @@ def main() -> int:
         "scale_prob": args.scale_prob,
         "seed": args.seed,
         "vector_space": args.vector_space,
+        "edge_weight_mode": args.edge_weight_mode,
         "vectors": vectors,
     }
     vectors_path = Path(args.vectors_output_path)

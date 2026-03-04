@@ -214,3 +214,67 @@ def test_generate_sphere_mode_pipeline(tmp_path: Path) -> None:
 
     # Full-sphere sampling should include at least one negative coordinate.
     assert any(value < 0.0 for vec in vectors["vectors"] for value in vec)
+
+
+def test_generate_unit_mode_sets_topology_only_weights(tmp_path: Path) -> None:
+    graph_path = tmp_path / "graph_unit.json"
+    vectors_path = tmp_path / "vectors_unit.json"
+
+    _run_generate(
+        graph_path,
+        vectors_path,
+        n=35,
+        dim=5,
+        scale_prob=1.0,
+        seed=21,
+    )
+
+    graph = json.loads(graph_path.read_text(encoding="utf-8"))
+    vectors = json.loads(vectors_path.read_text(encoding="utf-8"))
+    weights = [float(item[2]["weight"]) for item in graph["edges"]]
+
+    assert len(weights) > 0
+    assert all(abs(w - 1.0) < 1e-12 for w in weights)
+    assert vectors["edge_weight_mode"] == "unit"
+
+
+def test_generate_cosine_beta_mode_assigns_weighted_conductances(tmp_path: Path) -> None:
+    graph_path = tmp_path / "graph_cosine_beta.json"
+    vectors_path = tmp_path / "vectors_cosine_beta.json"
+    script = _repo_root() / "synthetic_bunny" / "generate_synthetic_data.py"
+    cmd = [
+        sys.executable,
+        str(script),
+        "--n",
+        "35",
+        "--dim",
+        "5",
+        "--scale-prob",
+        "1.0",
+        "--seed",
+        "21",
+        "--edge-weight-mode",
+        "cosine_beta",
+        "--output-path",
+        str(graph_path),
+        "--vectors-output-path",
+        str(vectors_path),
+    ]
+    proc = subprocess.run(
+        cmd,
+        check=True,
+        cwd=str(_repo_root()),
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode == 0
+
+    graph = json.loads(graph_path.read_text(encoding="utf-8"))
+    vectors = json.loads(vectors_path.read_text(encoding="utf-8"))
+    weights = [float(item[2]["weight"]) for item in graph["edges"]]
+
+    assert len(weights) > 0
+    assert all(0.01 <= w <= 0.99 for w in weights)
+    # Ensure this mode is not collapsing to topology-only unit conductances.
+    assert any(abs(w - 1.0) > 1e-6 for w in weights)
+    assert vectors["edge_weight_mode"] == "cosine_beta"

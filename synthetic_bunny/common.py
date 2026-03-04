@@ -3,11 +3,27 @@ from __future__ import annotations
 import json
 import math
 from pathlib import Path
-from typing import Dict, Iterable, List, Sequence, Tuple
+from typing import Dict, Iterable, List, Mapping, Sequence, Tuple
 
 import networkx as nx
 import numpy as np
 import scipy.sparse as sp
+
+DEFAULT_COSINE_BETA_ALPHA = 1.0
+DEFAULT_COSINE_BETA_KAPPA = 2.5
+DEFAULT_COSINE_BETA_OFFSET = 0.05
+DEFAULT_COSINE_BETA_SCALE = 0.90
+DEFAULT_COSINE_BETA_CLIP_MIN = 0.02
+DEFAULT_COSINE_BETA_CLIP_MAX = 0.98
+
+DEFAULT_QUERY_THETA0 = -0.15
+DEFAULT_QUERY_THETA1 = 1.6
+DEFAULT_QUERY_THETA2 = 1.2
+DEFAULT_QUERY_THETA3 = 0.8
+
+DEFAULT_TARGET_MEAN_WEIGHT = 0.50
+DEFAULT_MIN_WEIGHT = 0.01
+DEFAULT_MAX_WEIGHT = 0.99
 
 
 def parse_csv_list(raw: str) -> List[str]:
@@ -194,3 +210,136 @@ def effective_resistance(node_ids: Sequence[str], edges: Sequence[Tuple[str, str
     diag = np.diag(lap_pinv)
     r = diag[:, None] + diag[None, :] - 2.0 * lap_pinv
     return idx, r
+
+
+def _sigmoid(value: float) -> float:
+    if value >= 0.0:
+        z = math.exp(-value)
+        return 1.0 / (1.0 + z)
+    z = math.exp(value)
+    return z / (1.0 + z)
+
+
+def _unique_undirected_pairs(edges: Sequence[Tuple[str, str, float]]) -> List[Tuple[str, str]]:
+    seen: set[Tuple[str, str]] = set()
+    pairs: List[Tuple[str, str]] = []
+    for src, dst, _ in edges:
+        src = str(src)
+        dst = str(dst)
+        if src == dst:
+            continue
+        a, b = (src, dst) if src < dst else (dst, src)
+        if (a, b) in seen:
+            continue
+        seen.add((a, b))
+        pairs.append((a, b))
+    return pairs
+
+
+def reweight_edges_by_mode(
+    edges: Sequence[Tuple[str, str, float]],
+    embeddings: Mapping[str, np.ndarray],
+    *,
+    mode: str,
+    random_seed: int | None = None,
+    query_vector: np.ndarray | None = None,
+    cosine_beta_alpha: float = DEFAULT_COSINE_BETA_ALPHA,
+    cosine_beta_kappa: float = DEFAULT_COSINE_BETA_KAPPA,
+    cosine_beta_offset: float = DEFAULT_COSINE_BETA_OFFSET,
+    cosine_beta_scale: float = DEFAULT_COSINE_BETA_SCALE,
+    cosine_beta_clip_min: float = DEFAULT_COSINE_BETA_CLIP_MIN,
+    cosine_beta_clip_max: float = DEFAULT_COSINE_BETA_CLIP_MAX,
+    query_theta0: float = DEFAULT_QUERY_THETA0,
+    query_theta1: float = DEFAULT_QUERY_THETA1,
+    query_theta2: float = DEFAULT_QUERY_THETA2,
+    query_theta3: float = DEFAULT_QUERY_THETA3,
+    target_mean_weight: float = DEFAULT_TARGET_MEAN_WEIGHT,
+    min_weight: float = DEFAULT_MIN_WEIGHT,
+    max_weight: float = DEFAULT_MAX_WEIGHT,
+) -> List[Tuple[str, str, float]]:
+    """
+    Reweight existing topology edges while preserving the exact edge set/order.
+
+    Edge weights are conductances (larger = stronger/closer).
+    """
+    mode = mode.strip().lower()
+    if mode not in {"unit", "random", "cosine_beta", "query_aware"}:
+        raise ValueError(
+            "mode must be one of: unit, random, cosine_beta, query_aware."
+        )
+
+    if min_weight <= 0.0 or max_weight <= 0.0 or min_weight > max_weight:
+        raise ValueError("Require 0 < min_weight <= max_weight.")
+    if target_mean_weight <= 0.0:
+        raise ValueError("target_mean_weight must be positive.")
+
+    if mode == "query_aware" and query_vector is None:
+        raise ValueError("query_vector is required when mode='query_aware'.")
+
+    if cosine_beta_kappa <= 0.0:
+        raise ValueError("cosine_beta_kappa must be positive.")
+    if cosine_beta_clip_min <= 0.0 or cosine_beta_clip_max >= 1.0:
+        raise ValueError("cosine_beta clip bounds must satisfy 0 < min < max < 1.")
+    if cosine_beta_clip_min >= cosine_beta_clip_max:
+        raise ValueError("cosine_beta_clip_min must be smaller than cosine_beta_clip_max.")
+
+    rng = np.random.default_rng(random_seed)
+    pair_weights: Dict[Tuple[str, str], float] = {}
+    raw_weights: List[float] = []
+    unique_pairs = _unique_undirected_pairs(edges)
+
+    for a, b in unique_pairs:
+        if mode == "unit":
+            raw = 1.0
+        elif mode == "random":
+            raw = float(rng.random())
+        elif mode == "cosine_beta":
+            cos_ab = cosine(embeddings[a], embeddings[b])
+            affinity = (1.0 + cos_ab) * 0.5
+            mu = cosine_beta_offset + cosine_beta_scale * (affinity ** cosine_beta_alpha)
+            mu = float(np.clip(mu, cosine_beta_clip_min, cosine_beta_clip_max))
+            alpha_param = max(cosine_beta_kappa * mu, 1e-6)
+            beta_param = max(cosine_beta_kappa * (1.0 - mu), 1e-6)
+            raw = float(rng.beta(alpha_param, beta_param))
+        else:  # query_aware
+            assert query_vector is not None
+            cos_ab = cosine(embeddings[a], embeddings[b])
+            rel_a = max(0.0, cosine(embeddings[a], query_vector))
+            rel_b = max(0.0, cosine(embeddings[b], query_vector))
+            boost = math.sqrt(rel_a * rel_b)
+            z = (
+                query_theta0
+                + query_theta1 * cos_ab
+                + query_theta2 * boost
+                + query_theta3 * cos_ab * boost
+            )
+            raw = _sigmoid(float(z))
+        pair_weights[(a, b)] = raw
+        raw_weights.append(raw)
+
+    # Mean-normalize query-aware and cosine-beta conductances so graph-distance scale
+    # remains comparable to the historical uniform-random baseline.
+    if mode in {"cosine_beta", "query_aware"} and raw_weights:
+        mean_raw = float(sum(raw_weights) / len(raw_weights))
+        scale = target_mean_weight / mean_raw if mean_raw > 0.0 else 1.0
+        for pair in list(pair_weights.keys()):
+            pair_weights[pair] = float(
+                np.clip(pair_weights[pair] * scale, min_weight, max_weight)
+            )
+    elif mode == "random":
+        for pair in list(pair_weights.keys()):
+            pair_weights[pair] = float(np.clip(pair_weights[pair], min_weight, max_weight))
+
+    reweighted: List[Tuple[str, str, float]] = []
+    for src, dst, old_w in edges:
+        src = str(src)
+        dst = str(dst)
+        if src == dst:
+            reweighted.append((src, dst, float(old_w)))
+            continue
+        a, b = (src, dst) if src < dst else (dst, src)
+        new_w = pair_weights.get((a, b))
+        if new_w is None:
+            new_w = float(old_w)
+        reweighted.append((src, dst, float(new_w)))
+    return reweighted
