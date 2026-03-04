@@ -80,9 +80,11 @@ def test_lambda_sweep_outputs_and_schema(tmp_path: Path) -> None:
 
     selected_path = out_dir / "synthetic_bunny_lambda_selected_nodes.json"
     graphrag_path = out_dir / "synthetic_graphrag_topk_selected_nodes.json"
+    variants_path = out_dir / "synthetic_lambda_sweep_variants.json"
     report_path = out_dir / "synthetic_bunny_lambda_sweep_report.txt"
     assert selected_path.exists()
     assert graphrag_path.exists()
+    assert variants_path.exists()
     assert report_path.exists()
 
     selected = json.loads(selected_path.read_text(encoding="utf-8"))
@@ -104,8 +106,63 @@ def test_lambda_sweep_outputs_and_schema(tmp_path: Path) -> None:
     assert isinstance(graphrag.get("seed_nodes"), list)
     assert len(graphrag.get("nodes", [])) <= 7
 
+    variants = json.loads(variants_path.read_text(encoding="utf-8"))
+    assert variants["edge_weight_mode"] == "random"
+    assert variants["variant_order"] == ["random"]
+    assert "random" in variants["variants"]
+    assert "bunny_by_lambda" in variants["variants"]["random"]
+    assert "graphrag" in variants["variants"]["random"]
+
     report = report_path.read_text(encoding="utf-8")
     assert "Lambdas: [0.0, 0.1, 0.2]" in report
+
+
+def test_lambda_sweep_all_variants_schema(tmp_path: Path) -> None:
+    graph_path, vectors_path = _prepare_synthetic_inputs(tmp_path)
+    out_dir = tmp_path / "lambda_sweep_all"
+    script = _repo_root() / "synthetic_bunny" / "synthetic_lambda_sweep.py"
+
+    proc = _run(
+        [
+            sys.executable,
+            str(script),
+            "--graph-path",
+            str(graph_path),
+            "--vectors-path",
+            str(vectors_path),
+            "--query-random-points",
+            "1",
+            "--query-vector-space",
+            "sphere",
+            "--query-seed",
+            "17",
+            "--seed-k",
+            "3",
+            "--top-k",
+            "6",
+            "--lambdas",
+            "0,0.2",
+            "--graphrag-max-distance",
+            "6.0",
+            "--edge-weight-mode",
+            "all",
+            "--output-dir",
+            str(out_dir),
+        ]
+    )
+    assert proc.returncode == 0
+
+    variants = json.loads(
+        (out_dir / "synthetic_lambda_sweep_variants.json").read_text(encoding="utf-8")
+    )
+    assert variants["edge_weight_mode"] == "all"
+    assert variants["variant_order"] == ["random", "cosine_beta", "query_aware"]
+    for variant in variants["variant_order"]:
+        assert variant in variants["variants"]
+        payload = variants["variants"][variant]
+        assert "graphrag" in payload
+        assert "bunny_by_lambda" in payload
+        assert sorted(payload["bunny_by_lambda"].keys(), key=float) == ["0.000", "0.200"]
 
 
 def test_lambda_sweep_requires_exactly_one_query_mode(tmp_path: Path) -> None:

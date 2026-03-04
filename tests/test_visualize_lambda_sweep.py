@@ -76,6 +76,64 @@ def _prepare_sweep_outputs(tmp_path: Path) -> tuple[Path, Path, Path]:
     )
 
 
+def _prepare_sweep_outputs_all_variants(tmp_path: Path) -> tuple[Path, Path, Path]:
+    graph_path = tmp_path / "graph_all.json"
+    vectors_path = tmp_path / "vectors_all.json"
+    generate_script = _repo_root() / "synthetic_bunny" / "generate_synthetic_data.py"
+    _run(
+        [
+            sys.executable,
+            str(generate_script),
+            "--n",
+            "35",
+            "--dim",
+            "4",
+            "--scale-prob",
+            "1.0",
+            "--seed",
+            "42",
+            "--output-path",
+            str(graph_path),
+            "--vectors-output-path",
+            str(vectors_path),
+        ]
+    )
+
+    sweep_dir = tmp_path / "lambda_sweep_all"
+    sweep_script = _repo_root() / "synthetic_bunny" / "synthetic_lambda_sweep.py"
+    _run(
+        [
+            sys.executable,
+            str(sweep_script),
+            "--graph-path",
+            str(graph_path),
+            "--vectors-path",
+            str(vectors_path),
+            "--query-random-points",
+            "1",
+            "--query-seed",
+            "17",
+            "--seed-k",
+            "3",
+            "--top-k",
+            "6",
+            "--lambdas",
+            "0,0.2,0.4",
+            "--graphrag-max-distance",
+            "6.0",
+            "--edge-weight-mode",
+            "all",
+            "--output-dir",
+            str(sweep_dir),
+        ]
+    )
+    return (
+        graph_path,
+        vectors_path,
+        sweep_dir / "synthetic_lambda_sweep_variants.json",
+    )
+
+
 def test_visualize_lambda_sweep_writes_html(tmp_path: Path) -> None:
     graph_path, selected_nodes_path, graphrag_path = _prepare_sweep_outputs(tmp_path)
     out_html = tmp_path / "viz.html"
@@ -104,9 +162,9 @@ def test_visualize_lambda_sweep_writes_html(tmp_path: Path) -> None:
     html = out_html.read_text(encoding="utf-8")
     assert "Plotly.newPlot" in html
     assert "GraphRAG" in html
-    assert "\\u03bb = +0.000" in html
-    assert "\\u03bb = +0.200" in html
-    assert "\\u03bb = +0.400" in html
+    assert ("\\u03bb = +0.000" in html) or ("λ = +0.000" in html)
+    assert ("\\u03bb = +0.200" in html) or ("λ = +0.200" in html)
+    assert ("\\u03bb = +0.400" in html) or ("λ = +0.400" in html)
 
 
 def test_visualize_lambda_sweep_missing_files_fail(tmp_path: Path) -> None:
@@ -159,6 +217,35 @@ def test_visualize_lambda_sweep_malformed_graph_fails(tmp_path: Path) -> None:
     assert "Graph JSON must contain 'nodes' (dict) and 'edges' (list)." in (
         proc.stdout + proc.stderr
     )
+
+
+def test_visualize_lambda_sweep_variants_mode_writes_html(tmp_path: Path) -> None:
+    graph_path, vectors_path, variants_path = _prepare_sweep_outputs_all_variants(tmp_path)
+    out_html = tmp_path / "viz_variants.html"
+    script = _repo_root() / "synthetic_bunny" / "visualize_lambda_sweep.py"
+
+    proc = _run(
+        [
+            sys.executable,
+            str(script),
+            "--graph-path",
+            str(graph_path),
+            "--variants-path",
+            str(variants_path),
+            "--vectors-path",
+            str(vectors_path),
+            "--output-html",
+            str(out_html),
+        ]
+    )
+    assert proc.returncode == 0
+    assert out_html.exists()
+    html = out_html.read_text(encoding="utf-8")
+    assert "3D Vector Space" in html
+    assert "Graph: random" in html
+    assert "Graph: cosine_beta" in html
+    assert "Graph: query_aware" in html
+    assert "GraphRAG" in html
 
 
 def test_visualize_lambda_sweep_empty_mode_payload_still_writes_html(tmp_path: Path) -> None:
