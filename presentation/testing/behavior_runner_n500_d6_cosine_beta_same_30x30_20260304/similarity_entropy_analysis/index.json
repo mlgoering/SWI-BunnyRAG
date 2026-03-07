@@ -1,0 +1,73 @@
+{
+  "run_name": "behavior_runner_n500_d6_cosine_beta_same_30x30_20260304",
+  "source_csv": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\behavior_results_rows.csv",
+  "dataset_means_csv": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\dataset_method_lambda_means.csv",
+  "dataset_means_json": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\dataset_method_lambda_means.json",
+  "mode_overall_csv": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\mode_overall_means.csv",
+  "per_lambda": [
+    {
+      "lambda": "-0.2",
+      "dataset_count_common": 30,
+      "scatter_plot": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plots\\lambda_m0p2_scatter.png",
+      "hist2d_plot": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plots\\lambda_m0p2_hist2d.png",
+      "payload_json": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plot_payloads\\lambda_m0p2_payload.json",
+      "payload_csv": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plot_payloads\\lambda_m0p2_payload.csv"
+    },
+    {
+      "lambda": "-0.1",
+      "dataset_count_common": 30,
+      "scatter_plot": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plots\\lambda_m0p1_scatter.png",
+      "hist2d_plot": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plots\\lambda_m0p1_hist2d.png",
+      "payload_json": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plot_payloads\\lambda_m0p1_payload.json",
+      "payload_csv": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plot_payloads\\lambda_m0p1_payload.csv"
+    },
+    {
+      "lambda": "0",
+      "dataset_count_common": 30,
+      "scatter_plot": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plots\\lambda_0_scatter.png",
+      "hist2d_plot": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plots\\lambda_0_hist2d.png",
+      "payload_json": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plot_payloads\\lambda_0_payload.json",
+      "payload_csv": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plot_payloads\\lambda_0_payload.csv"
+    },
+    {
+      "lambda": "0.1",
+      "dataset_count_common": 30,
+      "scatter_plot": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plots\\lambda_0p1_scatter.png",
+      "hist2d_plot": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plots\\lambda_0p1_hist2d.png",
+      "payload_json": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plot_payloads\\lambda_0p1_payload.json",
+      "payload_csv": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plot_payloads\\lambda_0p1_payload.csv"
+    },
+    {
+      "lambda": "0.2",
+      "dataset_count_common": 30,
+      "scatter_plot": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plots\\lambda_0p2_scatter.png",
+      "hist2d_plot": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plots\\lambda_0p2_hist2d.png",
+      "payload_json": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plot_payloads\\lambda_0p2_payload.json",
+      "payload_csv": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plot_payloads\\lambda_0p2_payload.csv"
+    },
+    {
+      "lambda": "0.3",
+      "dataset_count_common": 30,
+      "scatter_plot": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plots\\lambda_0p3_scatter.png",
+      "hist2d_plot": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plots\\lambda_0p3_hist2d.png",
+      "payload_json": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plot_payloads\\lambda_0p3_payload.json",
+      "payload_csv": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plot_payloads\\lambda_0p3_payload.csv"
+    },
+    {
+      "lambda": "0.4",
+      "dataset_count_common": 30,
+      "scatter_plot": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plots\\lambda_0p4_scatter.png",
+      "hist2d_plot": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plots\\lambda_0p4_hist2d.png",
+      "payload_json": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plot_payloads\\lambda_0p4_payload.json",
+      "payload_csv": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plot_payloads\\lambda_0p4_payload.csv"
+    },
+    {
+      "lambda": "0.5",
+      "dataset_count_common": 30,
+      "scatter_plot": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plots\\lambda_0p5_scatter.png",
+      "hist2d_plot": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plots\\lambda_0p5_hist2d.png",
+      "payload_json": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plot_payloads\\lambda_0p5_payload.json",
+      "payload_csv": "presentation\\testing\\behavior_runner_n500_d6_cosine_beta_same_30x30_20260304\\similarity_entropy_analysis\\plot_payloads\\lambda_0p5_payload.csv"
+    }
+  ]
+}
