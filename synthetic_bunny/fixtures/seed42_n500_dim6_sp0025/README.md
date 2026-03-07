@@ -2,6 +2,28 @@
 
 This folder stores a curated synthetic run that matched the 500-node settings you asked to preserve for visualization quality.
 
+## Golden Path (Recommended)
+
+Run this one command from repo root to reproduce the fixture outputs into
+`synthetic_bunny/output/golden_path_seed42_n500_dim6_sp0025/`:
+
+```bash
+python scripts/run_fixture_golden_path.py
+```
+
+By default, this command also runs synthetic smoke tests. To skip tests:
+
+```bash
+python scripts/run_fixture_golden_path.py --skip-synth-tests
+```
+
+The command regenerates:
+- `synthetic_lambda_sweep_variants.json`
+- `synthetic_bunny_lambda_selected_nodes.json`
+- `synthetic_graphrag_topk_selected_nodes.json`
+- `synthetic_bunny_lambda_sweep_report.txt`
+- `synthetic_lambda_sweep_visualization.html`
+
 ## Included files
 
 - `random_spherical_bunny_graph.json`

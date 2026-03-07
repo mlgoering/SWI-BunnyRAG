@@ -435,6 +435,7 @@ def build_graph_figure(
     seed_nodes: Sequence[str],
     title: str,
     selection_color: str,
+    plot_height: int,
 ) -> go.Figure:
     mode_labels = sorted(modes.keys(), key=_mode_sort_key)
     if not mode_labels:
@@ -627,6 +628,7 @@ def build_graph_figure(
         xaxis=dict(showgrid=False, zeroline=False, visible=False),
         yaxis=dict(showgrid=False, zeroline=False, visible=False),
         plot_bgcolor="white",
+        height=plot_height,
     )
     return fig
 
@@ -640,6 +642,7 @@ def build_vector_figure(
     selection_color: str,
     seed_nodes: Sequence[str],
     title: str,
+    plot_height: int,
 ) -> go.Figure:
     mode_labels = sorted(modes.keys(), key=_mode_sort_key)
     if not mode_labels:
@@ -790,6 +793,7 @@ def build_vector_figure(
         ),
         showlegend=True,
         legend=dict(orientation="h"),
+        height=plot_height,
     )
     return fig
 
@@ -871,6 +875,7 @@ def main() -> int:
     parser.add_argument("--graphrag-path", default=None, help="Legacy path to synthetic_graphrag_topk_selected_nodes.json.")
     parser.add_argument("--vectors-path", default=None, help="Path to vectors JSON for 3D vector view.")
     parser.add_argument("--output-html", default="synthetic_bunny/output/lambda_sweep_visualization.html", help="Output HTML path.")
+    parser.add_argument("--plot-height", type=int, default=450, help="Plot height in pixels for each interactive view.")
     parser.add_argument("--cluster-separation", type=float, default=0.1, help="Lower values make communities separate more strongly in layout.")
     parser.add_argument("--title", default="Synthetic Variant + Lambda Visualization", help="Base title.")
     args = parser.parse_args()
@@ -942,6 +947,7 @@ def main() -> int:
                 selection_color=_variant_color(variant),
                 seed_nodes=seed_nodes,
                 title=f"{args.title} - 3D Vector Space ({variant_label})",
+                plot_height=args.plot_height,
             )
             fig_html = pio.to_html(
                 fig_vector,
@@ -996,6 +1002,7 @@ def main() -> int:
             seed_nodes=seed_nodes,
             title=f"{args.title} - {label}",
             selection_color=_variant_color(variant),
+            plot_height=args.plot_height,
         )
         sections.append(
             (

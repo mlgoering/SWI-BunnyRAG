@@ -23,6 +23,34 @@ python -V
 powershell -ExecutionPolicy Bypass -File scripts/build_portfolio_assets.ps1
 ```
 
+Golden-path synthetic fixture demo (reproducible end-to-end):
+
+```bash
+python scripts/run_fixture_golden_path.py
+```
+
+What this command does:
+- Runs synthetic smoke tests first (`tests/test_synthetic_*` + visualization/data-gen synthetic tests).
+- Rebuilds fixture lambda-sweep artifacts for `seed42_n500_dim6_sp0025`.
+- Rebuilds the interactive HTML visualization (with taller default plot height for web embedding).
+
+Primary outputs:
+- `synthetic_bunny/output/golden_path_seed42_n500_dim6_sp0025/lambda_sweep/synthetic_lambda_sweep_variants.json`
+- `synthetic_bunny/output/golden_path_seed42_n500_dim6_sp0025/lambda_sweep/synthetic_bunny_lambda_selected_nodes.json`
+- `synthetic_bunny/output/golden_path_seed42_n500_dim6_sp0025/lambda_sweep/synthetic_graphrag_topk_selected_nodes.json`
+- `synthetic_bunny/output/golden_path_seed42_n500_dim6_sp0025/lambda_sweep/synthetic_bunny_lambda_sweep_report.txt`
+- `synthetic_bunny/output/golden_path_seed42_n500_dim6_sp0025/lambda_sweep/synthetic_lambda_sweep_visualization.html`
+
+Optional flags:
+
+```bash
+# Skip synthetic smoke tests (artifacts only)
+python scripts/run_fixture_golden_path.py --skip-synth-tests
+
+# Also copy HTML to docs/portfolio/golden_path/ for GitHub Pages
+python scripts/run_fixture_golden_path.py --publish-to-docs
+```
+
 ## Synthetic Analog
 
 For synthetic-only experiments (no text, no Hugging Face model calls), use:
