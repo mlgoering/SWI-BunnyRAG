@@ -45,6 +45,11 @@ presentation/testing/**/*.txt
 !presentation/testing/behavior_runner_n500_d6_random_same_30x30_20260304/
 !presentation/testing/behavior_runner_n500_d6_random_same_30x30_20260304/**
 
+# Within curated runs, keep summaries/plots/metadata but ignore row-level raw outputs.
+presentation/testing/behavior_runner_n500_d6_*_30x30*_20260304/behavior_results_rows.csv
+presentation/testing/behavior_runner_n500_d6_*_30x30*_20260304/behavior_results_rows.json
+presentation/testing/behavior_runner_n500_d6_*_30x30*_20260304/similarity_entropy_analysis/plot_payloads/
+
 # --- Generated synthetic graph artifacts ---
 Bunny_Rags/random_spherical_bunny_graph*.json
 Graph_Algorithm/random_spherical_vectors*.json
