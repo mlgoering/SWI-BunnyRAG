@@ -1,0 +1,3 @@
+# Treat generated visualization artifacts as non-source for language stats.
+presentation/interactive_projection.html linguist-generated=true
+synthetic_bunny/examples/**/lambda_sweep/*.html linguist-generated=true
