@@ -5,6 +5,24 @@ This repo is a research prototype that collects Wikipedia math articles, chunks 
 
 Below is a plain-English map of the repo, plus the dependencies each part needs.
 
+## Portfolio Quickstart
+
+Use this short path when demonstrating reproducible, industry-style workflow.
+
+```powershell
+# 1) Verify python
+python -V
+
+# 2) Install minimal dependencies in the project venv
+.venv\Scripts\python -m pip install -r requirements.txt
+
+# 3) Run tests
+.venv\Scripts\python -m pytest -q
+
+# 4) Rebuild website/demo assets
+powershell -ExecutionPolicy Bypass -File scripts/build_portfolio_assets.ps1
+```
+
 ## Synthetic Analog
 
 For synthetic-only experiments (no text, no Hugging Face model calls), use:
