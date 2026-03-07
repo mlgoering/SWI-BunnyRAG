@@ -1,10 +1,8 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import argparse
 import csv
-import math
 import re
-from collections import defaultdict
 from pathlib import Path
 from typing import Dict, List, Mapping, Sequence, Tuple
 
@@ -37,8 +35,8 @@ NONLINEAR_LAMBDA_ANCHORS = {
 
 METHOD_DISPLAY = {
     METHOD_GRAPHRAG: "CausalRAG",
-    METHOD_RANDOM: "random",
-    METHOD_BUNNY: "bunny",
+    METHOD_RANDOM: "Random",
+    METHOD_BUNNY: "BunnyRAG",
 }
 
 
@@ -62,7 +60,7 @@ def ensure_dir(path: Path) -> None:
     path.mkdir(parents=True, exist_ok=True)
 
 
-def build_title_from_run_name(run_name: str) -> str:
+def build_subtitle_from_run_name(run_name: str) -> str:
     pattern = (
         r"^behavior_runner_n(?P<n>\d+)_d(?P<dim>\d+)_"
         r"(?P<weighting>.+?)_(?P<seeds>same|mixed)_\d+x\d+"
@@ -75,14 +73,14 @@ def build_title_from_run_name(run_name: str) -> str:
     weighting = m.group("weighting")
     seeds = m.group("seeds")
     weighting_label = {
-        "cosine_beta": "similarity based weights",
+        "cosine_beta": "similarity-based weights",
         "random": "random weights",
     }.get(weighting, f"{weighting} weighting")
     seed_label = {
-        "same": "single-community restricted seeds",
-        "mixed": "unrestricted seeds",
-    }.get(seeds, f"{seeds} seeds")
-    return f"{n} nodes in {dim} dimensions, {weighting_label}, {seed_label}"
+        "same": "single-community seed regime",
+        "mixed": "mixed-community seed regime",
+    }.get(seeds, f"{seeds} seed regime")
+    return f"{n} nodes, {dim}D; {weighting_label}; {seed_label}"
 
 
 def discover_run_dirs(testing_root: Path, only_runs: Sequence[str]) -> List[Path]:
@@ -174,18 +172,15 @@ def filter_bunny_lambdas(
 
 
 def plot_single_scatter(
-    run_name: str,
-    title_text: str,
+    subtitle_text: str,
     rows: Sequence[Mapping[str, object]],
     output_path: Path,
-    lambda_min: float,
-    lambda_max: float,
 ) -> None:
     graphrag_pts = [r for r in rows if str(r["method"]) == METHOD_GRAPHRAG]
     random_pts = [r for r in rows if str(r["method"]) == METHOD_RANDOM]
     bunny_pts = [r for r in rows if str(r["method"]) == METHOD_BUNNY]
 
-    fig, ax = plt.subplots(figsize=(9, 6), constrained_layout=True)
+    fig, ax = plt.subplots(figsize=(10, 6), dpi=200)
 
     if graphrag_pts:
         ax.scatter(
@@ -210,7 +205,7 @@ def plot_single_scatter(
             alpha=0.9,
             edgecolors="black",
             linewidths=0.3,
-            label="random",
+            label=METHOD_DISPLAY[METHOD_RANDOM],
         )
 
     cmap = LinearSegmentedColormap.from_list("lambda_blue_purple", [LAMBDA_COLOR_MIN, LAMBDA_COLOR_MAX])
@@ -231,28 +226,49 @@ def plot_single_scatter(
             alpha=0.72,
             edgecolors="black",
             linewidths=0.2,
-            label="bunny (lambda)",
+            label=f"{METHOD_DISPLAY[METHOD_BUNNY]} (colored by \u03bb)",
         )
         cbar = fig.colorbar(sc, ax=ax, pad=0.02)
-        cbar.set_label("bunny lambda (nonlinear color scale)")
-        tick_lambdas = [-0.2, -0.1, 0.0, 0.1, 0.2, 0.3]
+        cbar.set_label(
+            "(semantic punishment parameter;\nnegative values = reward)",
+            fontsize=11,
+        )
+        cbar.ax.tick_params(labelsize=10)
+        tick_lambdas = sorted({float(str(r["lambda"])) for r in bunny_pts})
         tick_positions = [map_lambda_to_color_position(v) for v in tick_lambdas]
         cbar.set_ticks(tick_positions)
-        cbar.set_ticklabels([f"{v:.1f}" for v in tick_lambdas])
+        cbar.set_ticklabels([f"{v:.2f}" for v in tick_lambdas])
 
-    ax.set_xlabel("Average Similarity per Dataset (mean over 30 queries)")
-    ax.set_ylabel("Average Entropy per Dataset (mean over 30 queries)")
-    ax.set_title(title_text)
+    ax.set_xlabel("Semantic relevance (avg similarity)", fontsize=14)
+    ax.set_ylabel("Cross-community coverage (higher entropy is better)", fontsize=13)
     ax.grid(alpha=0.2)
+    ax.tick_params(axis="both", labelsize=12)
+
+    fig.suptitle(
+        "Relevance vs cross-community coverage",
+        fontsize=21,
+        fontweight="bold",
+        y=0.99,
+    )
+    fig.text(
+        0.5,
+        0.90,
+        subtitle_text,
+        ha="center",
+        va="center",
+        fontsize=12,
+        color="#333333",
+    )
 
     legend_handles = [
-        Line2D([0], [0], marker="^", color="w", markerfacecolor=COLOR_GRAPHRAG, markeredgecolor="black", markeredgewidth=0.3, markersize=8, label=METHOD_DISPLAY[METHOD_GRAPHRAG]),
-        Line2D([0], [0], marker="s", color="w", markerfacecolor=COLOR_RANDOM, markeredgecolor="black", markeredgewidth=0.3, markersize=8, label="random"),
-        Line2D([0], [0], marker="o", color="w", markerfacecolor=LAMBDA_COLOR_MAX, markeredgecolor="black", markeredgewidth=0.3, markersize=8, label="bunny (color = lambda)"),
+        Line2D([0], [0], marker="^", color="w", markerfacecolor=COLOR_GRAPHRAG, markeredgecolor="black", markeredgewidth=0.3, markersize=9, label=METHOD_DISPLAY[METHOD_GRAPHRAG]),
+        Line2D([0], [0], marker="s", color="w", markerfacecolor=COLOR_RANDOM, markeredgecolor="black", markeredgewidth=0.3, markersize=9, label=METHOD_DISPLAY[METHOD_RANDOM]),
+        Line2D([0], [0], marker="o", color="w", markerfacecolor=LAMBDA_COLOR_MAX, markeredgecolor="black", markeredgewidth=0.3, markersize=9, label=f"{METHOD_DISPLAY[METHOD_BUNNY]} (colored by \u03bb)"),
     ]
-    ax.legend(handles=legend_handles, loc="best")
+    ax.legend(handles=legend_handles, loc="best", fontsize=12, framealpha=0.92)
 
-    fig.savefig(output_path)
+    fig.tight_layout(rect=(0, 0, 1, 0.84))
+    fig.savefig(output_path, dpi=200, bbox_inches="tight", pad_inches=0.08)
     plt.close(fig)
 
 
@@ -266,7 +282,7 @@ def process_run(
     out_dir = run_dir / out_dir_name
     ensure_dir(out_dir)
     run_name = run_dir.name
-    title_text = build_title_from_run_name(run_name)
+    subtitle_text = build_subtitle_from_run_name(run_name)
 
     rows = aggregate_dataset_means(run_dir / "behavior_results_rows.csv")
     filtered = filter_bunny_lambdas(rows, lambda_min=lambda_min, lambda_max=lambda_max)
@@ -274,12 +290,9 @@ def process_run(
     for ext in formats:
         output_path = out_dir / f"single_scatter_lambda_gradient.{ext}"
         plot_single_scatter(
-            run_name=run_name,
-            title_text=title_text,
+            subtitle_text=subtitle_text,
             rows=filtered,
             output_path=output_path,
-            lambda_min=lambda_min,
-            lambda_max=lambda_max,
         )
 
     with (out_dir / "plot_config.txt").open("w", encoding="utf-8") as f:
@@ -292,7 +305,8 @@ def process_run(
         f.write("bunny_lambda_color_mapping=nonlinear\n")
         f.write("nonlinear_lambda_anchors=-0.2:0.00,-0.1:0.30,0.0:0.42,0.1:0.54,0.2:0.82,0.3:1.00\n")
         f.write("excluded_lambdas=>0.3\n")
-        f.write(f"title={title_text}\n")
+        f.write("title=Relevance vs cross-community coverage\n")
+        f.write(f"subtitle={subtitle_text}\n")
     print(f"[OK] {run_name}: wrote single scatter ({', '.join(formats)})")
 
 
@@ -341,3 +355,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
