@@ -8,7 +8,7 @@ Improve and validate the BunnyRAG node-selection step used after seed retrieval.
 ## What Changed
 
 ### 1) Seed selection bug fix
-File: `Bunny Rags/bunny_retriever.py`
+File: `Bunny_Rags/bunny_retriever.py`
 
 Issue:
 - Seed nodes were sorted in ascending cosine similarity, which selected less-related nodes.
@@ -19,7 +19,7 @@ Fix:
 ---
 
 ### 2) MMR-like utility framework update
-File: `Bunny Rags/bunny_retriever.py`
+File: `Bunny_Rags/bunny_retriever.py`
 
 Current score for each candidate node `v`:
 

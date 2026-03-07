@@ -9,7 +9,7 @@ Prepare `causenet-precision` in the same output format used for `causenet-sample
   - `edges`
 
 Target output file:
-- `Bunny Rags/causenet_precision_bunny_graph.json`
+- `Bunny_Rags/causenet_precision_bunny_graph.json`
 
 ## Important Constraints
 - Do **not** commit raw dataset files to Git (GitHub file-size limits, large diffs).
@@ -31,7 +31,7 @@ Invoke-WebRequest `
 ## Step 2: Convert to Bunny Format (Streaming)
 Because this file is JSONL + BZ2, parse it line-by-line (do not fully load into memory).
 
-Create/use a script (for example `Data generation/convert_causenet_precision_to_bunny.py`) with this behavior:
+Create/use a script (for example `Data_generation/convert_causenet_precision_to_bunny.py`) with this behavior:
 
 1. Open `causenet-precision.jsonl.bz2` using `bz2.open(..., "rt", encoding="utf-8")`.
 2. For each line:
@@ -58,13 +58,13 @@ Create/use a script (for example `Data generation/convert_causenet_precision_to_
      - else: use count as weight
 5. Sort edges deterministically by `(cause, effect)`.
 6. Write JSON:
-   - `Bunny Rags/causenet_precision_bunny_graph.json`
+   - `Bunny_Rags/causenet_precision_bunny_graph.json`
    - UTF-8, `indent=2`
 
 Run command (default: largest-component filter ON, self-loop removal ON):
 
 ```powershell
-python "Data generation/convert_causenet_precision_to_bunny.py"
+python "Data_generation/convert_causenet_precision_to_bunny.py"
 ```
 
 Optional flags:
@@ -91,10 +91,10 @@ Run a minimal load check using Bunny builder:
 import sys
 from pathlib import Path
 repo = Path(".").resolve()
-sys.path.insert(0, str(repo / "Bunny Rags"))
+sys.path.insert(0, str(repo / "Bunny_Rags"))
 from builder import CausalGraphBuilder
 
-graph_path = repo / "Bunny Rags" / "causenet_precision_bunny_graph.json"
+graph_path = repo / "Bunny_Rags" / "causenet_precision_bunny_graph.json"
 b = CausalGraphBuilder()
 ok = b.load(str(graph_path))
 print("loaded:", ok)

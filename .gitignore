@@ -10,23 +10,48 @@ __pycache__/
 tests/_tmp_pytest*/
 temp/
 pytest_temp_ps/
+pytest_temp_py/
 .jupyter_local/
 
 # --- Jupyter ---
 .ipynb_checkpoints/
 
 # Ignore a specific notebook (remove this if you want it tracked)
-Graph Algorithm/Rule based Casual Graph Generator.ipynb
+Graph_Algorithm/Rule based Casual Graph Generator.ipynb
 
-# --- Synthetic experiment outputs ---
+# --- Synthetic experiment outputs (ephemeral) ---
 synthetic_bunny/output/
 
 # --- Generated presentation artifacts ---
-presentation/interactive_projection.html
+presentation/interactive_projection_google_sites.html
+presentation/interactive_projection_google_sites.vector.json
+presentation/interactive_projection_google_sites.graph.json
 presentation/testing/*.xlsx
+presentation/testing/behavior_runner_*/
+presentation/testing/**/*.xlsx
+presentation/testing/**/*.csv
+presentation/testing/**/*.json
+presentation/testing/**/*.png
+presentation/testing/**/*.pdf
+presentation/testing/**/*.txt
+
+# Keep these curated 30x30 example runs tracked for reports/website.
+!presentation/testing/behavior_runner_n500_d6_cosine_beta_mixed_30x30_retry_noempty_20260304/
+!presentation/testing/behavior_runner_n500_d6_cosine_beta_mixed_30x30_retry_noempty_20260304/**
+!presentation/testing/behavior_runner_n500_d6_cosine_beta_same_30x30_20260304/
+!presentation/testing/behavior_runner_n500_d6_cosine_beta_same_30x30_20260304/**
+!presentation/testing/behavior_runner_n500_d6_random_mixed_30x30_retry_noempty_20260304/
+!presentation/testing/behavior_runner_n500_d6_random_mixed_30x30_retry_noempty_20260304/**
+!presentation/testing/behavior_runner_n500_d6_random_same_30x30_20260304/
+!presentation/testing/behavior_runner_n500_d6_random_same_30x30_20260304/**
+
+# Within curated runs, keep summaries/plots/metadata but ignore row-level raw outputs.
+presentation/testing/behavior_runner_n500_d6_*_30x30*_20260304/behavior_results_rows.csv
+presentation/testing/behavior_runner_n500_d6_*_30x30*_20260304/behavior_results_rows.json
+presentation/testing/behavior_runner_n500_d6_*_30x30*_20260304/similarity_entropy_analysis/plot_payloads/
 
 # --- Generated synthetic graph artifacts ---
-Bunny Rags/random_spherical_bunny_graph*.json
-Graph Algorithm/random_spherical_vectors*.json
-Graph Algorithm/random_spherical_graph*.png
+Bunny_Rags/random_spherical_bunny_graph*.json
+Graph_Algorithm/random_spherical_vectors*.json
+Graph_Algorithm/random_spherical_graph*.png
 handoff.txt

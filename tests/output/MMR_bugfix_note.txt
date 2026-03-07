@@ -2,14 +2,14 @@ MMR-related bugfix notes
 Date: 2026-02-17
 
 1) Seed/source selection bug fix
-- File: Bunny Rags/bunny_retriever.py
+- File: Bunny_Rags/bunny_retriever.py
 - Function: retrieve_nodes(...)
 - Changed sort order from ascending cosine to descending cosine.
 - Before: reverse=False (picked least similar nodes)
 - After: reverse=True (picks most similar nodes)
 
 2) Utility-framework update for the MMR-like retrieval stage
-- File: Bunny Rags/bunny_retriever.py
+- File: Bunny_Rags/bunny_retriever.py
 - Function: retrieve_nodes_part2(...)
 
 Implemented behavior

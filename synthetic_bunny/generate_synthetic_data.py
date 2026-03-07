@@ -23,7 +23,7 @@ from common import (
 
 def _load_generator_module():
     repo_root = Path(__file__).resolve().parent.parent
-    generator_path = repo_root / "Graph Algorithm" / "random_spherical_graph_generator.py"
+    generator_path = repo_root / "Graph_Algorithm" / "random_spherical_graph_generator.py"
     if not generator_path.exists():
         raise FileNotFoundError(f"Generator not found: {generator_path}")
 
@@ -41,7 +41,7 @@ def _load_generator_module():
 def main() -> int:
     parser = argparse.ArgumentParser(
         description=(
-            "Wrapper for Graph Algorithm/random_spherical_graph_generator.py "
+            "Wrapper for Graph_Algorithm/random_spherical_graph_generator.py "
             "with synthetic_bunny-focused defaults."
         )
     )

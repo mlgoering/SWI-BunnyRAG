@@ -3,9 +3,9 @@ from pathlib import Path
 
 def test_smoke_bunny_and_causal_v2(monkeypatch):
     repo_root = Path(__file__).resolve().parents[1]
-    bunny_dir = repo_root / "Bunny Rags"
-    graph_dir = repo_root / "Graph Algorithm"
-    kb_path = repo_root / "Data generation" / "wiki_math_knowledge_base_api.json"
+    bunny_dir = repo_root / "Bunny_Rags"
+    graph_dir = repo_root / "Graph_Algorithm"
+    kb_path = repo_root / "Data_generation" / "wiki_math_knowledge_base_api.json"
 
     assert bunny_dir.exists(), f"Missing directory: {bunny_dir}"
     assert graph_dir.exists(), f"Missing directory: {graph_dir}"

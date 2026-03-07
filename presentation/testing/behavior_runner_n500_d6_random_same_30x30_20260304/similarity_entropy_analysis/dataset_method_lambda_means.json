@@ -1,0 +1,2702 @@
+[
+  {
+    "dataset_id": "dataset_001",
+    "dataset_seed": "42",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.41062194363736587,
+    "avg_entropy": 1.7853756777422984
+  },
+  {
+    "dataset_id": "dataset_001",
+    "dataset_seed": "42",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5571266968595272,
+    "avg_entropy": 1.7426541866633987
+  },
+  {
+    "dataset_id": "dataset_001",
+    "dataset_seed": "42",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.05049557032744347,
+    "avg_entropy": 1.9570538227368535
+  },
+  {
+    "dataset_id": "dataset_001",
+    "dataset_seed": "42",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.3531647734268919,
+    "avg_entropy": 1.79665222241023
+  },
+  {
+    "dataset_id": "dataset_001",
+    "dataset_seed": "42",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5583861274484289,
+    "avg_entropy": 1.7756125553234423
+  },
+  {
+    "dataset_id": "dataset_001",
+    "dataset_seed": "42",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6451816380138177,
+    "avg_entropy": 1.7750913953120526
+  },
+  {
+    "dataset_id": "dataset_001",
+    "dataset_seed": "42",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6948347866141966,
+    "avg_entropy": 1.7185069606219543
+  },
+  {
+    "dataset_id": "dataset_001",
+    "dataset_seed": "42",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.7211272572126214,
+    "avg_entropy": 1.7503020123652826
+  },
+  {
+    "dataset_id": "dataset_001",
+    "dataset_seed": "42",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.06576387333055987,
+    "avg_entropy": 0.7428962049022496
+  },
+  {
+    "dataset_id": "dataset_001",
+    "dataset_seed": "42",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.0009444304120839456,
+    "avg_entropy": 1.895569980971019
+  },
+  {
+    "dataset_id": "dataset_002",
+    "dataset_seed": "43",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.38760394773244194,
+    "avg_entropy": 1.7154494594523917
+  },
+  {
+    "dataset_id": "dataset_002",
+    "dataset_seed": "43",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5614601482482866,
+    "avg_entropy": 1.7834007790329438
+  },
+  {
+    "dataset_id": "dataset_002",
+    "dataset_seed": "43",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.024705692658527942,
+    "avg_entropy": 1.8375198116737086
+  },
+  {
+    "dataset_id": "dataset_002",
+    "dataset_seed": "43",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.37264860891108886,
+    "avg_entropy": 1.769157073417972
+  },
+  {
+    "dataset_id": "dataset_002",
+    "dataset_seed": "43",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5555850602606167,
+    "avg_entropy": 1.7409100261841846
+  },
+  {
+    "dataset_id": "dataset_002",
+    "dataset_seed": "43",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6156375929078167,
+    "avg_entropy": 1.7312065873164384
+  },
+  {
+    "dataset_id": "dataset_002",
+    "dataset_seed": "43",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6526968286679413,
+    "avg_entropy": 1.7312065873164384
+  },
+  {
+    "dataset_id": "dataset_002",
+    "dataset_seed": "43",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.687392617283051,
+    "avg_entropy": 1.7479463516521547
+  },
+  {
+    "dataset_id": "dataset_002",
+    "dataset_seed": "43",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.10442516192397006,
+    "avg_entropy": 0.7428038534741346
+  },
+  {
+    "dataset_id": "dataset_002",
+    "dataset_seed": "43",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.008149301782382622,
+    "avg_entropy": 1.8857556657594006
+  },
+  {
+    "dataset_id": "dataset_003",
+    "dataset_seed": "44",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.3693787166586766,
+    "avg_entropy": 1.715689823448547
+  },
+  {
+    "dataset_id": "dataset_003",
+    "dataset_seed": "44",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5296504889405486,
+    "avg_entropy": 1.7006942195920454
+  },
+  {
+    "dataset_id": "dataset_003",
+    "dataset_seed": "44",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": -0.020382640608695227,
+    "avg_entropy": 1.8062152632703576
+  },
+  {
+    "dataset_id": "dataset_003",
+    "dataset_seed": "44",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.3557213756483657,
+    "avg_entropy": 1.847894434326477
+  },
+  {
+    "dataset_id": "dataset_003",
+    "dataset_seed": "44",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5219342439701389,
+    "avg_entropy": 1.8743973210810505
+  },
+  {
+    "dataset_id": "dataset_003",
+    "dataset_seed": "44",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6177588554922941,
+    "avg_entropy": 1.8143842489836317
+  },
+  {
+    "dataset_id": "dataset_003",
+    "dataset_seed": "44",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6657525372904659,
+    "avg_entropy": 1.8240069733948705
+  },
+  {
+    "dataset_id": "dataset_003",
+    "dataset_seed": "44",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.7018842491682501,
+    "avg_entropy": 1.8259818721042254
+  },
+  {
+    "dataset_id": "dataset_003",
+    "dataset_seed": "44",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.15123848857924518,
+    "avg_entropy": 0.8375998891668145
+  },
+  {
+    "dataset_id": "dataset_003",
+    "dataset_seed": "44",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.007384583107053091,
+    "avg_entropy": 1.9369166256883474
+  },
+  {
+    "dataset_id": "dataset_004",
+    "dataset_seed": "45",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.38393799903498343,
+    "avg_entropy": 1.8189455466362545
+  },
+  {
+    "dataset_id": "dataset_004",
+    "dataset_seed": "45",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5642748787499208,
+    "avg_entropy": 1.8309739895457156
+  },
+  {
+    "dataset_id": "dataset_004",
+    "dataset_seed": "45",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.009598221365848545,
+    "avg_entropy": 1.6811873758680158
+  },
+  {
+    "dataset_id": "dataset_004",
+    "dataset_seed": "45",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.40278665409369374,
+    "avg_entropy": 1.8189455466362539
+  },
+  {
+    "dataset_id": "dataset_004",
+    "dataset_seed": "45",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5781616430409293,
+    "avg_entropy": 1.8614362994850138
+  },
+  {
+    "dataset_id": "dataset_004",
+    "dataset_seed": "45",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6426042693093523,
+    "avg_entropy": 1.838562131696489
+  },
+  {
+    "dataset_id": "dataset_004",
+    "dataset_seed": "45",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6702701381727226,
+    "avg_entropy": 1.8409177924096165
+  },
+  {
+    "dataset_id": "dataset_004",
+    "dataset_seed": "45",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.6868447025642516,
+    "avg_entropy": 1.8334199904813657
+  },
+  {
+    "dataset_id": "dataset_004",
+    "dataset_seed": "45",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.101864955563704,
+    "avg_entropy": 0.8819731892968143
+  },
+  {
+    "dataset_id": "dataset_004",
+    "dataset_seed": "45",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.0004084619295237877,
+    "avg_entropy": 1.9074692766244907
+  },
+  {
+    "dataset_id": "dataset_005",
+    "dataset_seed": "47",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.43722483414828567,
+    "avg_entropy": 1.5350601378277764
+  },
+  {
+    "dataset_id": "dataset_005",
+    "dataset_seed": "47",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5554509735424814,
+    "avg_entropy": 1.583535270355711
+  },
+  {
+    "dataset_id": "dataset_005",
+    "dataset_seed": "47",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.04773927286686043,
+    "avg_entropy": 1.6307680013021384
+  },
+  {
+    "dataset_id": "dataset_005",
+    "dataset_seed": "47",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.39486245355835964,
+    "avg_entropy": 1.6058285945817359
+  },
+  {
+    "dataset_id": "dataset_005",
+    "dataset_seed": "47",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5744551276221982,
+    "avg_entropy": 1.6890062562489292
+  },
+  {
+    "dataset_id": "dataset_005",
+    "dataset_seed": "47",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.659047786892992,
+    "avg_entropy": 1.7288509266033107
+  },
+  {
+    "dataset_id": "dataset_005",
+    "dataset_seed": "47",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.7024775037002087,
+    "avg_entropy": 1.7585517125350634
+  },
+  {
+    "dataset_id": "dataset_005",
+    "dataset_seed": "47",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.7176634035090992,
+    "avg_entropy": 1.757038290285988
+  },
+  {
+    "dataset_id": "dataset_005",
+    "dataset_seed": "47",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.10288233441536922,
+    "avg_entropy": 0.836682894732311
+  },
+  {
+    "dataset_id": "dataset_005",
+    "dataset_seed": "47",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.006659774356015417,
+    "avg_entropy": 1.85184470039822
+  },
+  {
+    "dataset_id": "dataset_006",
+    "dataset_seed": "47",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.3923324310977494,
+    "avg_entropy": 1.8542595760094254
+  },
+  {
+    "dataset_id": "dataset_006",
+    "dataset_seed": "47",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5452886738064108,
+    "avg_entropy": 1.9315932560050608
+  },
+  {
+    "dataset_id": "dataset_006",
+    "dataset_seed": "47",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.06363905775362161,
+    "avg_entropy": 1.739075525482446
+  },
+  {
+    "dataset_id": "dataset_006",
+    "dataset_seed": "47",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.3963976619018481,
+    "avg_entropy": 1.8553922362547275
+  },
+  {
+    "dataset_id": "dataset_006",
+    "dataset_seed": "47",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5680460409296824,
+    "avg_entropy": 1.889483265160074
+  },
+  {
+    "dataset_id": "dataset_006",
+    "dataset_seed": "47",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6390740207474751,
+    "avg_entropy": 1.8738761610696597
+  },
+  {
+    "dataset_id": "dataset_006",
+    "dataset_seed": "47",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6703498907602384,
+    "avg_entropy": 1.8606247176923734
+  },
+  {
+    "dataset_id": "dataset_006",
+    "dataset_seed": "47",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.6964976233410854,
+    "avg_entropy": 1.8496385948056921
+  },
+  {
+    "dataset_id": "dataset_006",
+    "dataset_seed": "47",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.09503003373162115,
+    "avg_entropy": 0.6141719452911009
+  },
+  {
+    "dataset_id": "dataset_006",
+    "dataset_seed": "47",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.007600184822714815,
+    "avg_entropy": 1.949003029456533
+  },
+  {
+    "dataset_id": "dataset_007",
+    "dataset_seed": "48",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.4111860358936994,
+    "avg_entropy": 1.8842507837224287
+  },
+  {
+    "dataset_id": "dataset_007",
+    "dataset_seed": "48",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5574334759585429,
+    "avg_entropy": 1.8154572256778236
+  },
+  {
+    "dataset_id": "dataset_007",
+    "dataset_seed": "48",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.07815892875950324,
+    "avg_entropy": 1.9639401244311918
+  },
+  {
+    "dataset_id": "dataset_007",
+    "dataset_seed": "48",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.3853854049084575,
+    "avg_entropy": 1.9721397668158775
+  },
+  {
+    "dataset_id": "dataset_007",
+    "dataset_seed": "48",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5786088764466164,
+    "avg_entropy": 1.9083479519787787
+  },
+  {
+    "dataset_id": "dataset_007",
+    "dataset_seed": "48",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6428235114214303,
+    "avg_entropy": 1.894104246363807
+  },
+  {
+    "dataset_id": "dataset_007",
+    "dataset_seed": "48",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6943161432218993,
+    "avg_entropy": 1.8350738107380584
+  },
+  {
+    "dataset_id": "dataset_007",
+    "dataset_seed": "48",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.707166783077893,
+    "avg_entropy": 1.835685310971971
+  },
+  {
+    "dataset_id": "dataset_007",
+    "dataset_seed": "48",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.0963365054999738,
+    "avg_entropy": 1.0379344888647495
+  },
+  {
+    "dataset_id": "dataset_007",
+    "dataset_seed": "48",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.0031383280552323314,
+    "avg_entropy": 1.9058370344358364
+  },
+  {
+    "dataset_id": "dataset_008",
+    "dataset_seed": "49",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.43548449099538605,
+    "avg_entropy": 1.7882524984668167
+  },
+  {
+    "dataset_id": "dataset_008",
+    "dataset_seed": "49",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5567799337710035,
+    "avg_entropy": 1.8501597548170823
+  },
+  {
+    "dataset_id": "dataset_008",
+    "dataset_seed": "49",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.0550727203831683,
+    "avg_entropy": 1.6883350724639064
+  },
+  {
+    "dataset_id": "dataset_008",
+    "dataset_seed": "49",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.41360390474330117,
+    "avg_entropy": 1.8686436796320147
+  },
+  {
+    "dataset_id": "dataset_008",
+    "dataset_seed": "49",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5466305885441687,
+    "avg_entropy": 1.891748585650679
+  },
+  {
+    "dataset_id": "dataset_008",
+    "dataset_seed": "49",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6197613487723207,
+    "avg_entropy": 1.8437946131341343
+  },
+  {
+    "dataset_id": "dataset_008",
+    "dataset_seed": "49",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6617095621132033,
+    "avg_entropy": 1.8304528295343256
+  },
+  {
+    "dataset_id": "dataset_008",
+    "dataset_seed": "49",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.681603282565224,
+    "avg_entropy": 1.8238569496212376
+  },
+  {
+    "dataset_id": "dataset_008",
+    "dataset_seed": "49",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.028313187988040524,
+    "avg_entropy": 0.9527022305773017
+  },
+  {
+    "dataset_id": "dataset_008",
+    "dataset_seed": "49",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.009466785013257097,
+    "avg_entropy": 1.9345022289291252
+  },
+  {
+    "dataset_id": "dataset_009",
+    "dataset_seed": "50",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.3493334210077659,
+    "avg_entropy": 1.9744050873064827
+  },
+  {
+    "dataset_id": "dataset_009",
+    "dataset_seed": "50",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5474745127586989,
+    "avg_entropy": 1.9998656540382749
+  },
+  {
+    "dataset_id": "dataset_009",
+    "dataset_seed": "50",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.04089599344795758,
+    "avg_entropy": 1.9178206526163846
+  },
+  {
+    "dataset_id": "dataset_009",
+    "dataset_seed": "50",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.33143938378071974,
+    "avg_entropy": 1.8842507837224283
+  },
+  {
+    "dataset_id": "dataset_009",
+    "dataset_seed": "50",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5452649189634636,
+    "avg_entropy": 1.9218301335862047
+  },
+  {
+    "dataset_id": "dataset_009",
+    "dataset_seed": "50",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6326620550185752,
+    "avg_entropy": 1.9547885022462483
+  },
+  {
+    "dataset_id": "dataset_009",
+    "dataset_seed": "50",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6712903885176513,
+    "avg_entropy": 1.9409255586350491
+  },
+  {
+    "dataset_id": "dataset_009",
+    "dataset_seed": "50",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.6988172128454585,
+    "avg_entropy": 1.9315932560050608
+  },
+  {
+    "dataset_id": "dataset_009",
+    "dataset_seed": "50",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.02887021705956644,
+    "avg_entropy": 0.720908374876816
+  },
+  {
+    "dataset_id": "dataset_009",
+    "dataset_seed": "50",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.004804437678480445,
+    "avg_entropy": 1.9730177710563153
+  },
+  {
+    "dataset_id": "dataset_010",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.4017468803913946,
+    "avg_entropy": 1.753319231097418
+  },
+  {
+    "dataset_id": "dataset_010",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5416373596908972,
+    "avg_entropy": 1.7230972851542747
+  },
+  {
+    "dataset_id": "dataset_010",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.01847873150295804,
+    "avg_entropy": 1.609667020872527
+  },
+  {
+    "dataset_id": "dataset_010",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.3835815635225704,
+    "avg_entropy": 1.6914216005131677
+  },
+  {
+    "dataset_id": "dataset_010",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5221908589270426,
+    "avg_entropy": 1.7490790118974575
+  },
+  {
+    "dataset_id": "dataset_010",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.5991012498205984,
+    "avg_entropy": 1.7872101784440362
+  },
+  {
+    "dataset_id": "dataset_010",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6489532322611314,
+    "avg_entropy": 1.7877313384554259
+  },
+  {
+    "dataset_id": "dataset_010",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.6870117564994455,
+    "avg_entropy": 1.8280971688211978
+  },
+  {
+    "dataset_id": "dataset_010",
+    "dataset_seed": "55",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.1280683719829629,
+    "avg_entropy": 0.7686568191813075
+  },
+  {
+    "dataset_id": "dataset_010",
+    "dataset_seed": "55",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.0010500273192654906,
+    "avg_entropy": 1.9206024975390723
+  },
+  {
+    "dataset_id": "dataset_011",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.44059146992325027,
+    "avg_entropy": 1.9431908791256545
+  },
+  {
+    "dataset_id": "dataset_011",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5533439217017215,
+    "avg_entropy": 2.0056192954873113
+  },
+  {
+    "dataset_id": "dataset_011",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.01456438729381704,
+    "avg_entropy": 1.7471848276446091
+  },
+  {
+    "dataset_id": "dataset_011",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.4530128303822034,
+    "avg_entropy": 1.9066037914995635
+  },
+  {
+    "dataset_id": "dataset_011",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.6055051259394801,
+    "avg_entropy": 1.849407856575552
+  },
+  {
+    "dataset_id": "dataset_011",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6750448250860337,
+    "avg_entropy": 1.8323470137871731
+  },
+  {
+    "dataset_id": "dataset_011",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.7119670934044725,
+    "avg_entropy": 1.8570027200401396
+  },
+  {
+    "dataset_id": "dataset_011",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.739149574686072,
+    "avg_entropy": 1.852993239070319
+  },
+  {
+    "dataset_id": "dataset_011",
+    "dataset_seed": "55",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.0339726548362913,
+    "avg_entropy": 0.6869553513596162
+  },
+  {
+    "dataset_id": "dataset_011",
+    "dataset_seed": "55",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.013027212980605262,
+    "avg_entropy": 1.9440930234324338
+  },
+  {
+    "dataset_id": "dataset_012",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.3569299652125218,
+    "avg_entropy": 1.6846660710604309
+  },
+  {
+    "dataset_id": "dataset_012",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5039508323388877,
+    "avg_entropy": 1.7073401572902278
+  },
+  {
+    "dataset_id": "dataset_012",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.03637657885750308,
+    "avg_entropy": 1.9287164352805428
+  },
+  {
+    "dataset_id": "dataset_012",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.3725015507326176,
+    "avg_entropy": 1.87736448202809
+  },
+  {
+    "dataset_id": "dataset_012",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5432841741727721,
+    "avg_entropy": 1.884250783722428
+  },
+  {
+    "dataset_id": "dataset_012",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6157370212230978,
+    "avg_entropy": 1.871520500356532
+  },
+  {
+    "dataset_id": "dataset_012",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6496038885927765,
+    "avg_entropy": 1.8241780280738997
+  },
+  {
+    "dataset_id": "dataset_012",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.6726407524606774,
+    "avg_entropy": 1.8709993403451421
+  },
+  {
+    "dataset_id": "dataset_012",
+    "dataset_seed": "55",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.11437787783842267,
+    "avg_entropy": 1.043895800150282
+  },
+  {
+    "dataset_id": "dataset_012",
+    "dataset_seed": "55",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.01160623551050053,
+    "avg_entropy": 1.9717019865857612
+  },
+  {
+    "dataset_id": "dataset_013",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.3814663466394101,
+    "avg_entropy": 1.8165898859231264
+  },
+  {
+    "dataset_id": "dataset_013",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.4984275170234361,
+    "avg_entropy": 1.8148457254439117
+  },
+  {
+    "dataset_id": "dataset_013",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.020919475138554786,
+    "avg_entropy": 1.8138630889722416
+  },
+  {
+    "dataset_id": "dataset_013",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.3908034996590689,
+    "avg_entropy": 1.7697685736518842
+  },
+  {
+    "dataset_id": "dataset_013",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.514862350264055,
+    "avg_entropy": 1.7807546965385657
+  },
+  {
+    "dataset_id": "dataset_013",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.5904281813663321,
+    "avg_entropy": 1.887127604446946
+  },
+  {
+    "dataset_id": "dataset_013",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6318635068125836,
+    "avg_entropy": 1.932816256472886
+  },
+  {
+    "dataset_id": "dataset_013",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.6701919240103241,
+    "avg_entropy": 1.914332331657954
+  },
+  {
+    "dataset_id": "dataset_013",
+    "dataset_seed": "55",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.05339597169832943,
+    "avg_entropy": 1.07226259590017
+  },
+  {
+    "dataset_id": "dataset_013",
+    "dataset_seed": "55",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.006582085968737318,
+    "avg_entropy": 1.9332642654521623
+  },
+  {
+    "dataset_id": "dataset_014",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.40900387923738946,
+    "avg_entropy": 1.8173514099306722
+  },
+  {
+    "dataset_id": "dataset_014",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5494073225808548,
+    "avg_entropy": 1.8391526010250052
+  },
+  {
+    "dataset_id": "dataset_014",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.051211173738878624,
+    "avg_entropy": 1.9935005123553278
+  },
+  {
+    "dataset_id": "dataset_014",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.35570665580434796,
+    "avg_entropy": 1.8156669330025677
+  },
+  {
+    "dataset_id": "dataset_014",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5618176431139831,
+    "avg_entropy": 1.796571507953723
+  },
+  {
+    "dataset_id": "dataset_014",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.639630455098655,
+    "avg_entropy": 1.8046808101158864
+  },
+  {
+    "dataset_id": "dataset_014",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6725632508316177,
+    "avg_entropy": 1.8144439325347421
+  },
+  {
+    "dataset_id": "dataset_014",
+    "dataset_seed": "55",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.6977115039573891,
+    "avg_entropy": 1.882625990345434
+  },
+  {
+    "dataset_id": "dataset_014",
+    "dataset_seed": "55",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.1801736092015557,
+    "avg_entropy": 1.1670088538082586
+  },
+  {
+    "dataset_id": "dataset_014",
+    "dataset_seed": "55",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.0044067882885188295,
+    "avg_entropy": 1.9817705826169858
+  },
+  {
+    "dataset_id": "dataset_015",
+    "dataset_seed": "56",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.4302876072882438,
+    "avg_entropy": 1.7669820931498892
+  },
+  {
+    "dataset_id": "dataset_015",
+    "dataset_seed": "56",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.542576659351041,
+    "avg_entropy": 1.738935127474829
+  },
+  {
+    "dataset_id": "dataset_015",
+    "dataset_seed": "56",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.07563246512159652,
+    "avg_entropy": 1.7821777785651183
+  },
+  {
+    "dataset_id": "dataset_015",
+    "dataset_seed": "56",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.36288765769334186,
+    "avg_entropy": 1.8259221885531147
+  },
+  {
+    "dataset_id": "dataset_015",
+    "dataset_seed": "56",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5524636074600355,
+    "avg_entropy": 1.8478944343264772
+  },
+  {
+    "dataset_id": "dataset_015",
+    "dataset_seed": "56",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6114865367446484,
+    "avg_entropy": 1.7981963013307172
+  },
+  {
+    "dataset_id": "dataset_015",
+    "dataset_seed": "56",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6544634302675638,
+    "avg_entropy": 1.8056037630364457
+  },
+  {
+    "dataset_id": "dataset_015",
+    "dataset_seed": "56",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.7003013169483747,
+    "avg_entropy": 1.8738761610696597
+  },
+  {
+    "dataset_id": "dataset_015",
+    "dataset_seed": "56",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.1191571798273477,
+    "avg_entropy": 0.7393685961663764
+  },
+  {
+    "dataset_id": "dataset_015",
+    "dataset_seed": "56",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.0019598694401074435,
+    "avg_entropy": 1.8999677623253097
+  },
+  {
+    "dataset_id": "dataset_016",
+    "dataset_seed": "57",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.4060719656141647,
+    "avg_entropy": 1.8276663490323304
+  },
+  {
+    "dataset_id": "dataset_016",
+    "dataset_seed": "57",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5167686640045217,
+    "avg_entropy": 1.8877391046808587
+  },
+  {
+    "dataset_id": "dataset_016",
+    "dataset_seed": "57",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": -0.007269697952533555,
+    "avg_entropy": 1.9447043013747296
+  },
+  {
+    "dataset_id": "dataset_016",
+    "dataset_seed": "57",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.3346360745962314,
+    "avg_entropy": 1.8894832651600744
+  },
+  {
+    "dataset_id": "dataset_016",
+    "dataset_seed": "57",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5666419768670874,
+    "avg_entropy": 1.9356930771974035
+  },
+  {
+    "dataset_id": "dataset_016",
+    "dataset_seed": "57",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6508066153959277,
+    "avg_entropy": 1.8825066232432133
+  },
+  {
+    "dataset_id": "dataset_016",
+    "dataset_seed": "57",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6848937419121867,
+    "avg_entropy": 1.92060713311838
+  },
+  {
+    "dataset_id": "dataset_016",
+    "dataset_seed": "57",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.7219240292067648,
+    "avg_entropy": 1.861726721266264
+  },
+  {
+    "dataset_id": "dataset_016",
+    "dataset_seed": "57",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.055370535917683227,
+    "avg_entropy": 0.914533050913769
+  },
+  {
+    "dataset_id": "dataset_016",
+    "dataset_seed": "57",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.009091301411570604,
+    "avg_entropy": 1.9201651418345496
+  },
+  {
+    "dataset_id": "dataset_017",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.3400182630565899,
+    "avg_entropy": 1.7062074970449257
+  },
+  {
+    "dataset_id": "dataset_017",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5206200482771366,
+    "avg_entropy": 1.6620919508191716
+  },
+  {
+    "dataset_id": "dataset_017",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.0745811003179954,
+    "avg_entropy": 1.5313314528731907
+  },
+  {
+    "dataset_id": "dataset_017",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.3603132317487766,
+    "avg_entropy": 1.580508425857561
+  },
+  {
+    "dataset_id": "dataset_017",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5333924169143612,
+    "avg_entropy": 1.6591554465435439
+  },
+  {
+    "dataset_id": "dataset_017",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6099246280698514,
+    "avg_entropy": 1.726816344342845
+  },
+  {
+    "dataset_id": "dataset_017",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6670005058448651,
+    "avg_entropy": 1.6774086331283358
+  },
+  {
+    "dataset_id": "dataset_017",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.6910517573906808,
+    "avg_entropy": 1.6805161920829932
+  },
+  {
+    "dataset_id": "dataset_017",
+    "dataset_seed": "61",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.11832719694899207,
+    "avg_entropy": 0.667323795293416
+  },
+  {
+    "dataset_id": "dataset_017",
+    "dataset_seed": "61",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.0013688175368715342,
+    "avg_entropy": 1.875254334644793
+  },
+  {
+    "dataset_id": "dataset_018",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.4039995068885414,
+    "avg_entropy": 1.7434753942220549
+  },
+  {
+    "dataset_id": "dataset_018",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5271102514218903,
+    "avg_entropy": 1.7540807551049629
+  },
+  {
+    "dataset_id": "dataset_018",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.007672353914986082,
+    "avg_entropy": 1.8253106883192018
+  },
+  {
+    "dataset_id": "dataset_018",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.3872327676128642,
+    "avg_entropy": 1.763934217746342
+  },
+  {
+    "dataset_id": "dataset_018",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5948663393036051,
+    "avg_entropy": 1.7543114933351036
+  },
+  {
+    "dataset_id": "dataset_018",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6531308762714679,
+    "avg_entropy": 1.7051345203507333
+  },
+  {
+    "dataset_id": "dataset_018",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6835390415620348,
+    "avg_entropy": 1.744688768923865
+  },
+  {
+    "dataset_id": "dataset_018",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.7046584986571816,
+    "avg_entropy": 1.803949942779753
+  },
+  {
+    "dataset_id": "dataset_018",
+    "dataset_seed": "61",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.045447725948105526,
+    "avg_entropy": 0.8691605354000437
+  },
+  {
+    "dataset_id": "dataset_018",
+    "dataset_seed": "61",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.0034963055920523554,
+    "avg_entropy": 1.9095806087625844
+  },
+  {
+    "dataset_id": "dataset_019",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.3883457720559085,
+    "avg_entropy": 1.8324874117947907
+  },
+  {
+    "dataset_id": "dataset_019",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5255001294546554,
+    "avg_entropy": 1.8074382637381832
+  },
+  {
+    "dataset_id": "dataset_019",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.059804251803510115,
+    "avg_entropy": 1.8987252275675397
+  },
+  {
+    "dataset_id": "dataset_019",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.3082796468585864,
+    "avg_entropy": 1.8570460565114206
+  },
+  {
+    "dataset_id": "dataset_019",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5411690276805944,
+    "avg_entropy": 1.8963695668544118
+  },
+  {
+    "dataset_id": "dataset_019",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6324498407423839,
+    "avg_entropy": 1.880762462763998
+  },
+  {
+    "dataset_id": "dataset_019",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6787330297796396,
+    "avg_entropy": 1.896369566854412
+  },
+  {
+    "dataset_id": "dataset_019",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.6960657131610534,
+    "avg_entropy": 1.8784068020508704
+  },
+  {
+    "dataset_id": "dataset_019",
+    "dataset_seed": "61",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.09785182935133575,
+    "avg_entropy": 0.8175227208929096
+  },
+  {
+    "dataset_id": "dataset_019",
+    "dataset_seed": "61",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.018328379555783054,
+    "avg_entropy": 1.9265920802446783
+  },
+  {
+    "dataset_id": "dataset_020",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.4108868189290917,
+    "avg_entropy": 1.745129214478748
+  },
+  {
+    "dataset_id": "dataset_020",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5034338241666425,
+    "avg_entropy": 1.8224935511457951
+  },
+  {
+    "dataset_id": "dataset_020",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.06646314697789603,
+    "avg_entropy": 1.906223029495791
+  },
+  {
+    "dataset_id": "dataset_020",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.33939353457970994,
+    "avg_entropy": 1.9016020482920577
+  },
+  {
+    "dataset_id": "dataset_020",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5342918025574174,
+    "avg_entropy": 1.9726609268272675
+  },
+  {
+    "dataset_id": "dataset_020",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6097480565406962,
+    "avg_entropy": 1.9616748039405867
+  },
+  {
+    "dataset_id": "dataset_020",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6545324306261371,
+    "avg_entropy": 1.971528266581965
+  },
+  {
+    "dataset_id": "dataset_020",
+    "dataset_seed": "61",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.6805857927405589,
+    "avg_entropy": 1.974405087306483
+  },
+  {
+    "dataset_id": "dataset_020",
+    "dataset_seed": "61",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.18572743085993676,
+    "avg_entropy": 0.83640515275093
+  },
+  {
+    "dataset_id": "dataset_020",
+    "dataset_seed": "61",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.013125541914168853,
+    "avg_entropy": 1.9498309564878713
+  },
+  {
+    "dataset_id": "dataset_021",
+    "dataset_seed": "63",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.3728178049593059,
+    "avg_entropy": 1.7583209743049235
+  },
+  {
+    "dataset_id": "dataset_021",
+    "dataset_seed": "63",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5465477441001572,
+    "avg_entropy": 1.819095570409887
+  },
+  {
+    "dataset_id": "dataset_021",
+    "dataset_seed": "63",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.00017951077695147385,
+    "avg_entropy": 1.7101863213433337
+  },
+  {
+    "dataset_id": "dataset_021",
+    "dataset_seed": "63",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.3444783178253502,
+    "avg_entropy": 1.7513749890594748
+  },
+  {
+    "dataset_id": "dataset_021",
+    "dataset_seed": "63",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5194265637393738,
+    "avg_entropy": 1.7361179903014217
+  },
+  {
+    "dataset_id": "dataset_021",
+    "dataset_seed": "63",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6086221839271947,
+    "avg_entropy": 1.775441500644413
+  },
+  {
+    "dataset_id": "dataset_021",
+    "dataset_seed": "63",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6727455624218394,
+    "avg_entropy": 1.811276690028974
+  },
+  {
+    "dataset_id": "dataset_021",
+    "dataset_seed": "63",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.7014873493448953,
+    "avg_entropy": 1.826272293885475
+  },
+  {
+    "dataset_id": "dataset_021",
+    "dataset_seed": "63",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.07455368848531291,
+    "avg_entropy": 0.7520915449723534
+  },
+  {
+    "dataset_id": "dataset_021",
+    "dataset_seed": "63",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.006728834317791865,
+    "avg_entropy": 1.9321048239989702
+  },
+  {
+    "dataset_id": "dataset_022",
+    "dataset_seed": "63",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.3753580760379603,
+    "avg_entropy": 1.7066785992712208
+  },
+  {
+    "dataset_id": "dataset_022",
+    "dataset_seed": "63",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5044722603252889,
+    "avg_entropy": 1.7304450633088932
+  },
+  {
+    "dataset_id": "dataset_022",
+    "dataset_seed": "63",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.031194191262846203,
+    "avg_entropy": 1.855913396266118
+  },
+  {
+    "dataset_id": "dataset_022",
+    "dataset_seed": "63",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.34899564766374,
+    "avg_entropy": 1.8799202242999455
+  },
+  {
+    "dataset_id": "dataset_022",
+    "dataset_seed": "63",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5423163508320935,
+    "avg_entropy": 1.7343141462710958
+  },
+  {
+    "dataset_id": "dataset_022",
+    "dataset_seed": "63",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6211665263963516,
+    "avg_entropy": 1.784243017496996
+  },
+  {
+    "dataset_id": "dataset_022",
+    "dataset_seed": "63",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6721284144158411,
+    "avg_entropy": 1.7495404883577375
+  },
+  {
+    "dataset_id": "dataset_022",
+    "dataset_seed": "63",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.7123263589289255,
+    "avg_entropy": 1.7714223939085771
+  },
+  {
+    "dataset_id": "dataset_022",
+    "dataset_seed": "63",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.14911443073570715,
+    "avg_entropy": 0.8566898675623336
+  },
+  {
+    "dataset_id": "dataset_022",
+    "dataset_seed": "63",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.014376077228999255,
+    "avg_entropy": 1.9598668522964318
+  },
+  {
+    "dataset_id": "dataset_023",
+    "dataset_seed": "64",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.4162260586231396,
+    "avg_entropy": 1.6871120719960813
+  },
+  {
+    "dataset_id": "dataset_023",
+    "dataset_seed": "64",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5340013210039768,
+    "avg_entropy": 1.7319584855579684
+  },
+  {
+    "dataset_id": "dataset_023",
+    "dataset_seed": "64",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": -0.030259301391386974,
+    "avg_entropy": 1.5848389852800433
+  },
+  {
+    "dataset_id": "dataset_023",
+    "dataset_seed": "64",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.44099297223949807,
+    "avg_entropy": 1.7709915741197089
+  },
+  {
+    "dataset_id": "dataset_023",
+    "dataset_seed": "64",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.559118692642679,
+    "avg_entropy": 1.7397773659388813
+  },
+  {
+    "dataset_id": "dataset_023",
+    "dataset_seed": "64",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.624336340270593,
+    "avg_entropy": 1.832808490247453
+  },
+  {
+    "dataset_id": "dataset_023",
+    "dataset_seed": "64",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6663638608686604,
+    "avg_entropy": 1.8403062921757039
+  },
+  {
+    "dataset_id": "dataset_023",
+    "dataset_seed": "64",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.6906755706526023,
+    "avg_entropy": 1.8715205003565323
+  },
+  {
+    "dataset_id": "dataset_023",
+    "dataset_seed": "64",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.01784190496875678,
+    "avg_entropy": 0.784588437172117
+  },
+  {
+    "dataset_id": "dataset_023",
+    "dataset_seed": "64",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.0032326740858297535,
+    "avg_entropy": 1.9228842124952903
+  },
+  {
+    "dataset_id": "dataset_024",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.4239765942965265,
+    "avg_entropy": 1.7380332054596663
+  },
+  {
+    "dataset_id": "dataset_024",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5189800028539713,
+    "avg_entropy": 1.7564267900520754
+  },
+  {
+    "dataset_id": "dataset_024",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.09300723264850985,
+    "avg_entropy": 1.7773567158026573
+  },
+  {
+    "dataset_id": "dataset_024",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.34106474236414713,
+    "avg_entropy": 1.7464329294030796
+  },
+  {
+    "dataset_id": "dataset_024",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5421412650128745,
+    "avg_entropy": 1.8310643297682379
+  },
+  {
+    "dataset_id": "dataset_024",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6239585517621798,
+    "avg_entropy": 1.8599228772359384
+  },
+  {
+    "dataset_id": "dataset_024",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6708954751616043,
+    "avg_entropy": 1.900990548058145
+  },
+  {
+    "dataset_id": "dataset_024",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.6856506518454971,
+    "avg_entropy": 1.9328162564728855
+  },
+  {
+    "dataset_id": "dataset_024",
+    "dataset_seed": "67",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.12492523259138134,
+    "avg_entropy": 0.8274253480727739
+  },
+  {
+    "dataset_id": "dataset_024",
+    "dataset_seed": "67",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.0021032768424580637,
+    "avg_entropy": 1.8999978263924808
+  },
+  {
+    "dataset_id": "dataset_025",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.4373671217739391,
+    "avg_entropy": 1.8594017172245485
+  },
+  {
+    "dataset_id": "dataset_025",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5630841283744272,
+    "avg_entropy": 1.8611458777037635
+  },
+  {
+    "dataset_id": "dataset_025",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.05190807167820128,
+    "avg_entropy": 1.8784971422733927
+  },
+  {
+    "dataset_id": "dataset_025",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.3729223029346566,
+    "avg_entropy": 1.868322601179352
+  },
+  {
+    "dataset_id": "dataset_025",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5628733806131655,
+    "avg_entropy": 1.8305431697568484
+  },
+  {
+    "dataset_id": "dataset_025",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6262258811855654,
+    "avg_entropy": 1.780523958308426
+  },
+  {
+    "dataset_id": "dataset_025",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6840051653258021,
+    "avg_entropy": 1.7547519388899862
+  },
+  {
+    "dataset_id": "dataset_025",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.7100095233160223,
+    "avg_entropy": 1.7761126844294362
+  },
+  {
+    "dataset_id": "dataset_025",
+    "dataset_seed": "67",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.1663044884726069,
+    "avg_entropy": 0.8825756770108171
+  },
+  {
+    "dataset_id": "dataset_025",
+    "dataset_seed": "67",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.004020747070779853,
+    "avg_entropy": 1.9597913416134112
+  },
+  {
+    "dataset_id": "dataset_026",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.41093324641818474,
+    "avg_entropy": 1.6802257703017425
+  },
+  {
+    "dataset_id": "dataset_026",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5374377195558039,
+    "avg_entropy": 1.712111162267594
+  },
+  {
+    "dataset_id": "dataset_026",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.023771221683812887,
+    "avg_entropy": 1.7243799691732105
+  },
+  {
+    "dataset_id": "dataset_026",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.4056975220991338,
+    "avg_entropy": 1.772795418150035
+  },
+  {
+    "dataset_id": "dataset_026",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5605227964776746,
+    "avg_entropy": 1.7720338941424894
+  },
+  {
+    "dataset_id": "dataset_026",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6232112346977199,
+    "avg_entropy": 1.7754415006444129
+  },
+  {
+    "dataset_id": "dataset_026",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6811036066549806,
+    "avg_entropy": 1.7685551989500747
+  },
+  {
+    "dataset_id": "dataset_026",
+    "dataset_seed": "67",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.7063811668597119,
+    "avg_entropy": 1.7391448347995724
+  },
+  {
+    "dataset_id": "dataset_026",
+    "dataset_seed": "67",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.09709837047518013,
+    "avg_entropy": 0.7961860602927103
+  },
+  {
+    "dataset_id": "dataset_026",
+    "dataset_seed": "67",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.013082591516803077,
+    "avg_entropy": 1.8894477707887996
+  },
+  {
+    "dataset_id": "dataset_027",
+    "dataset_seed": "69",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.38678767810250936,
+    "avg_entropy": 1.690429338275482
+  },
+  {
+    "dataset_id": "dataset_027",
+    "dataset_seed": "69",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5582409403262677,
+    "avg_entropy": 1.8418197144247797
+  },
+  {
+    "dataset_id": "dataset_027",
+    "dataset_seed": "69",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.010468956712993168,
+    "avg_entropy": 1.563987994612603
+  },
+  {
+    "dataset_id": "dataset_027",
+    "dataset_seed": "69",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.3794827035939546,
+    "avg_entropy": 1.6634052915095194
+  },
+  {
+    "dataset_id": "dataset_027",
+    "dataset_seed": "69",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5737982661002987,
+    "avg_entropy": 1.8037192045496129
+  },
+  {
+    "dataset_id": "dataset_027",
+    "dataset_seed": "69",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6344804766326381,
+    "avg_entropy": 1.8539384975567628
+  },
+  {
+    "dataset_id": "dataset_027",
+    "dataset_seed": "69",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6723092307429166,
+    "avg_entropy": 1.8657668589074967
+  },
+  {
+    "dataset_id": "dataset_027",
+    "dataset_seed": "69",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.6942238481283228,
+    "avg_entropy": 1.880762462763998
+  },
+  {
+    "dataset_id": "dataset_027",
+    "dataset_seed": "69",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.07952764340247372,
+    "avg_entropy": 0.8162514420133554
+  },
+  {
+    "dataset_id": "dataset_027",
+    "dataset_seed": "69",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.0021324754955049123,
+    "avg_entropy": 1.937710830607973
+  },
+  {
+    "dataset_id": "dataset_028",
+    "dataset_seed": "69",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.37626584598725193,
+    "avg_entropy": 1.9510694430576783
+  },
+  {
+    "dataset_id": "dataset_028",
+    "dataset_seed": "69",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5322867166864793,
+    "avg_entropy": 1.9362142372087938
+  },
+  {
+    "dataset_id": "dataset_028",
+    "dataset_seed": "69",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.006727554141535916,
+    "avg_entropy": 1.9587979832160682
+  },
+  {
+    "dataset_id": "dataset_028",
+    "dataset_seed": "69",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.34501087787436563,
+    "avg_entropy": 1.9541770020123355
+  },
+  {
+    "dataset_id": "dataset_028",
+    "dataset_seed": "69",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5693184079442782,
+    "avg_entropy": 1.9309817557711488
+  },
+  {
+    "dataset_id": "dataset_028",
+    "dataset_seed": "69",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6455754528434622,
+    "avg_entropy": 1.9293279355144557
+  },
+  {
+    "dataset_id": "dataset_028",
+    "dataset_seed": "69",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6833957055844707,
+    "avg_entropy": 1.8825066232432137
+  },
+  {
+    "dataset_id": "dataset_028",
+    "dataset_seed": "69",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.703094213469111,
+    "avg_entropy": 1.8963695668544118
+  },
+  {
+    "dataset_id": "dataset_028",
+    "dataset_seed": "69",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.09202631950489039,
+    "avg_entropy": 1.0148956062971297
+  },
+  {
+    "dataset_id": "dataset_028",
+    "dataset_seed": "69",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.011144219084386685,
+    "avg_entropy": 1.9168936672130832
+  },
+  {
+    "dataset_id": "dataset_029",
+    "dataset_seed": "70",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.3920815458365941,
+    "avg_entropy": 1.9662957851443192
+  },
+  {
+    "dataset_id": "dataset_029",
+    "dataset_seed": "70",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5447515169370098,
+    "avg_entropy": 1.8703878401112293
+  },
+  {
+    "dataset_id": "dataset_029",
+    "dataset_seed": "70",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.008814242413054924,
+    "avg_entropy": 2.034477842955011
+  },
+  {
+    "dataset_id": "dataset_029",
+    "dataset_seed": "70",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.4007814937380906,
+    "avg_entropy": 1.8934927461298943
+  },
+  {
+    "dataset_id": "dataset_029",
+    "dataset_seed": "70",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5778494125540786,
+    "avg_entropy": 1.8761414815602655
+  },
+  {
+    "dataset_id": "dataset_029",
+    "dataset_seed": "70",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6584382871191319,
+    "avg_entropy": 1.8697763398773175
+  },
+  {
+    "dataset_id": "dataset_029",
+    "dataset_seed": "70",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6968158582435494,
+    "avg_entropy": 1.8396947919417919
+  },
+  {
+    "dataset_id": "dataset_029",
+    "dataset_seed": "70",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.709321123942477,
+    "avg_entropy": 1.833941150492756
+  },
+  {
+    "dataset_id": "dataset_029",
+    "dataset_seed": "70",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.049781218559002235,
+    "avg_entropy": 0.7092200301198212
+  },
+  {
+    "dataset_id": "dataset_029",
+    "dataset_seed": "70",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.005810578860718999,
+    "avg_entropy": 1.9230088821650897
+  },
+  {
+    "dataset_id": "dataset_030",
+    "dataset_seed": "71",
+    "method": "bunny",
+    "lambda": "-0.1",
+    "query_count": 30,
+    "avg_similarity": 0.36001015155540916,
+    "avg_entropy": 1.680435477626486
+  },
+  {
+    "dataset_id": "dataset_030",
+    "dataset_seed": "71",
+    "method": "bunny",
+    "lambda": "-0.2",
+    "query_count": 30,
+    "avg_similarity": 0.5289282060519105,
+    "avg_entropy": 1.7133938462865295
+  },
+  {
+    "dataset_id": "dataset_030",
+    "dataset_seed": "71",
+    "method": "bunny",
+    "lambda": "0",
+    "query_count": 30,
+    "avg_similarity": 0.07934385985462138,
+    "avg_entropy": 1.6526192501815657
+  },
+  {
+    "dataset_id": "dataset_030",
+    "dataset_seed": "71",
+    "method": "bunny",
+    "lambda": "0.1",
+    "query_count": 30,
+    "avg_similarity": -0.3424057954232102,
+    "avg_entropy": 1.7758222626481859
+  },
+  {
+    "dataset_id": "dataset_030",
+    "dataset_seed": "71",
+    "method": "bunny",
+    "lambda": "0.2",
+    "query_count": 30,
+    "avg_similarity": -0.5429237974574209,
+    "avg_entropy": 1.8724224223716954
+  },
+  {
+    "dataset_id": "dataset_030",
+    "dataset_seed": "71",
+    "method": "bunny",
+    "lambda": "0.3",
+    "query_count": 30,
+    "avg_similarity": -0.6516074591870089,
+    "avg_entropy": 1.9646419648876268
+  },
+  {
+    "dataset_id": "dataset_030",
+    "dataset_seed": "71",
+    "method": "bunny",
+    "lambda": "0.4",
+    "query_count": 30,
+    "avg_similarity": -0.6913955024187807,
+    "avg_entropy": 1.9634189644198017
+  },
+  {
+    "dataset_id": "dataset_030",
+    "dataset_seed": "71",
+    "method": "bunny",
+    "lambda": "0.5",
+    "query_count": 30,
+    "avg_similarity": -0.714856276460133,
+    "avg_entropy": 1.9819028892347335
+  },
+  {
+    "dataset_id": "dataset_030",
+    "dataset_seed": "71",
+    "method": "graphrag",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": 0.11158929518546418,
+    "avg_entropy": 1.0482561492802212
+  },
+  {
+    "dataset_id": "dataset_030",
+    "dataset_seed": "71",
+    "method": "random",
+    "lambda": "NA",
+    "query_count": 30,
+    "avg_similarity": -0.008317842560133496,
+    "avg_entropy": 1.9558355958972315
+  }
+]

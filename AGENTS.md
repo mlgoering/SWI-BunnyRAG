@@ -1,4 +1,4 @@
-﻿# AGENTS.md
+# AGENTS.md
 
 ## Project intent
 This repo is a research prototype that we are cleaning up into a reproducible, runnable codebase.
@@ -15,7 +15,7 @@ Prefer minimal diffs and small, reviewable changes.
 - Optional (dev/full): `pip install -r requirements-full.txt`
 
 ## Notes
-- `Graph Algorithm/requirements.txt` is for that submodule only; do not use it for BunnyRAG unless explicitly working in that folder.
+- `Graph_Algorithm/requirements.txt` is for that submodule only; do not use it for BunnyRAG unless explicitly working in that folder.
 
 ## Verification ladder (run in this order after changes)
 Note: Windows commands shown; adapt for macOS/Linux.

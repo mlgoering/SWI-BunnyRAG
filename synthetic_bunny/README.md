@@ -21,13 +21,13 @@ It still needs two input files (usually generated elsewhere in this repo):
 ## Inputs expected
 
 1. Graph JSON (Bunny-compatible)
-- Path example: `Bunny Rags/random_spherical_bunny_graph_75.json`
+- Path example: `Bunny_Rags/random_spherical_bunny_graph_75.json`
 - Required shape:
   - `nodes`: object keyed by node ID strings
   - `edges`: list of `[src, dst, {"weight": <float>}]`
 
 2. Vectors JSON
-- Path example: `Graph Algorithm/random_spherical_vectors_75.json`
+- Path example: `Graph_Algorithm/random_spherical_vectors_75.json`
 - Required shape:
   - `vectors`: either a list (index -> node id) or object keyed by node ID strings
 
@@ -94,11 +94,11 @@ All synthetic scripts support:
 
 Generate synthetic graph + vectors:
 
-```powershell
-python synthetic_bunny\generate_synthetic_data.py ^
-  --n 75 --dim 4 --scale-prob 0.1 ^
-  --vector-space orthant ^
-  --output-path "synthetic_bunny/output/example_run/random_spherical_bunny_graph.json" ^
+```bash
+python synthetic_bunny/generate_synthetic_data.py \
+  --n 75 --dim 4 --scale-prob 0.1 \
+  --vector-space orthant \
+  --output-path "synthetic_bunny/output/example_run/random_spherical_bunny_graph.json" \
   --vectors-output-path "synthetic_bunny/output/example_run/random_spherical_vectors.json"
 ```
 
@@ -106,24 +106,24 @@ Use `--vector-space sphere` to sample node vectors over the full unit sphere.
 
 Run a lambda sweep:
 
-```powershell
-python synthetic_bunny\synthetic_lambda_sweep.py ^
-  --graph-path "synthetic_bunny/output/example_run/random_spherical_bunny_graph.json" ^
-  --vectors-path "synthetic_bunny/output/example_run/random_spherical_vectors.json" ^
-  --query-random-points 1 --query-seed 17 --query-vector-space sphere ^
-  --seed-k 3 --top-k 10 ^
-  --lambdas "0,0.1,0.2,0.3,0.4,0.5" ^
-  --graphrag-max-distance 6.0 ^
+```bash
+python synthetic_bunny/synthetic_lambda_sweep.py \
+  --graph-path "synthetic_bunny/output/example_run/random_spherical_bunny_graph.json" \
+  --vectors-path "synthetic_bunny/output/example_run/random_spherical_vectors.json" \
+  --query-random-points 1 --query-seed 17 --query-vector-space sphere \
+  --seed-k 3 --top-k 10 \
+  --lambdas "0,0.1,0.2,0.3,0.4,0.5" \
+  --graphrag-max-distance 6.0 \
   --output-dir "synthetic_bunny/output/example_run"
 ```
 
 Generate visualization:
 
-```powershell
-python synthetic_bunny\visualize_lambda_sweep.py ^
-  --graph-path "synthetic_bunny/output/example_run/random_spherical_bunny_graph.json" ^
-  --selected-nodes-path "synthetic_bunny/output/example_run/synthetic_bunny_lambda_selected_nodes.json" ^
-  --graphrag-path "synthetic_bunny/output/example_run/synthetic_graphrag_topk_selected_nodes.json" ^
+```bash
+python synthetic_bunny/visualize_lambda_sweep.py \
+  --graph-path "synthetic_bunny/output/example_run/random_spherical_bunny_graph.json" \
+  --selected-nodes-path "synthetic_bunny/output/example_run/synthetic_bunny_lambda_selected_nodes.json" \
+  --graphrag-path "synthetic_bunny/output/example_run/synthetic_graphrag_topk_selected_nodes.json" \
   --output-html "synthetic_bunny/output/example_run/synthetic_lambda_sweep_visualization.html"
 ```
 
@@ -131,20 +131,20 @@ python synthetic_bunny\visualize_lambda_sweep.py ^
 
 Run a behavior sweep:
 
-```powershell
-python synthetic_bunny\behavior_test_runner.py ^
-  --num-datasets 5 --queries-per-dataset 10 ^
-  --vector-space sphere ^
-  --seed-community-policy same ^
+```bash
+python synthetic_bunny/behavior_test_runner.py \
+  --num-datasets 5 --queries-per-dataset 10 \
+  --vector-space sphere \
+  --seed-community-policy same \
   --output-dir "synthetic_bunny/output/behavior_runner/sphere_same"
 ```
 
 Export condensed Excel report:
 
-```powershell
-python synthetic_bunny\export_behavior_excel_condensed.py ^
-  --rows-csv "synthetic_bunny/output/behavior_runner/sphere_same/behavior_results_rows.csv" ^
-  --metadata-json "synthetic_bunny/output/behavior_runner/sphere_same/behavior_metadata.json" ^
+```bash
+python synthetic_bunny/export_behavior_excel_condensed.py \
+  --rows-csv "synthetic_bunny/output/behavior_runner/sphere_same/behavior_results_rows.csv" \
+  --metadata-json "synthetic_bunny/output/behavior_runner/sphere_same/behavior_metadata.json" \
   --output-xlsx "presentation/testing/behavior_report_condensed_sphere_same.xlsx"
 ```
 

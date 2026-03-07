@@ -1,9 +1,77 @@
 # SWI-BunnyRAG
 
 This repo is a research prototype that collects Wikipedia math articles, chunks them, builds a causal graph, and runs two RAG variants:
-`CausalRAG` (in `Graph Algorithm/`) and `BunnyRAG` (in `Bunny Rags/`).
+`CausalRAG` (in `Graph_Algorithm/`) and `BunnyRAG` (in `Bunny_Rags/`).
 
 Below is a plain-English map of the repo, plus the dependencies each part needs.
+
+## Portfolio Quickstart
+
+Use this short path when demonstrating reproducible, industry-style workflow.
+
+```bash
+# 1) Create virtual environment with Python 3.12
+# Windows:
+py -3.12 -m venv .venv
+# macOS/Linux:
+python3.12 -m venv .venv
+
+# 2) Activate virtual environment
+# Windows PowerShell:
+.\.venv\Scripts\Activate.ps1
+# Windows cmd:
+.venv\Scripts\activate.bat
+# macOS/Linux:
+source .venv/bin/activate
+
+# 3) Install synthetic-only dependencies (used by golden path)
+python -m pip install -r synthetic_bunny/requirements-synthetic.txt
+
+# 4) Run tests
+python -m pytest -q
+
+# 5) Run the reproducible golden path
+python scripts/run_fixture_golden_path.py
+
+# 6) (Optional) Rebuild website/demo assets for docs/portfolio
+python scripts/build_portfolio_assets.py
+```
+
+Optional (Windows):
+
+```powershell
+# Same asset build via PowerShell helper
+powershell -ExecutionPolicy Bypass -File scripts/build_portfolio_assets.ps1
+```
+
+Golden-path synthetic fixture demo (reproducible end-to-end):
+
+```bash
+# Uses dependencies from: synthetic_bunny/requirements-synthetic.txt
+python scripts/run_fixture_golden_path.py
+```
+
+What this command does:
+- Runs synthetic smoke tests first (`tests/test_synthetic_*` + visualization/data-gen synthetic tests).
+- Rebuilds fixture lambda-sweep artifacts for `seed42_n500_dim6_sp0025`.
+- Rebuilds the interactive HTML visualization (with taller default plot height for web embedding).
+
+Primary outputs:
+- `synthetic_bunny/output/golden_path_seed42_n500_dim6_sp0025/lambda_sweep/synthetic_lambda_sweep_variants.json`
+- `synthetic_bunny/output/golden_path_seed42_n500_dim6_sp0025/lambda_sweep/synthetic_bunny_lambda_selected_nodes.json`
+- `synthetic_bunny/output/golden_path_seed42_n500_dim6_sp0025/lambda_sweep/synthetic_graphrag_topk_selected_nodes.json`
+- `synthetic_bunny/output/golden_path_seed42_n500_dim6_sp0025/lambda_sweep/synthetic_bunny_lambda_sweep_report.txt`
+- `synthetic_bunny/output/golden_path_seed42_n500_dim6_sp0025/lambda_sweep/synthetic_lambda_sweep_visualization.html`
+
+Optional flags:
+
+```bash
+# Skip synthetic smoke tests (artifacts only)
+python scripts/run_fixture_golden_path.py --skip-synth-tests
+
+# Also copy HTML to docs/portfolio/golden_path/ for GitHub Pages
+python scripts/run_fixture_golden_path.py --publish-to-docs
+```
 
 ## Synthetic Analog
 
@@ -11,6 +79,9 @@ For synthetic-only experiments (no text, no Hugging Face model calls), use:
 - `synthetic_bunny/`
 
 This folder contains a self-contained synthetic analog of BunnyRAG/GraphRAG and lambda-sweep tooling over synthetic vector/graph data.
+
+- Curated, versioned fixture datasets live in `synthetic_bunny/fixtures/`.
+- Ephemeral/generated run outputs should go to `synthetic_bunny/output/` (gitignored).
 
 Key synthetic additions on this branch:
 - Data/query vector-space controls:
@@ -28,12 +99,12 @@ Key synthetic additions on this branch:
 - A notebook that downloads article text and chunks it into a JSON knowledge base.
 
 **Files**
-- `Data generation/wiiki scaper.ipynb`
+- `Data_generation/wiiki_scaper.ipynb`
   - Contains `URL_DISCIPLINE_MAP` (the URL list).
   - Scrapes pages using `wikipediaapi`.
   - Writes:
-    - `Data generation/wiki_math_knowledge_base_api.json` (chunked JSON)
-    - `Data generation/wiki_data_api_math/*.md` (one Markdown file per page)
+    - `Data_generation/wiki_math_knowledge_base_api.json` (chunked JSON)
+    - `Data_generation/wiki_data_api_math/*.md` (one Markdown file per page)
 
 **Dependencies**
 - `wikipedia-api` (imported as `wikipediaapi`)
@@ -50,8 +121,8 @@ pip install wikipedia-api
 - Computes cosine similarity to retrieve relevant nodes.
 
 **Files**
-- `Graph Algorithm/retriever.py` (CausalRAG retriever)
-- `Bunny Rags/bunny_retriever.py` (BunnyRAG retriever)
+- `Graph_Algorithm/retriever.py` (CausalRAG retriever)
+- `Bunny_Rags/bunny_retriever.py` (BunnyRAG retriever)
 
 **Dependencies**
 - `sentence-transformers`
@@ -71,8 +142,8 @@ pip install -r requirements.txt
 - Builds a directed causal graph and stores node embeddings.
 
 **Files**
-- `Graph Algorithm/builder.py` (CausalRAG builder)
-- `Bunny Rags/builder.py` (BunnyRAG builder)
+- `Graph_Algorithm/builder.py` (CausalRAG builder)
+- `Bunny_Rags/builder.py` (BunnyRAG builder)
 
 **Dependencies**
 - Same as retrieval above.
@@ -85,12 +156,12 @@ Install (full/dev):
 pip install -r requirements-full.txt
 ```
 
-### 4) CausalRAG pipeline (Graph Algorithm)
+### 4) CausalRAG pipeline (Graph_Algorithm)
 **What it is**
 - End-to-end CausalRAG chain and evaluation.
 
 **Files**
-- `Graph Algorithm/casual rag chain v1.ipynb`
+- `Graph_Algorithm/casual_rag_chain_v1.ipynb`
   - Defines `CausalRAGChain`
   - Runs retrieval and evaluation (cosine similarity, ROUGE)
 
@@ -109,7 +180,7 @@ pip install -r requirements-full.txt
 - End-to-end BunnyRAG chain and evaluation.
 
 **Files**
-- `Bunny Rags/bunny rag chain v1.ipynb`
+- `Bunny_Rags/bunny_rag_chain_v1.ipynb`
   - Defines `BunnyRAGChain`
   - Runs retrieval and evaluation (cosine similarity, ROUGE)
 
@@ -128,7 +199,7 @@ pip install -r requirements-full.txt
 - Builds causal graphs using an LLM.
 
 **Files**
-- `Graph Algorithm/LLM Casual Graph Gen.ipynb`
+- `Graph_Algorithm/LLM_Casual_Graph_Gen.ipynb`
 
 **Dependencies**
 - `openai` (used for OpenRouter client)
@@ -147,10 +218,10 @@ pip install -r requirements-full.txt
 - Example outputs from RAG runs.
 
 **Files**
-- `Graph Algorithm/rag_output*.txt`
-- `Bunny Rags/rag_output_with_context.txt`
-- `Graph Algorithm/causal_*.(json|graphml)`
-- `Bunny Rags/causal_*.(json|graphml)`
+- `Graph_Algorithm/rag_output*.txt`
+- `Bunny_Rags/rag_output_with_context.txt`
+- `Graph_Algorithm/causal_*.(json|graphml)`
+- `Bunny_Rags/causal_*.(json|graphml)`
 
 ### 8) Tests
 **What it is**
@@ -163,19 +234,23 @@ pip install -r requirements-full.txt
 
 Run:
 ```
-.venv\Scripts\python -m pytest -q tests/test_smoke.py
+python -m pytest -q tests/test_smoke.py
 ```
 
 Run v2 smoke:
 ```
-.venv\Scripts\python -m pytest -q tests/test_smoke_v2.py
+python -m pytest -q tests/test_smoke_v2.py
 ```
 
 Run synthetic-only test suite:
+```bash
+python -m pytest -q tests/test_synthetic_bunnyrag.py tests/test_synthetic_graphrag.py tests/test_synthetic_lambda_sweep.py tests/test_visualize_lambda_sweep.py tests/test_generate_synthetic_data.py
+```
+
+Optional (Windows helper script):
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/run_synth_tests.ps1
 ```
-The script deletes its per-run pytest temp folder automatically when tests pass.
 
 Run lambda sweep experiment:
 ```
@@ -191,7 +266,7 @@ Outputs are written to:
 - `tests/output/bunny_lambda_top10_component_terms.csv`
 
 ### 9) Bunny Retriever Update (PR2)
-Recent retrieval updates in `Bunny Rags/bunny_retriever.py`:
+Recent retrieval updates in `Bunny_Rags/bunny_retriever.py`:
 
 - Seed/source selection now uses highest cosine similarity to the query.
 - The MMR-like stage uses a utility score (higher is better):
@@ -227,13 +302,40 @@ pip install wikipedia-api
 ```
 
 ## Notes
-- The canonical end-to-end notebook for PR1 is `Bunny Rags/bunny rag chain v1.ipynb`.
-- `Graph Algorithm/requirements.txt` is for that submodule only (see `AGENTS.md`).
+- The canonical end-to-end notebook for PR1 is `Bunny_Rags/bunny_rag_chain_v1.ipynb`.
+- `Graph_Algorithm/requirements.txt` is for that submodule only (see `AGENTS.md`).
 - Parameterized notebook variants:
-  - `Bunny Rags/bunny rag chain v2.ipynb` (imports `bunny_chain.py`)
-  - `Graph Algorithm/casual rag chain v2.ipynb` (imports `causal_chain.py`)
+  - `Bunny_Rags/bunny_rag_chain_v2.ipynb` (imports `bunny_chain.py`)
+  - `Graph_Algorithm/casual_rag_chain_v2.ipynb` (imports `causal_chain.py`)
 - PR3 technical note (includes methodology limitation and recommended fix path):
   - `docs/pr3-notes.md`
+
+## Website Demo (GitHub Pages)
+
+Default asset builder (cross-platform):
+
+```bash
+python scripts/build_portfolio_assets.py
+```
+
+Windows convenience wrapper:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/build_portfolio_assets.ps1
+```
+
+Direct interactive-only build command (without scatter copy):
+
+```bash
+python presentation/build_interactive_projection_google_sites.py --output-html docs/portfolio/interactive_projection.html
+```
+
+This writes:
+- `docs/portfolio/interactive_projection.html`
+- `docs/portfolio/interactive_projection.vector.json`
+- `docs/portfolio/interactive_projection.graph.json`
+
+`docs/index.html` embeds this interactive page and is intended as the GitHub Pages landing page.
 
 ## CauseNet Sample (Prebuilt Dataset)
 
@@ -241,22 +343,22 @@ Downloaded file:
 - `data/external/causenet/causenet-sample.json`
 
 Converter script:
-- `Data generation/convert_causenet_sample_to_bunny.py`
+- `Data_generation/convert_causenet_sample_to_bunny.py`
 
 Generate Bunny-compatible graph JSON:
 ```bash
-python "Data generation/convert_causenet_sample_to_bunny.py"
+python "Data_generation/convert_causenet_sample_to_bunny.py"
 ```
 
 Output:
-- `Bunny Rags/causenet_sample_bunny_graph.json`
+- `Bunny_Rags/causenet_sample_bunny_graph.json`
 
 ## Parameterized Chain Modules
 
 To make dataset swaps easier (for example, testing a different causal graph JSON), use these modules instead of hardcoding notebook paths:
 
-- `Bunny Rags/bunny_chain.py`
-- `Graph Algorithm/causal_chain.py`
+- `Bunny_Rags/bunny_chain.py`
+- `Graph_Algorithm/causal_chain.py`
 
 Both support variable input paths for:
 - Causal graph JSON (nodes/edges)
@@ -265,13 +367,13 @@ Both support variable input paths for:
 ### BunnyRAG example
 ```python
 import sys
-sys.path.insert(0, r"Bunny Rags")
+sys.path.insert(0, r"Bunny_Rags")
 
 from bunny_chain import BunnyRAGChain
 
 chain = BunnyRAGChain(
-    graph_path=r"Bunny Rags/causal_math_graph_llm.json",
-    knowledge_base_path=r"Data generation/wiki_math_knowledge_base_api.json",
+    graph_path=r"Bunny_Rags/causal_math_graph_llm.json",
+    knowledge_base_path=r"Data_generation/wiki_math_knowledge_base_api.json",
 )
 result = chain.explore_and_query(
     query="What happens when the circumcenter is on the side of the triangle?",
@@ -284,13 +386,13 @@ print(result["results"][:2])
 ### Causal/GraphRAG example
 ```python
 import sys
-sys.path.insert(0, r"Graph Algorithm")
+sys.path.insert(0, r"Graph_Algorithm")
 
 from causal_chain import CausalRAGChain
 
 chain = CausalRAGChain(
-    graph_state_path=r"Graph Algorithm/causal_math_graph_llm.json",
-    knowledge_base_path=r"Data generation/wiki_math_knowledge_base_api.json",
+    graph_state_path=r"Graph_Algorithm/causal_math_graph_llm.json",
+    knowledge_base_path=r"Data_generation/wiki_math_knowledge_base_api.json",
 )
 result = chain.run("Explain causal links around triangle centers.")
 print(result["paths"][:2])
