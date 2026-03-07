@@ -86,7 +86,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--output",
-        default="Bunny Rags/causenet_sample_bunny_graph.json",
+        default="Bunny_Rags/causenet_sample_bunny_graph.json",
         help="Output path for BunnyRAG-compatible graph JSON.",
     )
     args = parser.parse_args()

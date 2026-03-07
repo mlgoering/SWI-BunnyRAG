@@ -15,7 +15,7 @@ def _repo_root() -> Path:
 
 
 def _load_generator_module():
-    module_path = _repo_root() / "Graph Algorithm" / "random_spherical_graph_generator.py"
+    module_path = _repo_root() / "Graph_Algorithm" / "random_spherical_graph_generator.py"
     spec = importlib.util.spec_from_file_location("random_spherical_graph_generator", module_path)
     assert spec is not None and spec.loader is not None
     module = importlib.util.module_from_spec(spec)
@@ -24,7 +24,7 @@ def _load_generator_module():
 
 
 def _run_generator_cli(args: list[str], *, check: bool = True) -> subprocess.CompletedProcess[str]:
-    script = _repo_root() / "Graph Algorithm" / "random_spherical_graph_generator.py"
+    script = _repo_root() / "Graph_Algorithm" / "random_spherical_graph_generator.py"
     env = dict(os.environ)
     env["MPLCONFIGDIR"] = str(_repo_root() / "temp" / "matplotlib_test_graph_generator_cli")
     Path(env["MPLCONFIGDIR"]).mkdir(parents=True, exist_ok=True)

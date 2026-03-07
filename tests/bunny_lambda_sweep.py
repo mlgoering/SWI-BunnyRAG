@@ -58,9 +58,9 @@ def causalrag_top_k_nodes(
 
 def main() -> int:
     repo_root = Path(__file__).resolve().parents[1]
-    bunny_dir = repo_root / "Bunny Rags"
-    default_graph = "Bunny Rags/causal_math_graph_llm.json"
-    default_kb = "Data generation/wiki_math_knowledge_base_api.json"
+    bunny_dir = repo_root / "Bunny_Rags"
+    default_graph = "Bunny_Rags/causal_math_graph_llm.json"
+    default_kb = "Data_generation/wiki_math_knowledge_base_api.json"
     default_output = "tests/output"
 
     parser = argparse.ArgumentParser(

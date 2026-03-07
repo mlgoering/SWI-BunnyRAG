@@ -1,7 +1,7 @@
 BunnyRAG Lambda Sweep Report
 Query: What causes addiction?
-Graph path: C:\Users\mlgoe\SWI-BunnyRAG\Bunny Rags\causenet_sample_bunny_graph.json
-Knowledge-base path (reference): C:\Users\mlgoe\SWI-BunnyRAG\Data generation\wiki_math_knowledge_base_api.json
+Graph path: C:\Users\mlgoe\SWI-BunnyRAG\Bunny_Rags\causenet_sample_bunny_graph.json
+Knowledge-base path (reference): C:\Users\mlgoe\SWI-BunnyRAG\Data_generation\wiki_math_knowledge_base_api.json
 Lambdas: [-0.2, -0.1, 0.0, 0.1, 0.2, 0.3]
 Top-k selected per lambda: 5
 Causal baseline top-k: 5

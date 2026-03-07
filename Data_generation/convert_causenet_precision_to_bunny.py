@@ -188,7 +188,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--output",
-        default="Bunny Rags/causenet_precision_bunny_graph.json",
+        default="Bunny_Rags/causenet_precision_bunny_graph.json",
         help="Output path for Bunny-compatible graph JSON.",
     )
     parser.add_argument(

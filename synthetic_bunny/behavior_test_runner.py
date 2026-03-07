@@ -43,7 +43,7 @@ MIN_BASELINE_FOR_ENTROPY_LIFT = 0.05
 
 def _load_generator_module():
     repo_root = Path(__file__).resolve().parent.parent
-    generator_path = repo_root / "Graph Algorithm" / "random_spherical_graph_generator.py"
+    generator_path = repo_root / "Graph_Algorithm" / "random_spherical_graph_generator.py"
     spec = importlib.util.spec_from_file_location(
         "random_spherical_graph_generator", generator_path
     )

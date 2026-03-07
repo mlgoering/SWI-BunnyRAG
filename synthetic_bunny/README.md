@@ -21,13 +21,13 @@ It still needs two input files (usually generated elsewhere in this repo):
 ## Inputs expected
 
 1. Graph JSON (Bunny-compatible)
-- Path example: `Bunny Rags/random_spherical_bunny_graph_75.json`
+- Path example: `Bunny_Rags/random_spherical_bunny_graph_75.json`
 - Required shape:
   - `nodes`: object keyed by node ID strings
   - `edges`: list of `[src, dst, {"weight": <float>}]`
 
 2. Vectors JSON
-- Path example: `Graph Algorithm/random_spherical_vectors_75.json`
+- Path example: `Graph_Algorithm/random_spherical_vectors_75.json`
 - Required shape:
   - `vectors`: either a list (index -> node id) or object keyed by node ID strings
 

@@ -1,4 +1,4 @@
-﻿# BunnyRAG (PR-1 Notes)
+# BunnyRAG (PR-1 Notes)
 
 This PR makes a fresh clone reproducibly runnable with minimal dependencies.
 
@@ -17,7 +17,7 @@ pip install -r requirements-full.txt
 ```
 
 ## Main Path
-- Canonical end-to-end notebook: `Bunny Rags/bunny rag chain v1.ipynb`
+- Canonical end-to-end notebook: `Bunny_Rags/bunny_rag_chain_v1.ipynb`
 
 ## Smoke Test
 ```powershell

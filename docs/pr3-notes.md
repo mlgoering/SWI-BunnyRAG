@@ -4,25 +4,25 @@ Date: 2026-02-18
 
 ## What This PR Adds
 - Parameterized chain modules and v2 notebooks:
-  - `Bunny Rags/bunny_chain.py`
-  - `Graph Algorithm/causal_chain.py`
-  - `Bunny Rags/bunny rag chain v2.ipynb`
-  - `Graph Algorithm/casual rag chain v2.ipynb`
+  - `Bunny_Rags/bunny_chain.py`
+  - `Graph_Algorithm/causal_chain.py`
+  - `Bunny_Rags/bunny_rag_chain_v2.ipynb`
+  - `Graph_Algorithm/casual_rag_chain_v2.ipynb`
 - Parameterized lambda sweep:
   - `tests/bunny_lambda_sweep.py` now accepts configurable graph path, query, lambda list, and Causal baseline options.
   - Adds Bunny-vs-Causal top-k overlap outputs and consecutive-lambda Jaccard reporting.
 - New smoke coverage:
   - `tests/test_smoke_v2.py` (exercises Bunny + Causal v2 modules)
 - CauseNet tooling:
-  - `Data generation/convert_causenet_sample_to_bunny.py`
-  - `Data generation/convert_causenet_precision_to_bunny.py`
+  - `Data_generation/convert_causenet_sample_to_bunny.py`
+  - `Data_generation/convert_causenet_precision_to_bunny.py`
   - `docs/causenet-precision-agent-runbook.md`
 
 ## Major Methodology Limitation (Important)
 The current Bunny resistance-based scoring assumes graph conditions that are not met by large parts of available causal datasets.
 
 ### Observed structure mismatch
-- `Bunny Rags/causenet_sample_bunny_graph.json` is almost entirely tiny disconnected components:
+- `Bunny_Rags/causenet_sample_bunny_graph.json` is almost entirely tiny disconnected components:
   - 524 nodes, 264 edges, 264 components, mostly size-2.
 - The current Wikipedia-derived graph also has many tiny components:
   - 219 nodes, 151 edges, 81 components, including many size-2 components.
@@ -30,7 +30,7 @@ The current Bunny resistance-based scoring assumes graph conditions that are not
   - 80,223 nodes, 197,806 edges, 6,949 components, including 6,102 size-2 components.
 
 ### Why this breaks the intended interpretation
-- `Bunny Rags/bunny_retriever.py` computes effective resistance via global Laplacian pseudoinverse (`np.linalg.pinv`).
+- `Bunny_Rags/bunny_retriever.py` computes effective resistance via global Laplacian pseudoinverse (`np.linalg.pinv`).
 - On disconnected graphs, this can yield finite cross-component values instead of the intended "no connection / infinite resistance" behavior.
 - Result: conductance normalization can collapse to a few discrete values, which can dominate ranking behavior and violate expected theorem assumptions.
 

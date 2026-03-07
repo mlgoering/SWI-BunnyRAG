@@ -232,12 +232,12 @@ def main() -> int:
     )
     parser.add_argument(
         "--output-path",
-        default="Graph Algorithm/random_spherical_bunny_graph.json",
+        default="Graph_Algorithm/random_spherical_bunny_graph.json",
         help="Output graph JSON path.",
     )
     parser.add_argument(
         "--vectors-output-path",
-        default="Graph Algorithm/random_spherical_vectors.json",
+        default="Graph_Algorithm/random_spherical_vectors.json",
         help="Output path for raw vectors JSON.",
     )
     parser.add_argument(

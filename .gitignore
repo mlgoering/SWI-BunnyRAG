@@ -16,7 +16,7 @@ pytest_temp_ps/
 .ipynb_checkpoints/
 
 # Ignore a specific notebook (remove this if you want it tracked)
-Graph Algorithm/Rule based Casual Graph Generator.ipynb
+Graph_Algorithm/Rule based Casual Graph Generator.ipynb
 
 # --- Synthetic experiment outputs (ephemeral) ---
 synthetic_bunny/output/
@@ -45,7 +45,7 @@ presentation/testing/**/*.txt
 !presentation/testing/behavior_runner_n500_d6_random_same_30x30_20260304/**
 
 # --- Generated synthetic graph artifacts ---
-Bunny Rags/random_spherical_bunny_graph*.json
-Graph Algorithm/random_spherical_vectors*.json
-Graph Algorithm/random_spherical_graph*.png
+Bunny_Rags/random_spherical_bunny_graph*.json
+Graph_Algorithm/random_spherical_vectors*.json
+Graph_Algorithm/random_spherical_graph*.png
 handoff.txt

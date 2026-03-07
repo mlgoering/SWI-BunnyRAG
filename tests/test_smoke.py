@@ -3,7 +3,7 @@ from pathlib import Path
 
 def test_smoke_load_graph(monkeypatch):
     repo_root = Path(__file__).resolve().parents[1]
-    bunny_dir = repo_root / "Bunny Rags"
+    bunny_dir = repo_root / "Bunny_Rags"
     assert bunny_dir.exists(), f"Missing directory: {bunny_dir}"
 
     monkeypatch.syspath_prepend(str(bunny_dir))
