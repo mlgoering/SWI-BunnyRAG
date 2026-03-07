@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interactive Embedding + Graph Views</title>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f8f8f8; }
+    .wrap { max-width: 1600px; margin: 0 auto; padding: 12px; }
+    .toolbar { display: flex; gap: 8px; margin-bottom: 10px; }
+    .toggle-btn {
+      border: 1px solid #666; background: #fff; color: #222; padding: 8px 12px; cursor: pointer;
+    }
+    .toggle-btn.active { background: #222; color: #fff; }
+    .view { display: none; min-height: 86vh; }
+    .view.active { display: block; }
+    .view .plotly-graph-div { height: 86vh !important; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="toolbar">
+      <button id="btn-vector" class="toggle-btn active" onclick="showView('vector')">Vector Plot</button>
+      <button id="btn-graph" class="toggle-btn" onclick="showView('graph')">Graph Layout</button>
+    </div>
+    <div id="view-vector" class="view active"><div id="plot-vector"></div></div>
+    <div id="view-graph" class="view"><div id="plot-graph"></div></div>
+  </div>
+  <script>
+    async function loadFigure(jsonPath, targetId) {
+      const response = await fetch(jsonPath);
+      if (!response.ok) {
+        throw new Error(`Failed to load ${jsonPath} (${response.status})`);
+      }
+      const fig = await response.json();
+      await Plotly.newPlot(
+        targetId,
+        fig.data || [],
+        fig.layout || {},
+        Object.assign({ responsive: true }, fig.config || {})
+      );
+    }
+
+    function showView(which) {
+      const vector = document.getElementById('view-vector');
+      const graph = document.getElementById('view-graph');
+      const btnVector = document.getElementById('btn-vector');
+      const btnGraph = document.getElementById('btn-graph');
+
+      if (which === 'vector') {
+        vector.classList.add('active');
+        graph.classList.remove('active');
+        btnVector.classList.add('active');
+        btnGraph.classList.remove('active');
+      } else {
+        graph.classList.add('active');
+        vector.classList.remove('active');
+        btnGraph.classList.add('active');
+        btnVector.classList.remove('active');
+      }
+
+      if (window.Plotly) {
+        const plots = document.querySelectorAll('.js-plotly-plot');
+        plots.forEach((p) => window.Plotly.Plots.resize(p));
+      }
+    }
+
+    Promise.all([
+      loadFigure('interactive_projection.vector.json', 'plot-vector'),
+      loadFigure('interactive_projection.graph.json', 'plot-graph'),
+    ]).catch((err) => {
+      console.error(err);
+      document.body.insertAdjacentHTML(
+        'beforeend',
+        `<pre style="color:#b00020; padding: 12px;">${String(err)}</pre>`
+      );
+    });
+  </script>
+</body>
+</html>

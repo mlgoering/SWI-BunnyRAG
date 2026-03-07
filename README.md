@@ -235,6 +235,21 @@ pip install wikipedia-api
 - PR3 technical note (includes methodology limitation and recommended fix path):
   - `docs/pr3-notes.md`
 
+## Website Demo (GitHub Pages)
+
+Build a Google Sites-friendly Plotly bundle (small HTML + sidecar JSON files) into `docs/portfolio/`:
+
+```powershell
+.venv\Scripts\python presentation/build_interactive_projection_google_sites.py --output-html docs/portfolio/interactive_projection.html
+```
+
+This writes:
+- `docs/portfolio/interactive_projection.html`
+- `docs/portfolio/interactive_projection.vector.json`
+- `docs/portfolio/interactive_projection.graph.json`
+
+`docs/index.html` embeds this interactive page and is intended as the GitHub Pages landing page.
+
 ## CauseNet Sample (Prebuilt Dataset)
 
 Downloaded file:
