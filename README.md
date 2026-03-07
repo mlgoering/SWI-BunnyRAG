@@ -234,19 +234,23 @@ pip install -r requirements-full.txt
 
 Run:
 ```
-.venv\Scripts\python -m pytest -q tests/test_smoke.py
+python -m pytest -q tests/test_smoke.py
 ```
 
 Run v2 smoke:
 ```
-.venv\Scripts\python -m pytest -q tests/test_smoke_v2.py
+python -m pytest -q tests/test_smoke_v2.py
 ```
 
 Run synthetic-only test suite:
+```bash
+python -m pytest -q tests/test_synthetic_bunnyrag.py tests/test_synthetic_graphrag.py tests/test_synthetic_lambda_sweep.py tests/test_visualize_lambda_sweep.py tests/test_generate_synthetic_data.py
+```
+
+Optional (Windows helper script):
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/run_synth_tests.ps1
 ```
-The script deletes its per-run pytest temp folder automatically when tests pass.
 
 Run lambda sweep experiment:
 ```
