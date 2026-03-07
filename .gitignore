@@ -10,6 +10,7 @@ __pycache__/
 tests/_tmp_pytest*/
 temp/
 pytest_temp_ps/
+pytest_temp_py/
 .jupyter_local/
 
 # --- Jupyter ---

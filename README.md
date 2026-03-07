@@ -9,23 +9,45 @@ Below is a plain-English map of the repo, plus the dependencies each part needs.
 
 Use this short path when demonstrating reproducible, industry-style workflow.
 
+```bash
+# 1) Create virtual environment with Python 3.12
+# Windows:
+py -3.12 -m venv .venv
+# macOS/Linux:
+python3.12 -m venv .venv
+
+# 2) Activate virtual environment
+# Windows PowerShell:
+.\.venv\Scripts\Activate.ps1
+# Windows cmd:
+.venv\Scripts\activate.bat
+# macOS/Linux:
+source .venv/bin/activate
+
+# 3) Install synthetic-only dependencies (used by golden path)
+python -m pip install -r synthetic_bunny/requirements-synthetic.txt
+
+# 4) Run tests
+python -m pytest -q
+
+# 5) Run the reproducible golden path
+python scripts/run_fixture_golden_path.py
+
+# 6) (Optional) Rebuild website/demo assets for docs/portfolio
+python scripts/build_portfolio_assets.py
+```
+
+Optional (Windows):
+
 ```powershell
-# 1) Verify python
-python -V
-
-# 2) Install minimal dependencies in the project venv
-.venv\Scripts\python -m pip install -r requirements.txt
-
-# 3) Run tests
-.venv\Scripts\python -m pytest -q
-
-# 4) Rebuild website/demo assets
+# Same asset build via PowerShell helper
 powershell -ExecutionPolicy Bypass -File scripts/build_portfolio_assets.ps1
 ```
 
 Golden-path synthetic fixture demo (reproducible end-to-end):
 
 ```bash
+# Uses dependencies from: synthetic_bunny/requirements-synthetic.txt
 python scripts/run_fixture_golden_path.py
 ```
 
@@ -286,10 +308,22 @@ pip install wikipedia-api
 
 ## Website Demo (GitHub Pages)
 
-Build a Google Sites-friendly Plotly bundle (small HTML + sidecar JSON files) into `docs/portfolio/`:
+Default asset builder (cross-platform):
+
+```bash
+python scripts/build_portfolio_assets.py
+```
+
+Windows convenience wrapper:
 
 ```powershell
-.venv\Scripts\python presentation/build_interactive_projection_google_sites.py --output-html docs/portfolio/interactive_projection.html
+powershell -ExecutionPolicy Bypass -File scripts/build_portfolio_assets.ps1
+```
+
+Direct interactive-only build command (without scatter copy):
+
+```bash
+python presentation/build_interactive_projection_google_sites.py --output-html docs/portfolio/interactive_projection.html
 ```
 
 This writes:
