@@ -1,0 +1,494 @@
+{
+  "0.000": [
+    {
+      "rank": 1,
+      "node_id": "273",
+      "utility_score": 0.7924666213246443,
+      "query_similarity": 0.8266071402698785,
+      "avg_normalized_conductance": 0.7924666213246443,
+      "avg_seed_cosine": 0.8070232052184592
+    },
+    {
+      "rank": 2,
+      "node_id": "147",
+      "utility_score": 0.7219603630227622,
+      "query_similarity": 0.6363237335138349,
+      "avg_normalized_conductance": 0.7219603630227622,
+      "avg_seed_cosine": 0.6702377691427035
+    },
+    {
+      "rank": 3,
+      "node_id": "246",
+      "utility_score": 0.7214128246359279,
+      "query_similarity": 0.9123351018438096,
+      "avg_normalized_conductance": 0.7214128246359279,
+      "avg_seed_cosine": 0.9154002712571304
+    },
+    {
+      "rank": 4,
+      "node_id": "326",
+      "utility_score": 0.719983258905419,
+      "query_similarity": 0.6653337736556069,
+      "avg_normalized_conductance": 0.719983258905419,
+      "avg_seed_cosine": 0.6709092611976936
+    },
+    {
+      "rank": 5,
+      "node_id": "218",
+      "utility_score": 0.7194965581737481,
+      "query_similarity": 0.6547673389345571,
+      "avg_normalized_conductance": 0.7194965581737481,
+      "avg_seed_cosine": 0.6645120986817569
+    },
+    {
+      "rank": 6,
+      "node_id": "215",
+      "utility_score": 0.7126654738334558,
+      "query_similarity": 0.7598954012721404,
+      "avg_normalized_conductance": 0.7126654738334558,
+      "avg_seed_cosine": 0.8114279607934813
+    },
+    {
+      "rank": 7,
+      "node_id": "27",
+      "utility_score": 0.6987147324899534,
+      "query_similarity": 0.6742242103903264,
+      "avg_normalized_conductance": 0.6987147324899534,
+      "avg_seed_cosine": 0.6969670926395435
+    },
+    {
+      "rank": 8,
+      "node_id": "330",
+      "utility_score": 0.6953349099766678,
+      "query_similarity": 0.7004942707869234,
+      "avg_normalized_conductance": 0.6953349099766678,
+      "avg_seed_cosine": 0.7525506448853134
+    },
+    {
+      "rank": 9,
+      "node_id": "282",
+      "utility_score": 0.6915058586709959,
+      "query_similarity": 0.7256520968579633,
+      "avg_normalized_conductance": 0.6915058586709959,
+      "avg_seed_cosine": 0.7403218573439552
+    },
+    {
+      "rank": 10,
+      "node_id": "105",
+      "utility_score": 0.6908103197421323,
+      "query_similarity": 0.8845962451230571,
+      "avg_normalized_conductance": 0.6908103197421323,
+      "avg_seed_cosine": 0.8232799907380572
+    }
+  ],
+  "0.100": [
+    {
+      "rank": 1,
+      "node_id": "273",
+      "utility_score": 0.7117643008027984,
+      "query_similarity": 0.8266071402698785,
+      "avg_normalized_conductance": 0.7924666213246443,
+      "avg_seed_cosine": 0.8070232052184592
+    },
+    {
+      "rank": 2,
+      "node_id": "147",
+      "utility_score": 0.6549365861084919,
+      "query_similarity": 0.6363237335138349,
+      "avg_normalized_conductance": 0.7219603630227622,
+      "avg_seed_cosine": 0.6702377691427035
+    },
+    {
+      "rank": 3,
+      "node_id": "218",
+      "utility_score": 0.6530453483055725,
+      "query_similarity": 0.6547673389345571,
+      "avg_normalized_conductance": 0.7194965581737481,
+      "avg_seed_cosine": 0.6645120986817569
+    },
+    {
+      "rank": 4,
+      "node_id": "326",
+      "utility_score": 0.6528923327856497,
+      "query_similarity": 0.6653337736556069,
+      "avg_normalized_conductance": 0.719983258905419,
+      "avg_seed_cosine": 0.6709092611976936
+    },
+    {
+      "rank": 5,
+      "node_id": "215",
+      "utility_score": 0.6315226777541076,
+      "query_similarity": 0.7598954012721404,
+      "avg_normalized_conductance": 0.7126654738334558,
+      "avg_seed_cosine": 0.8114279607934813
+    },
+    {
+      "rank": 6,
+      "node_id": "246",
+      "utility_score": 0.6298727975102149,
+      "query_similarity": 0.9123351018438096,
+      "avg_normalized_conductance": 0.7214128246359279,
+      "avg_seed_cosine": 0.9154002712571304
+    },
+    {
+      "rank": 7,
+      "node_id": "27",
+      "utility_score": 0.6290180232259991,
+      "query_similarity": 0.6742242103903264,
+      "avg_normalized_conductance": 0.6987147324899534,
+      "avg_seed_cosine": 0.6969670926395435
+    },
+    {
+      "rank": 8,
+      "node_id": "413",
+      "utility_score": 0.6212103631526317,
+      "query_similarity": 0.6523818118792939,
+      "avg_normalized_conductance": 0.6899695273036276,
+      "avg_seed_cosine": 0.6875916415099596
+    },
+    {
+      "rank": 9,
+      "node_id": "241",
+      "utility_score": 0.621012350412195,
+      "query_similarity": 0.5498916552277076,
+      "avg_normalized_conductance": 0.6762787478934063,
+      "avg_seed_cosine": 0.5526639748121118
+    },
+    {
+      "rank": 10,
+      "node_id": "330",
+      "utility_score": 0.6200798454881364,
+      "query_similarity": 0.7004942707869234,
+      "avg_normalized_conductance": 0.6953349099766678,
+      "avg_seed_cosine": 0.7525506448853134
+    }
+  ],
+  "0.200": [
+    {
+      "rank": 1,
+      "node_id": "273",
+      "utility_score": 0.6310619802809525,
+      "query_similarity": 0.8266071402698785,
+      "avg_normalized_conductance": 0.7924666213246443,
+      "avg_seed_cosine": 0.8070232052184592
+    },
+    {
+      "rank": 2,
+      "node_id": "147",
+      "utility_score": 0.5879128091942215,
+      "query_similarity": 0.6363237335138349,
+      "avg_normalized_conductance": 0.7219603630227622,
+      "avg_seed_cosine": 0.6702377691427035
+    },
+    {
+      "rank": 3,
+      "node_id": "218",
+      "utility_score": 0.5865941384373967,
+      "query_similarity": 0.6547673389345571,
+      "avg_normalized_conductance": 0.7194965581737481,
+      "avg_seed_cosine": 0.6645120986817569
+    },
+    {
+      "rank": 4,
+      "node_id": "326",
+      "utility_score": 0.5858014066658803,
+      "query_similarity": 0.6653337736556069,
+      "avg_normalized_conductance": 0.719983258905419,
+      "avg_seed_cosine": 0.6709092611976936
+    },
+    {
+      "rank": 5,
+      "node_id": "241",
+      "utility_score": 0.5657459529309838,
+      "query_similarity": 0.5498916552277076,
+      "avg_normalized_conductance": 0.6762787478934063,
+      "avg_seed_cosine": 0.5526639748121118
+    },
+    {
+      "rank": 6,
+      "node_id": "27",
+      "utility_score": 0.5593213139620448,
+      "query_similarity": 0.6742242103903264,
+      "avg_normalized_conductance": 0.6987147324899534,
+      "avg_seed_cosine": 0.6969670926395435
+    },
+    {
+      "rank": 7,
+      "node_id": "413",
+      "utility_score": 0.5524511990016356,
+      "query_similarity": 0.6523818118792939,
+      "avg_normalized_conductance": 0.6899695273036276,
+      "avg_seed_cosine": 0.6875916415099596
+    },
+    {
+      "rank": 8,
+      "node_id": "215",
+      "utility_score": 0.5503798816747595,
+      "query_similarity": 0.7598954012721404,
+      "avg_normalized_conductance": 0.7126654738334558,
+      "avg_seed_cosine": 0.8114279607934813
+    },
+    {
+      "rank": 9,
+      "node_id": "330",
+      "utility_score": 0.5448247809996051,
+      "query_similarity": 0.7004942707869234,
+      "avg_normalized_conductance": 0.6953349099766678,
+      "avg_seed_cosine": 0.7525506448853134
+    },
+    {
+      "rank": 10,
+      "node_id": "282",
+      "utility_score": 0.5434414872022049,
+      "query_similarity": 0.7256520968579633,
+      "avg_normalized_conductance": 0.6915058586709959,
+      "avg_seed_cosine": 0.7403218573439552
+    }
+  ],
+  "0.300": [
+    {
+      "rank": 1,
+      "node_id": "273",
+      "utility_score": 0.5503596597591065,
+      "query_similarity": 0.8266071402698785,
+      "avg_normalized_conductance": 0.7924666213246443,
+      "avg_seed_cosine": 0.8070232052184592
+    },
+    {
+      "rank": 2,
+      "node_id": "147",
+      "utility_score": 0.5208890322799512,
+      "query_similarity": 0.6363237335138349,
+      "avg_normalized_conductance": 0.7219603630227622,
+      "avg_seed_cosine": 0.6702377691427035
+    },
+    {
+      "rank": 3,
+      "node_id": "218",
+      "utility_score": 0.5201429285692211,
+      "query_similarity": 0.6547673389345571,
+      "avg_normalized_conductance": 0.7194965581737481,
+      "avg_seed_cosine": 0.6645120986817569
+    },
+    {
+      "rank": 4,
+      "node_id": "326",
+      "utility_score": 0.5187104805461109,
+      "query_similarity": 0.6653337736556069,
+      "avg_normalized_conductance": 0.719983258905419,
+      "avg_seed_cosine": 0.6709092611976936
+    },
+    {
+      "rank": 5,
+      "node_id": "241",
+      "utility_score": 0.5104795554497727,
+      "query_similarity": 0.5498916552277076,
+      "avg_normalized_conductance": 0.6762787478934063,
+      "avg_seed_cosine": 0.5526639748121118
+    },
+    {
+      "rank": 6,
+      "node_id": "27",
+      "utility_score": 0.4896246046980904,
+      "query_similarity": 0.6742242103903264,
+      "avg_normalized_conductance": 0.6987147324899534,
+      "avg_seed_cosine": 0.6969670926395435
+    },
+    {
+      "rank": 7,
+      "node_id": "413",
+      "utility_score": 0.4836920348506397,
+      "query_similarity": 0.6523818118792939,
+      "avg_normalized_conductance": 0.6899695273036276,
+      "avg_seed_cosine": 0.6875916415099596
+    },
+    {
+      "rank": 8,
+      "node_id": "330",
+      "utility_score": 0.4695697165110738,
+      "query_similarity": 0.7004942707869234,
+      "avg_normalized_conductance": 0.6953349099766678,
+      "avg_seed_cosine": 0.7525506448853134
+    },
+    {
+      "rank": 9,
+      "node_id": "474",
+      "utility_score": 0.46955649397400023,
+      "query_similarity": 0.5345172699142531,
+      "avg_normalized_conductance": 0.6370860572117485,
+      "avg_seed_cosine": 0.5584318774591609
+    },
+    {
+      "rank": 10,
+      "node_id": "282",
+      "utility_score": 0.46940930146780935,
+      "query_similarity": 0.7256520968579633,
+      "avg_normalized_conductance": 0.6915058586709959,
+      "avg_seed_cosine": 0.7403218573439552
+    }
+  ],
+  "0.400": [
+    {
+      "rank": 1,
+      "node_id": "273",
+      "utility_score": 0.4696573392372606,
+      "query_similarity": 0.8266071402698785,
+      "avg_normalized_conductance": 0.7924666213246443,
+      "avg_seed_cosine": 0.8070232052184592
+    },
+    {
+      "rank": 2,
+      "node_id": "241",
+      "utility_score": 0.45521315796856154,
+      "query_similarity": 0.5498916552277076,
+      "avg_normalized_conductance": 0.6762787478934063,
+      "avg_seed_cosine": 0.5526639748121118
+    },
+    {
+      "rank": 3,
+      "node_id": "147",
+      "utility_score": 0.45386525536568084,
+      "query_similarity": 0.6363237335138349,
+      "avg_normalized_conductance": 0.7219603630227622,
+      "avg_seed_cosine": 0.6702377691427035
+    },
+    {
+      "rank": 4,
+      "node_id": "218",
+      "utility_score": 0.45369171870104535,
+      "query_similarity": 0.6547673389345571,
+      "avg_normalized_conductance": 0.7194965581737481,
+      "avg_seed_cosine": 0.6645120986817569
+    },
+    {
+      "rank": 5,
+      "node_id": "326",
+      "utility_score": 0.4516195544263416,
+      "query_similarity": 0.6653337736556069,
+      "avg_normalized_conductance": 0.719983258905419,
+      "avg_seed_cosine": 0.6709092611976936
+    },
+    {
+      "rank": 6,
+      "node_id": "27",
+      "utility_score": 0.419927895434136,
+      "query_similarity": 0.6742242103903264,
+      "avg_normalized_conductance": 0.6987147324899534,
+      "avg_seed_cosine": 0.6969670926395435
+    },
+    {
+      "rank": 7,
+      "node_id": "413",
+      "utility_score": 0.41493287069964374,
+      "query_similarity": 0.6523818118792939,
+      "avg_normalized_conductance": 0.6899695273036276,
+      "avg_seed_cosine": 0.6875916415099596
+    },
+    {
+      "rank": 8,
+      "node_id": "474",
+      "utility_score": 0.4137133062280841,
+      "query_similarity": 0.5345172699142531,
+      "avg_normalized_conductance": 0.6370860572117485,
+      "avg_seed_cosine": 0.5584318774591609
+    },
+    {
+      "rank": 9,
+      "node_id": "177",
+      "utility_score": 0.4053867807459129,
+      "query_similarity": 0.5152187355489455,
+      "avg_normalized_conductance": 0.6158710319318202,
+      "avg_seed_cosine": 0.5262106279647684
+    },
+    {
+      "rank": 10,
+      "node_id": "350",
+      "utility_score": 0.4049754980631293,
+      "query_similarity": 0.6440817343464167,
+      "avg_normalized_conductance": 0.6601944647491079,
+      "avg_seed_cosine": 0.6380474167149465
+    }
+  ],
+  "0.500": [
+    {
+      "rank": 1,
+      "node_id": "241",
+      "utility_score": 0.39994676048735034,
+      "query_similarity": 0.5498916552277076,
+      "avg_normalized_conductance": 0.6762787478934063,
+      "avg_seed_cosine": 0.5526639748121118
+    },
+    {
+      "rank": 2,
+      "node_id": "273",
+      "utility_score": 0.3889550187154147,
+      "query_similarity": 0.8266071402698785,
+      "avg_normalized_conductance": 0.7924666213246443,
+      "avg_seed_cosine": 0.8070232052184592
+    },
+    {
+      "rank": 3,
+      "node_id": "218",
+      "utility_score": 0.3872405088328697,
+      "query_similarity": 0.6547673389345571,
+      "avg_normalized_conductance": 0.7194965581737481,
+      "avg_seed_cosine": 0.6645120986817569
+    },
+    {
+      "rank": 4,
+      "node_id": "147",
+      "utility_score": 0.3868414784514105,
+      "query_similarity": 0.6363237335138349,
+      "avg_normalized_conductance": 0.7219603630227622,
+      "avg_seed_cosine": 0.6702377691427035
+    },
+    {
+      "rank": 5,
+      "node_id": "326",
+      "utility_score": 0.38452862830657225,
+      "query_similarity": 0.6653337736556069,
+      "avg_normalized_conductance": 0.719983258905419,
+      "avg_seed_cosine": 0.6709092611976936
+    },
+    {
+      "rank": 6,
+      "node_id": "171",
+      "utility_score": 0.3674746471580068,
+      "query_similarity": 0.3564235756285127,
+      "avg_normalized_conductance": 0.5391670888740839,
+      "avg_seed_cosine": 0.3433848834321542
+    },
+    {
+      "rank": 7,
+      "node_id": "474",
+      "utility_score": 0.35787011848216804,
+      "query_similarity": 0.5345172699142531,
+      "avg_normalized_conductance": 0.6370860572117485,
+      "avg_seed_cosine": 0.5584318774591609
+    },
+    {
+      "rank": 8,
+      "node_id": "177",
+      "utility_score": 0.35276571794943606,
+      "query_similarity": 0.5152187355489455,
+      "avg_normalized_conductance": 0.6158710319318202,
+      "avg_seed_cosine": 0.5262106279647684
+    },
+    {
+      "rank": 9,
+      "node_id": "27",
+      "utility_score": 0.3502311861701817,
+      "query_similarity": 0.6742242103903264,
+      "avg_normalized_conductance": 0.6987147324899534,
+      "avg_seed_cosine": 0.6969670926395435
+    },
+    {
+      "rank": 10,
+      "node_id": "413",
+      "utility_score": 0.3461737065486478,
+      "query_similarity": 0.6523818118792939,
+      "avg_normalized_conductance": 0.6899695273036276,
+      "avg_seed_cosine": 0.6875916415099596
+    }
+  ]
+}

@@ -12,6 +12,9 @@ For synthetic-only experiments (no text, no Hugging Face model calls), use:
 
 This folder contains a self-contained synthetic analog of BunnyRAG/GraphRAG and lambda-sweep tooling over synthetic vector/graph data.
 
+- Curated, versioned fixture datasets live in `synthetic_bunny/fixtures/`.
+- Ephemeral/generated run outputs should go to `synthetic_bunny/output/` (gitignored).
+
 Key synthetic additions on this branch:
 - Data/query vector-space controls:
   - `generate_synthetic_data.py --vector-space {orthant,sphere}`

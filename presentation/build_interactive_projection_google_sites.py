@@ -674,22 +674,22 @@ def main() -> int:
     )
     parser.add_argument(
         "--vectors-path",
-        default="synthetic_bunny/examples/seed42_n500_dim6_sp0025/random_spherical_vectors.json",
+        default="synthetic_bunny/fixtures/seed42_n500_dim6_sp0025/random_spherical_vectors.json",
         help="Path to vectors JSON.",
     )
     parser.add_argument(
         "--graph-path",
-        default="synthetic_bunny/examples/seed42_n500_dim6_sp0025/random_spherical_bunny_graph.json",
+        default="synthetic_bunny/fixtures/seed42_n500_dim6_sp0025/random_spherical_bunny_graph.json",
         help="Path to graph JSON.",
     )
     parser.add_argument(
         "--selected-nodes-path",
-        default="synthetic_bunny/examples/seed42_n500_dim6_sp0025/lambda_sweep/synthetic_bunny_lambda_selected_nodes.json",
+        default="synthetic_bunny/fixtures/seed42_n500_dim6_sp0025/lambda_sweep/synthetic_bunny_lambda_selected_nodes.json",
         help="Path to synthetic_bunny_lambda_selected_nodes.json.",
     )
     parser.add_argument(
         "--graphrag-path",
-        default="synthetic_bunny/examples/seed42_n500_dim6_sp0025/lambda_sweep/synthetic_graphrag_topk_selected_nodes.json",
+        default="synthetic_bunny/fixtures/seed42_n500_dim6_sp0025/lambda_sweep/synthetic_graphrag_topk_selected_nodes.json",
         help="Path to synthetic_graphrag_topk_selected_nodes.json.",
     )
     parser.add_argument(

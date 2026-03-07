@@ -18,12 +18,31 @@ pytest_temp_ps/
 # Ignore a specific notebook (remove this if you want it tracked)
 Graph Algorithm/Rule based Casual Graph Generator.ipynb
 
-# --- Synthetic experiment outputs ---
+# --- Synthetic experiment outputs (ephemeral) ---
 synthetic_bunny/output/
 
 # --- Generated presentation artifacts ---
-presentation/interactive_projection.html
+presentation/interactive_projection_google_sites.html
+presentation/interactive_projection_google_sites.vector.json
+presentation/interactive_projection_google_sites.graph.json
 presentation/testing/*.xlsx
+presentation/testing/behavior_runner_*/
+presentation/testing/**/*.xlsx
+presentation/testing/**/*.csv
+presentation/testing/**/*.json
+presentation/testing/**/*.png
+presentation/testing/**/*.pdf
+presentation/testing/**/*.txt
+
+# Keep these curated 30x30 example runs tracked for reports/website.
+!presentation/testing/behavior_runner_n500_d6_cosine_beta_mixed_30x30_retry_noempty_20260304/
+!presentation/testing/behavior_runner_n500_d6_cosine_beta_mixed_30x30_retry_noempty_20260304/**
+!presentation/testing/behavior_runner_n500_d6_cosine_beta_same_30x30_20260304/
+!presentation/testing/behavior_runner_n500_d6_cosine_beta_same_30x30_20260304/**
+!presentation/testing/behavior_runner_n500_d6_random_mixed_30x30_retry_noempty_20260304/
+!presentation/testing/behavior_runner_n500_d6_random_mixed_30x30_retry_noempty_20260304/**
+!presentation/testing/behavior_runner_n500_d6_random_same_30x30_20260304/
+!presentation/testing/behavior_runner_n500_d6_random_same_30x30_20260304/**
 
 # --- Generated synthetic graph artifacts ---
 Bunny Rags/random_spherical_bunny_graph*.json
