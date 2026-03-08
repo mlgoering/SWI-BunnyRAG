@@ -1,9 +1,16 @@
 # SWI-BunnyRAG
 
-This repo is a research prototype that collects Wikipedia math articles, chunks them, builds a causal graph, and runs two RAG variants:
-`CausalRAG` (in `Graph_Algorithm/`) and `BunnyRAG` (in `Bunny_Rags/`).
+BunnyRAG is a graph-aware retrieval project exploring how retrieval can balance **semantic relevance** with **cross-community coverage**. This repository includes both the original research prototype and a synthetic evaluation workflow that I extended into a more reproducible, easier-to-run Python codebase.
 
-Below is a plain-English map of the repo, plus the dependencies each part needs.
+For portfolio purposes, the main value of this repo is not only the retrieval idea itself, but also the workflow improvements around **synthetic benchmarking, robustness testing, documentation, testing, and reproducible execution**.
+
+## What this repo demonstrates
+
+- Graph-aware retrieval for cross-domain coverage
+- Synthetic benchmark design under data/IP constraints
+- Robustness testing across multiple regimes and assumptions
+- Research-to-software workflow improvement
+- Reproducible Python execution, testing, and documentation
 
 ## Portfolio Quickstart
 
