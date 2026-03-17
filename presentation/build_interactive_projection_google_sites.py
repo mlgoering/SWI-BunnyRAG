@@ -351,18 +351,23 @@ def clustered_layout(
     g: nx.Graph,
     inter_community_weight_scale: float = 0.1,
 ) -> Tuple[Dict[str, Tuple[float, float]], Dict[str, int]]:
-    communities = list(nx.community.greedy_modularity_communities(g))
+    communities = sorted(
+        nx.community.greedy_modularity_communities(g),
+        key=len,
+        reverse=True,
+    )
     node_to_comm: Dict[str, int] = {}
     for idx, comm in enumerate(communities):
         for node in comm:
             node_to_comm[str(node)] = idx
 
     k_comm = max(1, len(communities))
-    radius = 3.0
+    radius_x = 4.8
+    radius_y = 2.7
     centers: Dict[int, Tuple[float, float]] = {}
     for idx in range(k_comm):
         angle = 2.0 * math.pi * idx / k_comm
-        centers[idx] = (radius * math.cos(angle), radius * math.sin(angle))
+        centers[idx] = (radius_x * math.cos(angle), radius_y * math.sin(angle))
 
     rng = random.Random(42)
     init_pos: Dict[str, Tuple[float, float]] = {}
@@ -370,7 +375,7 @@ def clustered_layout(
         node = str(node)
         comm_idx = node_to_comm.get(node, 0)
         cx, cy = centers[comm_idx]
-        init_pos[node] = (cx + rng.uniform(-0.35, 0.35), cy + rng.uniform(-0.35, 0.35))
+        init_pos[node] = (cx + rng.uniform(-0.55, 0.55), cy + rng.uniform(-0.38, 0.38))
 
     layout_g = nx.Graph()
     layout_g.add_nodes_from(g.nodes())
@@ -379,7 +384,7 @@ def clustered_layout(
         v = str(v)
         base_w = float(data.get("weight", 1.0))
         if node_to_comm.get(u) != node_to_comm.get(v):
-            layout_w = base_w * inter_community_weight_scale
+            layout_w = base_w * min(inter_community_weight_scale, 0.035)
         else:
             layout_w = base_w
         layout_g.add_edge(u, v, layout_weight=layout_w)
@@ -389,10 +394,30 @@ def clustered_layout(
         seed=42,
         pos=init_pos,
         weight="layout_weight",
-        k=1.4 / math.sqrt(max(1, g.number_of_nodes())),
-        iterations=350,
+        k=4.0 / math.sqrt(max(1, g.number_of_nodes())),
+        iterations=450,
     )
-    pos = {str(k): (float(v[0]), float(v[1])) for k, v in pos.items()}
+
+    x_values = [float(v[0]) for v in pos.values()]
+    y_values = [float(v[1]) for v in pos.values()]
+    x_min = min(x_values) if x_values else -1.0
+    x_max = max(x_values) if x_values else 1.0
+    y_min = min(y_values) if y_values else -1.0
+    y_max = max(y_values) if y_values else 1.0
+    x_mid = (x_min + x_max) / 2.0
+    y_mid = (y_min + y_max) / 2.0
+    x_half = max((x_max - x_min) / 2.0, 1e-6)
+    y_half = max((y_max - y_min) / 2.0, 1e-6)
+    target_x_half = 1.72
+    target_y_half = 0.97
+
+    pos = {
+        str(node): (
+            float(((coords[0] - x_mid) / x_half) * target_x_half),
+            float(((coords[1] - y_mid) / y_half) * target_y_half),
+        )
+        for node, coords in pos.items()
+    }
     return pos, node_to_comm
 
 
@@ -545,21 +570,57 @@ def make_graph_figure(
             )
         )
 
+    x_min = min(node_x) if node_x else -1.0
+    x_max = max(node_x) if node_x else 1.0
+    y_min = min(node_y) if node_y else -1.0
+    y_max = max(node_y) if node_y else 1.0
+    x_center = (x_min + x_max) / 2.0
+    y_center = (y_min + y_max) / 2.0
+    x_span = max(x_max - x_min, 1.0)
+    y_span = max(y_max - y_min, 1.0)
+    target_aspect = 16.0 / 9.0
+    padded_y_span = y_span * 1.18
+    padded_x_span = max(x_span * 1.12, padded_y_span * target_aspect)
+    half_x_span = padded_x_span / 2.0
+    half_y_span = padded_y_span / 2.0
+
     fig.update_layout(
+        template="none",
         title=dict(text=f"{title}<br><sup>Mode: {modes[0][0] if modes else 'N/A'}</sup>"),
         sliders=[
             dict(
                 active=0,
                 currentvalue={"prefix": "Selection: "},
                 pad={"t": 40},
+                len=0.78,
+                x=0.11,
+                xanchor="left",
+                y=0.0,
+                ticklen=8,
+                font=dict(size=12),
                 steps=steps,
             )
         ],
-        margin=dict(l=10, r=10, t=80, b=10),
-        xaxis=dict(showgrid=False, zeroline=False, visible=False),
-        yaxis=dict(showgrid=False, zeroline=False, visible=False),
-        plot_bgcolor="white",
+        margin=dict(l=20, r=20, t=80, b=10),
+        dragmode="pan",
+        width=1600,
         height=900,
+        autosize=False,
+        xaxis=dict(
+            showgrid=False,
+            zeroline=False,
+            visible=False,
+            domain=[0.0, 1.0],
+            range=[x_center - half_x_span, x_center + half_x_span],
+        ),
+        yaxis=dict(
+            showgrid=False,
+            zeroline=False,
+            visible=False,
+            domain=[0.0, 1.0],
+            range=[y_center - half_y_span, y_center + half_y_span],
+        ),
+        plot_bgcolor="white",
         showlegend=False,
     )
     return fig
@@ -588,7 +649,7 @@ def write_combined_html(vector_fig: go.Figure, graph_fig: go.Figure, output_html
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <style>
     :root {{
-      --plot-height: clamp(560px, calc(62vw - 40px), 920px);
+      --plot-height: min(844px, calc((100vw - 24px) * 9 / 16));
     }}
     body {{ margin: 0; font-family: Arial, sans-serif; background: #f8f8f8; }}
     .wrap {{ width: min(100%, 1500px); margin: 0 auto; padding: 12px; box-sizing: border-box; }}
@@ -597,13 +658,24 @@ def write_combined_html(vector_fig: go.Figure, graph_fig: go.Figure, output_html
       border: 1px solid #666; background: #fff; color: #222; padding: 8px 12px; cursor: pointer;
     }}
     .toggle-btn.active {{ background: #222; color: #fff; }}
-    .view {{ display: none; min-height: calc(var(--plot-height) + 16px); }}
-    .view.active {{ display: block; }}
-    .plot-host {{ width: 100%; height: var(--plot-height); }}
+    .stage {{ position: relative; width: 100%; height: var(--plot-height); min-height: var(--plot-height); }}
+    .view {{
+      position: absolute;
+      inset: 0;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }}
+    .view.active {{
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }}
+    .plot-host {{ width: 100%; height: 100%; aspect-ratio: 16 / 9; }}
     .view .plotly-graph-div {{ width: 100% !important; height: var(--plot-height) !important; }}
     @media (max-width: 900px) {{
       :root {{
-        --plot-height: clamp(500px, calc(78vw - 32px), 760px);
+        --plot-height: calc((100vw - 20px) * 9 / 16);
       }}
       .wrap {{
         padding: 10px;
@@ -611,7 +683,7 @@ def write_combined_html(vector_fig: go.Figure, graph_fig: go.Figure, output_html
     }}
     @media (max-width: 640px) {{
       :root {{
-        --plot-height: clamp(420px, calc(92vw - 28px), 620px);
+        --plot-height: calc((100vw - 20px) * 9 / 16);
       }}
       .toggle-btn {{
         flex: 1 1 auto;
@@ -626,31 +698,36 @@ def write_combined_html(vector_fig: go.Figure, graph_fig: go.Figure, output_html
       <button id="btn-vector" class="toggle-btn active" onclick="showView('vector')">Vector Plot</button>
       <button id="btn-graph" class="toggle-btn" onclick="showView('graph')">Graph Layout</button>
     </div>
-    <div id="view-vector" class="view active"><div id="plot-vector" class="plot-host"></div></div>
-    <div id="view-graph" class="view"><div id="plot-graph" class="plot-host"></div></div>
+    <div class="stage">
+      <div id="view-vector" class="view active"><div id="plot-vector" class="plot-host"></div></div>
+      <div id="view-graph" class="view"><div id="plot-graph" class="plot-host"></div></div>
+    </div>
   </div>
   <script>
-    function getPlotHeight() {{
-      const wrap = document.querySelector('.wrap');
-      const width = wrap ? wrap.clientWidth : window.innerWidth;
-      if (width <= 640) {{
-        return Math.max(420, Math.min(620, Math.round(width * 0.92)));
+    const loadedViews = new Set();
+
+    function getHostWidth(targetId) {{
+      const host = document.getElementById(targetId);
+      if (!host) {{
+        return window.innerWidth;
       }}
-      if (width <= 900) {{
-        return Math.max(500, Math.min(760, Math.round(width * 0.78)));
-      }}
-      return Math.max(560, Math.min(920, Math.round(width * 0.62)));
+      return host.clientWidth || host.parentElement?.clientWidth || window.innerWidth;
+    }}
+
+    function getPlotHeight(width) {{
+      return Math.round(width * 9 / 16);
     }}
 
     async function resizePlots() {{
       if (!window.Plotly) {{
         return;
       }}
-      const plotHeight = getPlotHeight();
-      document.documentElement.style.setProperty('--plot-height', `${{plotHeight}}px`);
       const plots = document.querySelectorAll('.js-plotly-plot');
       for (const plot of plots) {{
-        await window.Plotly.relayout(plot, {{ height: plotHeight }});
+        const plotWidth = plot.parentElement?.clientWidth || plot.clientWidth || window.innerWidth;
+        const plotHeight = getPlotHeight(plotWidth);
+        document.documentElement.style.setProperty('--plot-height', `${{plotHeight}}px`);
+        await window.Plotly.relayout(plot, {{ width: plotWidth, height: plotHeight, autosize: false }});
         window.Plotly.Plots.resize(plot);
       }}
     }}
@@ -661,9 +738,14 @@ def write_combined_html(vector_fig: go.Figure, graph_fig: go.Figure, output_html
         throw new Error(`Failed to load ${{jsonPath}} (${{response.status}})`);
       }}
       const fig = await response.json();
-      const plotHeight = getPlotHeight();
+      const plotWidth = getHostWidth(targetId);
+      const plotHeight = getPlotHeight(plotWidth);
       document.documentElement.style.setProperty('--plot-height', `${{plotHeight}}px`);
-      fig.layout = Object.assign({{}}, fig.layout || {{}}, {{ height: plotHeight }});
+      fig.layout = Object.assign(
+        {{}},
+        fig.layout || {{}},
+        {{ width: plotWidth, height: plotHeight, autosize: false }}
+      );
       await Plotly.newPlot(
         targetId,
         fig.data || [],
@@ -672,7 +754,19 @@ def write_combined_html(vector_fig: go.Figure, graph_fig: go.Figure, output_html
       );
     }}
 
-    function showView(which) {{
+    async function ensureViewLoaded(which) {{
+      if (loadedViews.has(which)) {{
+        return;
+      }}
+      if (which === 'vector') {{
+        await loadFigure('{vector_json_path.name}', 'plot-vector');
+      }} else {{
+        await loadFigure('{graph_json_path.name}', 'plot-graph');
+      }}
+      loadedViews.add(which);
+    }}
+
+    async function showView(which) {{
       const vector = document.getElementById('view-vector');
       const graph = document.getElementById('view-graph');
       const btnVector = document.getElementById('btn-vector');
@@ -690,14 +784,16 @@ def write_combined_html(vector_fig: go.Figure, graph_fig: go.Figure, output_html
         btnVector.classList.remove('active');
       }}
 
+      await ensureViewLoaded(which);
+      await new Promise((resolve) => window.requestAnimationFrame(() => resolve()));
       if (window.Plotly) {{
-        resizePlots();
+        await resizePlots();
       }}
     }}
 
     Promise.all([
-      loadFigure('{vector_json_path.name}', 'plot-vector'),
-      loadFigure('{graph_json_path.name}', 'plot-graph'),
+      ensureViewLoaded('vector'),
+      ensureViewLoaded('graph'),
     ]).then(() => resizePlots()).catch((err) => {{
       console.error(err);
       document.body.insertAdjacentHTML(

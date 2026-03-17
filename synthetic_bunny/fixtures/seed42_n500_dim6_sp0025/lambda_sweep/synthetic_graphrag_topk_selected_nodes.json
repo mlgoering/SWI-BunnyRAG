@@ -3,73 +3,75 @@
   "query_vertices": [],
   "query_random_points": 1,
   "query_seed": 17,
+  "query_vector_space": "sphere",
   "seed_nodes": [
-    "476",
-    "150",
-    "438"
+    "191",
+    "105",
+    "49"
   ],
   "top_k": 10,
   "max_distance": 6.0,
+  "edge_weight_mode": "random",
   "nodes": [
     {
       "rank": 1,
-      "node_id": "273",
-      "graph_distance": 2.9136155816262943,
-      "query_similarity": 0.8266071402698785
+      "node_id": "89",
+      "graph_distance": 1.3086701832798953,
+      "query_similarity": -0.332701917002841
     },
     {
       "rank": 2,
-      "node_id": "434",
-      "graph_distance": 3.504099706260412,
-      "query_similarity": 0.782409916513624
+      "node_id": "15",
+      "graph_distance": 1.4732523223986973,
+      "query_similarity": -0.24325950678609698
     },
     {
       "rank": 3,
-      "node_id": "415",
-      "graph_distance": 3.5080689591359167,
-      "query_similarity": 0.8583248914262018
+      "node_id": "158",
+      "graph_distance": 1.5022013321508156,
+      "query_similarity": -0.3678219581420597
     },
     {
       "rank": 4,
-      "node_id": "335",
-      "graph_distance": 3.5212659734182252,
-      "query_similarity": 0.7740014277754905
+      "node_id": "339",
+      "graph_distance": 1.5495524034686732,
+      "query_similarity": -0.04647832346475067
     },
     {
       "rank": 5,
-      "node_id": "163",
-      "graph_distance": 3.521832092878548,
-      "query_similarity": 0.6731696688157045
+      "node_id": "374",
+      "graph_distance": 1.6547447008619436,
+      "query_similarity": -0.19820065231636907
     },
     {
       "rank": 6,
-      "node_id": "422",
-      "graph_distance": 3.5307757912596807,
-      "query_similarity": 0.8308083153734692
+      "node_id": "477",
+      "graph_distance": 1.6609728257202683,
+      "query_similarity": -0.020205926722498536
     },
     {
       "rank": 7,
-      "node_id": "206",
-      "graph_distance": 3.5549076759863802,
-      "query_similarity": 0.6513688737402143
+      "node_id": "252",
+      "graph_distance": 1.6671210866700659,
+      "query_similarity": -0.2737888018042314
     },
     {
       "rank": 8,
-      "node_id": "486",
-      "graph_distance": 3.611629801359385,
-      "query_similarity": 0.9190275763231064
+      "node_id": "428",
+      "graph_distance": 1.6950551246059178,
+      "query_similarity": -0.5632496098502645
     },
     {
       "rank": 9,
-      "node_id": "215",
-      "graph_distance": 3.623834312137186,
-      "query_similarity": 0.7598954012721404
+      "node_id": "143",
+      "graph_distance": 1.6999933347539915,
+      "query_similarity": -0.4709873547754366
     },
     {
       "rank": 10,
-      "node_id": "147",
-      "graph_distance": 3.627047553747246,
-      "query_similarity": 0.6363237335138349
+      "node_id": "362",
+      "graph_distance": 1.7237907566602804,
+      "query_similarity": -0.48826612435642813
     }
   ]
 }

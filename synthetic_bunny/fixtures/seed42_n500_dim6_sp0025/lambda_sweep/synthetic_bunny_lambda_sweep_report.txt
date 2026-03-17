@@ -1,29 +1,33 @@
 Synthetic BunnyRAG Lambda Sweep Report
-Graph: synthetic_bunny/output/example_500_nodes_dim6_sp0025_20260224_103611/random_spherical_bunny_graph.json
-Vectors: synthetic_bunny/output/example_500_nodes_dim6_sp0025_20260224_103611/random_spherical_vectors.json
+Graph: synthetic_bunny\fixtures\seed42_n500_dim6_sp0025\random_spherical_bunny_graph.json
+Vectors: synthetic_bunny\fixtures\seed42_n500_dim6_sp0025\random_spherical_vectors.json
 Query mode: random_sphere_points
 Query vertices: []
 Query random points: 1
 Query seed: 17
-Seed nodes: ['476', '150', '438']
-Lambdas: [0.0, 0.1, 0.2, 0.3, 0.4, 0.5]
+Query vector space: sphere
+Seed nodes: ['191', '105', '49']
+Lambdas: [-0.2, -0.1, 0.0, 0.1, 0.2, 0.3]
+Edge-weight mode: random
+Variant order: ['random']
 
+[Variant: random]
 GraphRAG baseline top-k:
-- rank=1: node=273, graph_distance=2.913616, query_sim=0.826607
-- rank=2: node=434, graph_distance=3.504100, query_sim=0.782410
-- rank=3: node=415, graph_distance=3.508069, query_sim=0.858325
-- rank=4: node=335, graph_distance=3.521266, query_sim=0.774001
-- rank=5: node=163, graph_distance=3.521832, query_sim=0.673170
-- rank=6: node=422, graph_distance=3.530776, query_sim=0.830808
-- rank=7: node=206, graph_distance=3.554908, query_sim=0.651369
-- rank=8: node=486, graph_distance=3.611630, query_sim=0.919028
-- rank=9: node=215, graph_distance=3.623834, query_sim=0.759895
-- rank=10: node=147, graph_distance=3.627048, query_sim=0.636324
-
+- rank=1: node=89, graph_distance=1.308670, query_sim=-0.332702
+- rank=2: node=15, graph_distance=1.473252, query_sim=-0.243260
+- rank=3: node=158, graph_distance=1.502201, query_sim=-0.367822
+- rank=4: node=339, graph_distance=1.549552, query_sim=-0.046478
+- rank=5: node=374, graph_distance=1.654745, query_sim=-0.198201
+- rank=6: node=477, graph_distance=1.660973, query_sim=-0.020206
+- rank=7: node=252, graph_distance=1.667121, query_sim=-0.273789
+- rank=8: node=428, graph_distance=1.695055, query_sim=-0.563250
+- rank=9: node=143, graph_distance=1.699993, query_sim=-0.470987
+- rank=10: node=362, graph_distance=1.723791, query_sim=-0.488266
 Bunny vs GraphRAG overlap by lambda:
-- lambda=+0.000: overlap=3, jaccard=0.1765
-- lambda=+0.100: overlap=3, jaccard=0.1765
-- lambda=+0.200: overlap=3, jaccard=0.1765
-- lambda=+0.300: overlap=2, jaccard=0.1111
-- lambda=+0.400: overlap=2, jaccard=0.1111
-- lambda=+0.500: overlap=2, jaccard=0.1111
+- lambda=-0.200: overlap=2, jaccard=0.1111
+- lambda=-0.100: overlap=2, jaccard=0.1111
+- lambda=+0.000: overlap=1, jaccard=0.0526
+- lambda=+0.100: overlap=1, jaccard=0.0526
+- lambda=+0.200: overlap=1, jaccard=0.0526
+- lambda=+0.300: overlap=1, jaccard=0.0526
+
