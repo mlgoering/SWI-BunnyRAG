@@ -587,16 +587,37 @@ def write_combined_html(vector_fig: go.Figure, graph_fig: go.Figure, output_html
   <title>Interactive Embedding + Graph Views</title>
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <style>
+    :root {{
+      --plot-height: clamp(560px, calc(62vw - 40px), 920px);
+    }}
     body {{ margin: 0; font-family: Arial, sans-serif; background: #f8f8f8; }}
-    .wrap {{ max-width: 1600px; margin: 0 auto; padding: 12px; }}
-    .toolbar {{ display: flex; gap: 8px; margin-bottom: 10px; }}
+    .wrap {{ width: min(100%, 1500px); margin: 0 auto; padding: 12px; box-sizing: border-box; }}
+    .toolbar {{ display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }}
     .toggle-btn {{
       border: 1px solid #666; background: #fff; color: #222; padding: 8px 12px; cursor: pointer;
     }}
     .toggle-btn.active {{ background: #222; color: #fff; }}
-    .view {{ display: none; min-height: 86vh; }}
+    .view {{ display: none; min-height: calc(var(--plot-height) + 16px); }}
     .view.active {{ display: block; }}
-    .view .plotly-graph-div {{ height: 86vh !important; }}
+    .plot-host {{ width: 100%; height: var(--plot-height); }}
+    .view .plotly-graph-div {{ width: 100% !important; height: var(--plot-height) !important; }}
+    @media (max-width: 900px) {{
+      :root {{
+        --plot-height: clamp(500px, calc(78vw - 32px), 760px);
+      }}
+      .wrap {{
+        padding: 10px;
+      }}
+    }}
+    @media (max-width: 640px) {{
+      :root {{
+        --plot-height: clamp(420px, calc(92vw - 28px), 620px);
+      }}
+      .toggle-btn {{
+        flex: 1 1 auto;
+        text-align: center;
+      }}
+    }}
   </style>
 </head>
 <body>
@@ -605,16 +626,44 @@ def write_combined_html(vector_fig: go.Figure, graph_fig: go.Figure, output_html
       <button id="btn-vector" class="toggle-btn active" onclick="showView('vector')">Vector Plot</button>
       <button id="btn-graph" class="toggle-btn" onclick="showView('graph')">Graph Layout</button>
     </div>
-    <div id="view-vector" class="view active"><div id="plot-vector"></div></div>
-    <div id="view-graph" class="view"><div id="plot-graph"></div></div>
+    <div id="view-vector" class="view active"><div id="plot-vector" class="plot-host"></div></div>
+    <div id="view-graph" class="view"><div id="plot-graph" class="plot-host"></div></div>
   </div>
   <script>
+    function getPlotHeight() {{
+      const wrap = document.querySelector('.wrap');
+      const width = wrap ? wrap.clientWidth : window.innerWidth;
+      if (width <= 640) {{
+        return Math.max(420, Math.min(620, Math.round(width * 0.92)));
+      }}
+      if (width <= 900) {{
+        return Math.max(500, Math.min(760, Math.round(width * 0.78)));
+      }}
+      return Math.max(560, Math.min(920, Math.round(width * 0.62)));
+    }}
+
+    async function resizePlots() {{
+      if (!window.Plotly) {{
+        return;
+      }}
+      const plotHeight = getPlotHeight();
+      document.documentElement.style.setProperty('--plot-height', `${{plotHeight}}px`);
+      const plots = document.querySelectorAll('.js-plotly-plot');
+      for (const plot of plots) {{
+        await window.Plotly.relayout(plot, {{ height: plotHeight }});
+        window.Plotly.Plots.resize(plot);
+      }}
+    }}
+
     async function loadFigure(jsonPath, targetId) {{
       const response = await fetch(jsonPath);
       if (!response.ok) {{
         throw new Error(`Failed to load ${{jsonPath}} (${{response.status}})`);
       }}
       const fig = await response.json();
+      const plotHeight = getPlotHeight();
+      document.documentElement.style.setProperty('--plot-height', `${{plotHeight}}px`);
+      fig.layout = Object.assign({{}}, fig.layout || {{}}, {{ height: plotHeight }});
       await Plotly.newPlot(
         targetId,
         fig.data || [],
@@ -642,20 +691,22 @@ def write_combined_html(vector_fig: go.Figure, graph_fig: go.Figure, output_html
       }}
 
       if (window.Plotly) {{
-        const plots = document.querySelectorAll('.js-plotly-plot');
-        plots.forEach((p) => window.Plotly.Plots.resize(p));
+        resizePlots();
       }}
     }}
 
     Promise.all([
       loadFigure('{vector_json_path.name}', 'plot-vector'),
       loadFigure('{graph_json_path.name}', 'plot-graph'),
-    ]).catch((err) => {{
+    ]).then(() => resizePlots()).catch((err) => {{
       console.error(err);
       document.body.insertAdjacentHTML(
         'beforeend',
         `<pre style="color:#b00020; padding: 12px;">${{String(err)}}</pre>`
       );
+    }});
+    window.addEventListener('resize', () => {{
+      resizePlots();
     }});
   </script>
 </body>
